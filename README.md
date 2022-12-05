@@ -2,11 +2,13 @@
 
 This chrome extension adds web access capability to the [ChatGPT](https://www.chatgpt.com/) webapp. Get much more relevant and up-to-date answers from the bot!
 
-![chatgpt-advanced icon copy](https://user-images.githubusercontent.com/3750161/205711124-8ea0f530-ea1a-4503-8097-c4d0f3f960eb.PNG)
+![img](https://user-images.githubusercontent.com/3750161/205716268-7b44d522-eef0-44af-b8ec-cf8943a97622.PNG)
 
 ## Current Features
 
 - **browsing: enabled!** Augment your prompts with web search results
+
+
 - Easily copy generated messages to clipboard
 
 
@@ -18,6 +20,7 @@ This chrome extension adds web access capability to the [ChatGPT](https://www.ch
 4. Enable developer mode (top right corner).
 5. Click on `Load unpacked` and select the unzipped folder.
 6. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
+
 
 ## Demo
 
