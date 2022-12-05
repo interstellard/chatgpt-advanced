@@ -26,3 +26,8 @@ This chrome extension adds web access capability to the [ChatGPT](https://www.ch
 
 https://user-images.githubusercontent.com/3750161/205710177-bc937ae2-5759-467f-ac29-d9fc6c6d7df7.mp4
 
+## License
+
+MIT ©
+
+If you found this project interesting, please consider [supporting me](https://www.buymeacoffee.com/anzorq) or <a href="https://twitter.com/hahahahohohe">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
