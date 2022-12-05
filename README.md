@@ -2,6 +2,8 @@
 
 This chrome extension adds web access capability to the [ChatGPT](https://www.chatgpt.com/) webapp. Get much more relevant and up-to-date answers from the bot!
 
+![chatgpt-advanced icon copy](https://user-images.githubusercontent.com/3750161/205711124-8ea0f530-ea1a-4503-8097-c4d0f3f960eb.PNG)
+
 ## Current Features
 
 - **browsing: enabled!** Augment your prompts with web search results
