@@ -1,0 +1,44 @@
+
+// const commands = {
+//     "help": "Show help and available commands",
+//     "status": "Set your custom status",
+//     "mention": "Mention a specific user or group"
+// };
+
+// var commandsDiv = document.createElement("div");
+// commandsDiv.id = "chatgpt-adv-command-options";
+
+// var commandsList = document.createElement("ul");
+// commandsList.id = "chatgpt-adv-command-list";
+
+// function showCommandsList(show) {
+//     if (show) {
+//         var value = textarea.value;
+
+//         // Generate the list of available commands
+//         commandsList.innerHTML = "";
+//         for (var command in commands) {
+//             // Filter the commands to only show those that match the user's input
+//             if (command.startsWith(value.slice(1))) {
+//                 var item = document.createElement("li");
+//                 item.textContent = "/" + command + " - " + commands[command];
+//                 item.addEventListener("click", function (event) {
+//                     textarea.value = event.target.textContent.split(" - ")[0];
+//                     showCommandsList(false);
+//                 });
+//                 commandsList.appendChild(item);
+//             }
+//         }
+//     }
+//     commandsDiv.style.display = show ? "block" : "none";
+// }
+
+// textarea.addEventListener("input", (event) => {
+//     var value = event.target.value;
+
+//     // Check if the user is typing a command
+//     showCommandsList(value === "/" || value.startsWith("/") && Object.keys(commands).some(command => command.startsWith(value.slice(1))));
+// });
+
+// commandsDiv.appendChild(commandsList);
+// textareaWrapper.parentNode.insertBefore(commandsDiv, textareaWrapper);

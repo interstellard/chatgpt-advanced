@@ -1,8 +1,73 @@
-/* ul#command-list {
+.chatgpt-adv-toolbar {
+    margin: 0.5em 0em;
+    display: flex;
+    align-items: end;
+}
+
+*:before, 
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+}
+
+.chatgpt-adv-toggle {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0;
+}
+
+.chatgpt-adv-toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 8px;
+    width: 29px;
+    height: 16px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+
+.chatgpt-adv-toggle-switch:before,
+.chatgpt-adv-toggle-switch:after {
+    content: "";
+}
+
+.chatgpt-adv-toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+    width: 12px;
+    height: 12px;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    max-height: 150px;
-    overflow-y: scroll;
-} */
+    top: 2px;
+    left: 2px;
+    transition: left 0.25s;
+}
+
+.chatgpt-adv-toggle:hover .chatgpt-adv-toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.5);
+}
+
+.chatgpt-adv-toggle-checkbox:checked+.chatgpt-adv-toggle-switch {
+    background: #10A37F;
+}
+
+.chatgpt-adv-toggle-checkbox:checked+.chatgpt-adv-toggle-switch:before {
+    left: 15px;
+}
+
+.chatgpt-adv-toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.chatgpt-adv-toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+}

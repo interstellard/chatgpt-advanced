@@ -1,20 +1,34 @@
 {
-    "manifest_version": 3,
-    "name": "ChatGPT Extension",
-    "version": "1.0.0",
-    "description": "A Chrome extension that enhances the ChatGPT website",
-    "icons": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    },
-    "permissions": ["activeTab"],
-    "content_scripts": [
-      {
-        "matches": ["https://chat.openai.com/chat"],
-        "js": ["script.js"],
-        "css": ["styles.css"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "ChatGPT Extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension that enhances the ChatGPT website",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://ddg-webapp-aagd.vercel.app/*"
+  ],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/chat"
+      ],
+      "js": [
+        "script.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
+    }
+  ]
+}
