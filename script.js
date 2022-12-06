@@ -10,7 +10,7 @@ chrome.storage.sync.get(["num_web_results", "web_access"], (data) => {
 
 window.addEventListener("load", function () {
 
-    const threadLayout = document.querySelector("[class^='ThreadLayout__NodeWrapper']");
+    const threadLayout = document.querySelector('.flex.flex-col.items-center.text-sm.h-full');
     try {
         setTitle();
         addCapabilitiesDescription();
@@ -79,9 +79,8 @@ function addCopyButton(actionButtons) {
     actionButtons.appendChild(copyButton);
 }
 
-
-var textareaWrapper = document.querySelector("[class^='PromptTextarea__TextareaWrapper']");
 var textarea = document.querySelector("textarea");
+var textareaWrapper = textarea.parentNode;
 
 textarea.addEventListener("keydown", function (event) {
     if (event.key === 'Enter' && isWebAccessOn && !isProcessing) {
@@ -198,7 +197,7 @@ optionsDiv.appendChild(labelDiv);
 optionsDiv.appendChild(numWebResultsSlider);
 
 
-var navMenuItem = document.querySelector('[class^="Navigation__NavMenuItem"]');
+var navMenuItem = document.querySelector('nav>a');
 var navMenu = navMenuItem.parentNode;
 navMenu.appendChild(divider);
 navMenu.appendChild(optionsDiv);
