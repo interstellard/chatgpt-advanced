@@ -18,20 +18,34 @@ window.addEventListener("load", function () {
 
     threadLayout.addEventListener("DOMNodeInserted", (event) => {
         try {
-            if (event.target.classList[0].startsWith("shared__Wrapper")) {
+            if (event.target.classList.value.includes("flex flex-col items-center text-sm h-full")) {
                 setTitle();
                 addCapabilitiesDescription();
             }
 
-            if (event.target.classList[0].startsWith("ConversationItem__ActionButtons")) {
+            if (event.target.classList.value.includes("text-gray-400 flex self-end lg:self-center justify-center mt-2 gap-4")) {
                 addCopyButton(event.target);
             }
-        } catch (e) { console.log(e); }
+        } catch (e) { console.log(e); console.log(event.target.classList); }
     });
 });
 
+function findElementByContent(tag, content) {
+    var aTags = document.getElementsByTagName(tag);
+    var found;
+
+    for (var i = 0; i < aTags.length; i++) {
+        if (aTags[i].textContent == content) {
+            found = aTags[i];
+            break;
+        }
+    }
+
+    return found;
+}
+
 function setTitle() {
-    const title = document.querySelector("[class^='shared__Title']");
+    const title = findElementByContent('h1', 'ChatGPT');
     if (title) {
         title.textContent = "ChatGPT Advanced";
     }
@@ -43,8 +57,7 @@ function addCapabilitiesDescription() {
     addListItem("Advanced: Augment your prompts with web search results");
 
     function addListItem(text) {
-        const capability = document.querySelectorAll("[class^='shared__Capability']")[1];
-        const listItem = capability.querySelector("[class^='shared__ListItem']");
+        const listItem = findElementByContent('h2', 'Capabilities').parentNode.querySelector('ul>li');
         const li = document.createElement("li");
         li.className = listItem.className;
         li.style.borderWidth = "1px";
