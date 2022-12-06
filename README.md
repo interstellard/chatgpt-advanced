@@ -1,6 +1,6 @@
 # ChatGPT Advanced
 
-This chrome extension adds web access capability to the [ChatGPT](https://www.chatgpt.com/) webapp. Get much more relevant and up-to-date answers from the bot!
+This chrome extension adds web access capability to the [ChatGPT](https://chat.openai.com/) webapp. Get much more relevant and up-to-date answers from the bot!
 
 ![img](https://user-images.githubusercontent.com/3750161/205716268-7b44d522-eef0-44af-b8ec-cf8943a97622.PNG)
 
