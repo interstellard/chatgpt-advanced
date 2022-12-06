@@ -16,7 +16,8 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
 
 1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
 2. Unzip the file.
-3. Open chrome and navigate to `chrome://extensions`.
+3. Open Chrome and navigate to `chrome://extensions`
+    * (`edge://extensions` for Microsoft Edge).
 4. Enable developer mode (top right corner).
 5. Click on `Load unpacked` and select the unzipped folder.
 6. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
