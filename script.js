@@ -10,78 +10,27 @@ chrome.storage.sync.get(["num_web_results", "web_access"], (data) => {
 
 window.addEventListener("load", function () {
 
-    const threadLayout = document.querySelector("[class^='ThreadLayout__NodeWrapper']");
     try {
-        setTitle();
-        addCapabilitiesDescription();
+        setTitleAndDescription();
     } catch (e) { console.log(e); }
-
-    threadLayout.addEventListener("DOMNodeInserted", (event) => {
-        try {
-            if (event.target.classList[0].startsWith("shared__Wrapper")) {
-                setTitle();
-                addCapabilitiesDescription();
-            }
-
-            if (event.target.classList[0].startsWith("ConversationItem__ActionButtons")) {
-                addCopyButton(event.target);
-            }
-        } catch (e) { console.log(e); }
-    });
 });
 
-function setTitle() {
-    const title = document.querySelector("[class^='shared__Title']");
+function setTitleAndDescription() {
+    title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    console.log(title);
     if (title) {
         title.textContent = "ChatGPT Advanced";
     }
+
+    const div = document.createElement("div");
+    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-8", "border");
+    div.textContent = "With ChatGPT Advanced you can augment your prompts with relevant web search results for better and up-to-date answers.";
+    title.parentNode.insertBefore(div, title.nextSibling);
+
 }
 
-function addCapabilitiesDescription() {
-
-    addListItem("Advanced: Copy generated messages to clipboard");
-    addListItem("Advanced: Augment your prompts with web search results");
-
-    function addListItem(text) {
-        const capability = document.querySelectorAll("[class^='shared__Capability']")[1];
-        const listItem = capability.querySelector("[class^='shared__ListItem']");
-        const li = document.createElement("li");
-        li.className = listItem.className;
-        li.style.borderWidth = "1px";
-        li.textContent = text;
-        // add it to the list as the first item:
-        listItem.parentNode.insertBefore(li, listItem.parentNode.firstChild);
-    }
-}
-
-
-function addCopyButton(actionButtons) {
-    actionButtons.style.flexDirection = "column";
-    actionButtons.style.alignItems = "center";
-
-    const copyButton = document.createElement("button");
-    const svgCopy = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
-    const svgDone = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>'
-
-    copyButton.innerHTML = svgCopy;
-    copyButton.classList.add("copy-button");
-
-    copyButton.addEventListener("click", () => {
-        const message = actionButtons.parentElement.textContent;
-        navigator.clipboard.writeText(message);
-
-        copyButton.innerHTML = svgDone;
-        setTimeout(() => {
-            copyButton.innerHTML = svgCopy;
-        }, 2500);
-
-    });
-    actionButtons.appendChild(copyButton);
-}
-
-
-var textareaWrapper = document.querySelector("[class^='PromptTextarea__TextareaWrapper']");
 var textarea = document.querySelector("textarea");
+var textareaWrapper = textarea.parentNode;
 
 textarea.addEventListener("keydown", function (event) {
     if (event.key === 'Enter' && isWebAccessOn && !isProcessing) {
@@ -198,7 +147,6 @@ optionsDiv.appendChild(labelDiv);
 optionsDiv.appendChild(numWebResultsSlider);
 
 
-var navMenuItem = document.querySelector('[class^="Navigation__NavMenuItem"]');
-var navMenu = navMenuItem.parentNode;
+var navMenu = document.querySelector('nav');
 navMenu.appendChild(divider);
 navMenu.appendChild(optionsDiv);
