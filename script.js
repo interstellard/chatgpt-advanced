@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
             if (event.target.classList.value.includes("text-gray-400 flex self-end lg:self-center justify-center mt-2 gap-4")) {
                 addCopyButton(event.target);
             }
-        } catch (e) { console.log(e); console.log(event.target.classList); }
+        } catch (e) { console.log(e); }
     });
 });
 
