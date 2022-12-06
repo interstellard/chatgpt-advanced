@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT Extension",
+  "name": "ChatGPT Advanced",
   "version": "1.0.0",
-  "description": "A Chrome extension that enhances the ChatGPT website",
+  "description": "Augment your ChatGPT prompts with relevant results from the web",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
