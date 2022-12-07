@@ -14,6 +14,13 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
 
 ## Installation
 
+### Download from Chrome Web Store
+[link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
+[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png" width="256" alt="Chrome" valign="middle">][link-chrome]
+
+[<img valign="middle" src="https://img.shields.io/chrome-web-store/v/lpfemeioodjbpieminkklglpmhlngfcn.svg">][link-chrome]
+
+### Manual installation
 1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
 2. Unzip the file.
 3. Open Chrome and navigate to `chrome://extensions`
