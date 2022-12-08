@@ -45,9 +45,12 @@ textarea.addEventListener("keydown", function (event) {
         fetch(`https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`)
             .then(response => response.json())
             .then(results => {
-                let formattedResults = results.map(result => `"${result.body}"\nSource: ${result.href}`).join("\n\n");
+                // let formattedResults = results.map(result => `"${result.body}"\nSource: ${result.href}`).join("\n\n");
+                let counter = 1;
+                let formattedResults = results.reduce((acc, result) => acc += `${counter++}. "${result.body}"\nSource: ${result.href}\n\n`, "");
 
-                formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
+                // formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
+                formattedResults = formattedResults + `\n\nInstructions: Using the provided web search results, create a comprehensive and informative answer to the given question. Avoid repeating text and cite relevant results using [[number](URL)] markdown notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nQuestion: ${query}`;
 
                 textarea.value = formattedResults;
 
