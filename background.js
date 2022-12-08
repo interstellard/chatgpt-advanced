@@ -4,3 +4,10 @@ chrome.runtime.onInstalled.addListener(() => {
         web_access: true,
     });
 });
+
+// open chatgpt website when clicking on the extension icon
+chrome.action.onClicked.addListener(tab => {
+    chrome.tabs.create({
+        url: "https://chat.openai.com/chat"
+    });
+});

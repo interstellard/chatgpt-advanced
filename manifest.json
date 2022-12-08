@@ -9,7 +9,6 @@
     "128": "icons/icon128.png"
   },
   "permissions": [
-    "activeTab",
     "storage"
   ],
   "host_permissions": [
@@ -18,6 +17,7 @@
   "background": {
       "service_worker": "background.js"
   },
+  "action": {},
   "content_scripts": [
     {
       "matches": [
