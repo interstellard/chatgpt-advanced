@@ -58,8 +58,8 @@ function onSubmit(event) {
                 let counter = 1;
                 let formattedResults = results.reduce((acc, result) => acc += `${counter++}. "${result.body}"\nSource: ${result.href}\n\n`, "");
 
-                // formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
-                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Cite results when referenced using [[number](URL)] notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
+                formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
+                // formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Cite results when referenced using [[number](URL)] notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
 
                 textarea.value = formattedResults;
 
