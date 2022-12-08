@@ -54,12 +54,12 @@ function onSubmit(event) {
         fetch(`https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`)
             .then(response => response.json())
             .then(results => {
-                // let formattedResults = results.map(result => `"${result.body}"\nSource: ${result.href}`).join("\n\n");
                 let counter = 1;
-                let formattedResults = results.reduce((acc, result) => acc += `${counter++}. "${result.body}"\nSource: ${result.href}\n\n`, "");
+                let formattedResults = "Web search results:\n\n";
+                formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}]. "${result.body}"\nSource: ${result.href}\n\n`, "");
 
-                formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
-                // formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Cite results when referenced using [[number](URL)] notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
+                formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
+                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
 
                 textarea.value = formattedResults;
 
