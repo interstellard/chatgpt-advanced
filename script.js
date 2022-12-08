@@ -32,8 +32,17 @@ function setTitleAndDescription() {
 var textarea = document.querySelector("textarea");
 var textareaWrapper = textarea.parentNode;
 
-textarea.addEventListener("keydown", function (event) {
-    if (event.key === 'Enter' && isWebAccessOn && !isProcessing) {
+var btnSubmit = textareaWrapper.querySelector("button");
+
+textarea.addEventListener("keydown", onSubmit);
+btnSubmit.addEventListener("click", onSubmit);
+
+function onSubmit(event) {
+    if (event.shiftKey && event.key === 'Enter') {
+        return;
+    }
+
+    if ((event.type === "click" || event.key === 'Enter') && isWebAccessOn && !isProcessing) {
 
         isProcessing = true;
 
@@ -50,7 +59,7 @@ textarea.addEventListener("keydown", function (event) {
                 let formattedResults = results.reduce((acc, result) => acc += `${counter++}. "${result.body}"\nSource: ${result.href}\n\n`, "");
 
                 // formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
-                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, create a comprehensive answer to the given question. Avoid repeating text and cite relevant results using [[number](URL)] markdown notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
+                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Cite results when referenced using [[number](URL)] notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
 
                 textarea.value = formattedResults;
 
@@ -62,7 +71,7 @@ textarea.addEventListener("keydown", function (event) {
                 isProcessing = false;
             });
     }
-});
+}
 
 
 var toolbarDiv = document.createElement("div");
