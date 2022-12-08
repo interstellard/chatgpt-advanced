@@ -50,7 +50,7 @@ textarea.addEventListener("keydown", function (event) {
                 let formattedResults = results.reduce((acc, result) => acc += `${counter++}. "${result.body}"\nSource: ${result.href}\n\n`, "");
 
                 // formattedResults = formattedResults + `\n\nGiven these web results, answer the following question: ${query}`;
-                formattedResults = formattedResults + `\n\nInstructions: Using the provided web search results, create a comprehensive and informative answer to the given question. Avoid repeating text and cite relevant results using [[number](URL)] markdown notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nQuestion: ${query}`;
+                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, create a comprehensive answer to the given question. Avoid repeating text and cite relevant results using [[number](URL)] markdown notation. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
 
                 textarea.value = formattedResults;
 
