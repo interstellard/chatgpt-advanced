@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "ChatGPT Advanced",
+  "version": "1.0.0",
+  "description": "Augment your ChatGPT prompts with relevant results from the web",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "webRequest", "https://ddg-webapp-aagd.vercel.app/*"
+  ],
+  "background": {
+      "scripts": [ "background.js"]
+  },
+"browser_specific_settings": {
+  "gecko": {
+    "id": "{11bec73f-00fd-4d3b-8617-9ec92cb40df2}"
+  }
+},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/chat"
+      ],
+      "js": [
+        "script.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
+    }
+  ]
+}
