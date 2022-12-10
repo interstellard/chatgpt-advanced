@@ -50,7 +50,7 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
 
 ## Demo
 
-https://user-images.githubusercontent.com/3750161/205710177-bc937ae2-5759-467f-ac29-d9fc6c6d7df7.mp4
+https://user-images.githubusercontent.com/3750161/206865843-111435ea-67ab-4034-a594-bfc778e86c57.mp4
 
 ## License
 
