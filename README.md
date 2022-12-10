@@ -35,18 +35,17 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
   4. Re-zip the folder.
 
   #### Temporary installation, in official Release or Beta
-  1. Go to `about:debugging`, click "This Firefox" on the sidebar.
+  1. Go to `about:debugging#/runtime/this-firefox`.
   2. Click `Load Temporary Add-on` button, then select the zip file you re-zipped.
 
   #### Persistent installation, in Nightly or Developer Edition
   1. Open Firefox, go to `about:config` and set `xpinstall.signatures.required` to `false`.
-  2. Click on the Menu button in the top right corner.
-  3. Select Add-ons from the menu.
-  4. Click on the gear icon in the top right corner of the Add-ons page and select `Install Add-on From File`.
-  5. Select the zip file and click open.
-  6. Firefox will prompt you to confirm the installation of the addon. Click Install.
-  7. The addon will be installed and will appear in the list of installed addons on the Add-ons page.
-  8. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
+  2. Go to `about:addons`
+  3. Click on the gear icon in the top right corner of the Add-ons page and select `Install Add-on From File`.
+  4. Select the zip file and click open.
+  5. Firefox will prompt you to confirm the installation of the addon. Click Install.
+  6. The addon will be installed and will appear in the list of installed addons on the Add-ons page.
+  7. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
 </details>
 
 ## Demo
