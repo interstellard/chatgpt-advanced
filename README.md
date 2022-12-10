@@ -9,9 +9,6 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
 - **browsing: enabled!** Augment your prompts with web search results
 
 
-- Easily copy generated messages to clipboard
-
-
 ## Installation
 
 ### Download from Chrome Web Store
@@ -67,19 +64,3 @@ If you found this project interesting, please consider [supporting me](https://w
 
 [![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me)
 
-<details>
-    <summary>Click me</summary>
-
-  ### Heading
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
-     
-  ### Some Code
-  ```js
-  function logSomething(something) {
-    console.log('Something', something);
-  }
-  ```
-</details>
