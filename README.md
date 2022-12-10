@@ -23,8 +23,7 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
   ### Chrome and Microsoft Edge
   1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
   2. Unzip the file.
-  3. Open Chrome and navigate to `chrome://extensions`
-    * (`edge://extensions` for Microsoft Edge).
+  3. Open `chrome://extensions` in Chrome / `edge://extensions` in Microsoft Edge.
   4. Enable developer mode (top right corner).
   5. Click on `Load unpacked` and select the unzipped folder.
   6. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
@@ -32,15 +31,15 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
   ### Firefox
   1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
   2. Unzip the file.
-  3. Replace `manifest.json` with `manifest.v2.json`
-  4. Re-zip the folder
+  3. Rename `manifest.v2.json` to `manifest.json`.
+  4. Re-zip the folder.
 
   #### Temporary installation, in official Release or Beta
   1. Go to `about:debugging`, click "This Firefox" on the sidebar.
   2. Click `Load Temporary Add-on` button, then select the zip file you re-zipped.
 
   #### Persistent installation, in Nightly or Developer Edition
-  1. Open Firefox, go to `about:config` and set `xpinstall.signatures.required` to `false`
+  1. Open Firefox, go to `about:config` and set `xpinstall.signatures.required` to `false`.
   2. Click on the Menu button in the top right corner.
   3. Select Add-ons from the menu.
   4. Click on the gear icon in the top right corner of the Add-ons page and select `Install Add-on From File`.
