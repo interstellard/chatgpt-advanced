@@ -1,6 +1,7 @@
 let isWebAccessOn = true;
 let isProcessing = false;
 var numWebResults = 1;
+var timePeriod = "";
 
 chrome.storage.sync.get(["num_web_results", "web_access"], (data) => {
     numWebResults = data.num_web_results;
@@ -23,7 +24,7 @@ function setTitleAndDescription() {
     }
 
     const div = document.createElement("div");
-    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-8", "border");
+    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-16", "border");
     div.textContent = "With ChatGPT Advanced you can augment your prompts with relevant web search results for better and up-to-date answers.";
     title.parentNode.insertBefore(div, title.nextSibling);
 
@@ -51,12 +52,18 @@ function onSubmit(event) {
         let query = textarea.value;
         textarea.value = "";
 
-        fetch(`https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`)
+        console.log("timePeriod: ", timePeriod);
+        let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`;
+        if (timePeriod !== "") {
+            url += `&time=${timePeriod}`;
+        }
+
+        fetch(url)
             .then(response => response.json())
             .then(results => {
                 let counter = 1;
                 let formattedResults = "Web search results:\n\n";
-                formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}]. "${result.body}"\nSource: ${result.href}\n\n`, "");
+                formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "");
 
                 formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
                 formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
@@ -123,8 +130,8 @@ var title = document.createElement("h4");
 title.innerHTML = "Advanced Options";
 title.classList.add("pb-4", "text-lg", "font-bold");
 
-var labelDiv = document.createElement("div");
-labelDiv.classList.add("flex", "justify-between");
+var divNumResultsSlider = document.createElement("div");
+divNumResultsSlider.classList.add("flex", "justify-between");
 
 var label = document.createElement("label");
 label.innerHTML = "Web results";
@@ -135,28 +142,62 @@ chrome.storage.sync.get("num_web_results", (data) => {
 });
 label.appendChild(value);
 
-labelDiv.appendChild(label);
-labelDiv.appendChild(value);
+divNumResultsSlider.appendChild(label);
+divNumResultsSlider.appendChild(value);
 
-var numWebResultsSlider = document.createElement("input");
-numWebResultsSlider.type = "range";
-numWebResultsSlider.min = 1;
-numWebResultsSlider.max = 10;
-numWebResultsSlider.step = 1;
+var numResultsSlider = document.createElement("input");
+numResultsSlider.type = "range";
+numResultsSlider.min = 1;
+numResultsSlider.max = 10;
+numResultsSlider.step = 1;
 chrome.storage.sync.get("num_web_results", (data) => {
-    numWebResultsSlider.value = data.num_web_results;
+    numResultsSlider.value = data.num_web_results;
 });
-numWebResultsSlider.classList.add("w-full");
+numResultsSlider.classList.add("w-full");
 
-numWebResultsSlider.oninput = function () {
+numResultsSlider.oninput = function () {
     numWebResults = this.value;
     value.innerHTML = numWebResults;
     chrome.storage.sync.set({ "num_web_results": this.value });
 };
 
+var timePeriodLabel = document.createElement("label");
+timePeriodLabel.innerHTML = "Results from:";
+
+var timePeriodDropdown = document.createElement("select");
+timePeriodDropdown.classList.add("ml-0", "bg-gray-900", "border", "w-full");
+
+var timePeriodOptions = [
+    { value: "", label: "Any time" },
+    { value: "d", label: "Past day" },
+    { value: "w", label: "Past week" },
+    { value: "m", label: "Past month" },
+    { value: "y", label: "Past year" }
+];
+
+timePeriodOptions.forEach(function (option) {
+    var optionElement = document.createElement("option");
+    optionElement.value = option.value;
+    optionElement.innerHTML = option.label;
+    timePeriodDropdown.appendChild(optionElement);
+});
+
+
+// chrome.storage.sync.get("time_period", (data) => {
+//     timePeriodDropdown.value = data.time_period || "";
+// });
+
+timePeriodDropdown.onchange = function () {
+    chrome.storage.sync.set({ "time_period": this.value });
+    timePeriod = this.value;
+};
+
+
 optionsDiv.appendChild(title);
-optionsDiv.appendChild(labelDiv);
-optionsDiv.appendChild(numWebResultsSlider);
+optionsDiv.appendChild(divNumResultsSlider);
+optionsDiv.appendChild(numResultsSlider);
+optionsDiv.appendChild(timePeriodLabel);
+optionsDiv.appendChild(timePeriodDropdown);
 
 
 var navMenu = document.querySelector('nav');
