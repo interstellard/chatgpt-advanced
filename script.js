@@ -52,7 +52,14 @@ function onSubmit(event) {
         let query = textarea.value;
         textarea.value = "";
 
-        console.log("timePeriod: ", timePeriod);
+        query = query.trim();
+
+        if (query === "") {
+            isProcessing = false;
+            return;
+        }
+
+        // console.log("timePeriod: ", timePeriod);
         let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`;
         if (timePeriod !== "") {
             url += `&time=${timePeriod}`;
@@ -102,22 +109,22 @@ checkbox.addEventListener("click", function () {
     chrome.storage.sync.set({ "web_access": checkbox.checked });
 });
 
-// reset thread button
-var resetButton = document.createElement("button");
-resetButton.className = "chatgpt-adv-reset-button btn flex gap-2 justify-center btn-neutral";
-resetButton.style.padding = "0.5em";
-resetButton.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>Reset Thread';
-toolbarDiv.appendChild(resetButton);
+// // reset thread button
+// var resetButton = document.createElement("button");
+// resetButton.className = "chatgpt-adv-reset-button btn flex gap-2 justify-center btn-neutral";
+// resetButton.style.padding = "0.5em";
+// resetButton.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>Reset Thread';
+// toolbarDiv.appendChild(resetButton);
 
-resetButton.addEventListener("click", () => {
-    const anchors = document.querySelectorAll('a');
+// resetButton.addEventListener("click", () => {
+//     const anchors = document.querySelectorAll('a');
 
-    let resetThreadAnchor = Array.from(anchors).find(anchor => anchor.innerText === 'Reset Thread');
+//     let resetThreadAnchor = Array.from(anchors).find(anchor => anchor.innerText === 'Reset Thread');
 
-    const mouseEvent = new MouseEvent('click', { view: window, bubbles: true, cancelable: true });
-    resetThreadAnchor.dispatchEvent(mouseEvent);
-    textarea.focus();
-});
+//     const mouseEvent = new MouseEvent('click', { view: window, bubbles: true, cancelable: true });
+//     resetThreadAnchor.dispatchEvent(mouseEvent);
+//     textarea.focus();
+// });
 
 textareaWrapper.parentNode.insertBefore(toolbarDiv, textareaWrapper);
 
