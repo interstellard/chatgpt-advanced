@@ -52,7 +52,14 @@ function onSubmit(event) {
         let query = textarea.value;
         textarea.value = "";
 
-        console.log("timePeriod: ", timePeriod);
+        query = query.trim();
+
+        if (query === "") {
+            isProcessing = false;
+            return;
+        }
+
+        // console.log("timePeriod: ", timePeriod);
         let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`;
         if (timePeriod !== "") {
             url += `&time=${timePeriod}`;
