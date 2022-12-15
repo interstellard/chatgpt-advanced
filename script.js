@@ -2,10 +2,12 @@ let isWebAccessOn = true;
 let isProcessing = false;
 var numWebResults = 1;
 var timePeriod = "";
+var region = "";
 
-chrome.storage.sync.get(["num_web_results", "web_access"], (data) => {
+chrome.storage.sync.get(["num_web_results", "web_access", "region"], (data) => {
     numWebResults = data.num_web_results;
     isWebAccessOn = data.web_access;
+    region = data.region || "";
 });
 
 
@@ -18,7 +20,7 @@ window.addEventListener("load", function () {
 
 function setTitleAndDescription() {
     title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-    console.log(title);
+    // console.log(title);
     if (title) {
         title.textContent = "ChatGPT Advanced";
     }
@@ -36,7 +38,17 @@ var textareaWrapper = textarea.parentNode;
 var btnSubmit = textareaWrapper.querySelector("button");
 
 textarea.addEventListener("keydown", onSubmit);
+
 btnSubmit.addEventListener("click", onSubmit);
+
+function showErrorMessage(e) {
+    console.log(e);
+    var errorDiv = document.createElement("div");
+    errorDiv.classList.add("chatgpt-adv-error", "absolute", "bottom-0", "right-1", "text-white", "bg-red-500", "p-4", "rounded-lg", "mb-4", "mr-4", "text-sm");
+    errorDiv.innerHTML = "<b>An error occurred</b><br>" + e + "<br><br>Check the console for more details.";
+    document.body.appendChild(errorDiv);
+    setTimeout(() => { errorDiv.remove(); }, 5000);
+}
 
 function onSubmit(event) {
     if (event.shiftKey && event.key === 'Enter') {
@@ -47,43 +59,52 @@ function onSubmit(event) {
 
         isProcessing = true;
 
-        // showCommandsList(false);
+        try {
 
-        let query = textarea.value;
-        textarea.value = "";
+            // showCommandsList(false);
 
-        query = query.trim();
+            let query = textarea.value;
+            textarea.value = "";
 
-        if (query === "") {
-            isProcessing = false;
-            return;
-        }
+            query = query.trim();
 
-        // console.log("timePeriod: ", timePeriod);
-        let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`;
-        if (timePeriod !== "") {
-            url += `&time=${timePeriod}`;
-        }
-
-        fetch(url)
-            .then(response => response.json())
-            .then(results => {
-                let counter = 1;
-                let formattedResults = "Web search results:\n\n";
-                formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "");
-
-                formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
-                formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
-
-                textarea.value = formattedResults;
-
-                // simulate pressing enter on the textarea
-                textarea.focus();
-                const enterEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Enter', code: 'Enter' });
-                textarea.dispatchEvent(enterEvent);
-
+            if (query === "") {
                 isProcessing = false;
-            });
+                return;
+            }
+
+            // console.log("timePeriod: ", timePeriod);
+            let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numWebResults}&q=${query}`;
+            if (timePeriod !== "") {
+                url += `&time=${timePeriod}`;
+            }
+            if (region !== "") {
+                url += `&region=${region}`;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(results => {
+                    let counter = 1;
+                    let formattedResults = "Web search results:\n\n";
+                    formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "");
+
+                    formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
+                    formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
+
+                    textarea.value = formattedResults;
+
+                    // simulate pressing enter on the textarea
+                    textarea.focus();
+                    const enterEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Enter', code: 'Enter' });
+                    textarea.dispatchEvent(enterEvent);
+
+                    isProcessing = false;
+                });
+        } catch (error) {
+            isProcessing = false;
+            showErrorMessage(error);
+        }
     }
 }
 
@@ -189,14 +210,33 @@ timePeriodOptions.forEach(function (option) {
     timePeriodDropdown.appendChild(optionElement);
 });
 
-
-// chrome.storage.sync.get("time_period", (data) => {
-//     timePeriodDropdown.value = data.time_period || "";
-// });
-
 timePeriodDropdown.onchange = function () {
     chrome.storage.sync.set({ "time_period": this.value });
     timePeriod = this.value;
+};
+
+
+var regionDropdown = document.createElement("select");
+regionDropdown.classList.add("ml-0", "bg-gray-900", "border", "w-full");
+
+fetch(chrome.runtime.getURL('regions.json'))
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (regions) {
+        regions.forEach(function (region) {
+            var optionElement = document.createElement("option");
+            optionElement.value = region.value;
+            optionElement.innerHTML = region.label;
+            regionDropdown.appendChild(optionElement);
+        });
+
+        regionDropdown.value = region;
+    });
+
+regionDropdown.onchange = function () {
+    chrome.storage.sync.set({ "region": this.value });
+    region = this.value;
 };
 
 
@@ -205,6 +245,7 @@ optionsDiv.appendChild(divNumResultsSlider);
 optionsDiv.appendChild(numResultsSlider);
 optionsDiv.appendChild(timePeriodLabel);
 optionsDiv.appendChild(timePeriodDropdown);
+optionsDiv.appendChild(regionDropdown);
 
 
 var navMenu = document.querySelector('nav');

@@ -15,7 +15,7 @@
     "https://ddg-webapp-aagd.vercel.app/*"
   ],
   "background": {
-      "service_worker": "background.js"
+    "service_worker": "background.js"
   },
   "action": {},
   "content_scripts": [
@@ -28,6 +28,16 @@
       ],
       "css": [
         "styles.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "regions.json"
+      ],
+      "matches": [
+        "https://chat.openai.com/*"
       ]
     }
   ]
