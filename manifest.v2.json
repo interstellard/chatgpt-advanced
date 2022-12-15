@@ -32,5 +32,8 @@
         "styles.css"
       ]
     }
+  ],
+  "web_accessible_resources": [
+    "regions.json"
   ]
 }
