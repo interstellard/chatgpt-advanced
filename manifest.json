@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Advanced",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Augment your ChatGPT prompts with relevant results from the web",
   "icons": {
     "16": "icons/icon16.png",
