@@ -7,7 +7,7 @@ var region = "";
 chrome.storage.sync.get(["num_web_results", "web_access", "region"], (data) => {
     numWebResults = data.num_web_results;
     isWebAccessOn = data.web_access;
-    region = data.region || "";
+    region = data.region || "wt-wt";
 });
 
 
