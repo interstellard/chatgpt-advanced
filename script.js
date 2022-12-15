@@ -226,7 +226,7 @@ var emptyDiv = document.createElement("div");
 emptyDiv.classList.add("p-4");
 
 var supportMe = document.createElement("a");
-supportMe.innerHTML = "Like the extension?<br>Consider <span class='underline'><a href='https://www.buymeacoffee.com/anzorq' target='_blank'>supporting me</a></span>";
+supportMe.innerHTML = "Like the extension?<br>Please consider <span class='underline'><a href='https://www.buymeacoffee.com/anzorq' target='_blank'>supporting me</a></span>";
 supportMe.classList.add("text-sm", "text-gray-500");
 
 
