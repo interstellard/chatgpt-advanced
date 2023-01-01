@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "ChatGPT Advanced",
+  "name": "Web ChatGPT",
   "version": "1.0.2",
-  "description": "Augment your ChatGPT prompts with relevant results from the web",
+  "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -23,11 +23,11 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chat.openai.com/chat",
         "https://chat.openai.com/chat/*"
       ],
       "js": [
-        "script.js"
+        "script.js",
+        "api.js"
       ],
       "css": [
         "styles.css"
