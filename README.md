@@ -1,13 +1,10 @@
-# Web ChatGPT
+<h1 align="center">Web ChatGPT</h1>
 
-This chrome extension adds web access capability to the [ChatGPT](https://chat.openai.com/) webapp. Get much more relevant and up-to-date answers from the bot!
+This chrome extension adds web access capability to the [ChatGPT](https://chat.openai.com/) webapp. Get much more relevant and up-to-date answers from the chatbot!
 
 ![img](https://user-images.githubusercontent.com/3750161/205716268-7b44d522-eef0-44af-b8ec-cf8943a97622.PNG)
 
-## Current Features
-
-- **browsing: enabled!** Augment your prompts with web search results
-
+[![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB)
 
 ## Installation
 
