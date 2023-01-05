@@ -19,7 +19,7 @@
   "browser_action": {},
   "browser_specific_settings": {
     "gecko": {
-      "id": "{11bec73f-00fd-4d3b-8617-9ec92cb40df2}"
+      "id": "{b13d04e3-41db-48b3-842c-8079df93c7ad}"
     }
   },
   "content_scripts": [
