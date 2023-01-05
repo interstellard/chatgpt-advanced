@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Web ChatGPT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
@@ -24,7 +24,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/chat/*"],
+      "matches": ["https://chat.openai.com/chat*"],
       "js": ["script.js", "api.js"],
       "css": ["styles.css"]
     }
