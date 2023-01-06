@@ -12,21 +12,6 @@ chrome.storage.sync.get(["num_web_results", "web_access", "region"], (data) => {
 });
 
 
-function setTitleAndDescription() {
-    const h1_title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-    if (!h1_title) {
-        return;
-    }
-
-    h1_title.textContent = "WebChatGPT";
-
-    const div = document.createElement("div");
-    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-10", "border");
-    div.textContent = "With WebChatGPT you can augment your prompts with relevant web search results for better and up-to-date answers.";
-    h1_title.parentNode.insertBefore(div, h1_title.nextSibling);
-
-}
-
 function showErrorMessage(e) {
     console.info("WebChatGPT error --> API error: ", e);
     var errorDiv = document.createElement("div");
@@ -91,6 +76,21 @@ function onSubmit(event) {
     }
 }
 
+function updateTitleAndDescription() {
+    const h1_title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (!h1_title) {
+        return;
+    }
+
+    h1_title.textContent = "WebChatGPT";
+
+    const div = document.createElement("div");
+    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-10", "border");
+    div.textContent = "With WebChatGPT you can augment your prompts with relevant web search results for better and up-to-date answers.";
+    h1_title.parentNode.insertBefore(div, h1_title.nextSibling);
+
+}
+
 function updateUI() {
 
     if (document.querySelector(".web-chatgpt-toolbar")) {
@@ -98,6 +98,9 @@ function updateUI() {
     }
 
     textarea = document.querySelector("textarea");
+    if (!textarea) {
+        return;
+    }
     var textareaWrapper = textarea.parentNode;
 
     var btnSubmit = textareaWrapper.querySelector("button");
@@ -223,20 +226,19 @@ function updateUI() {
     lastElement.appendChild(footerDiv);
 }
 
-const titleEl = document.querySelector('title');
+const rootEl = document.querySelector('div[id="__next"]');
 
-window.onload = function() {
+window.onload = () => {
+   
+    updateTitleAndDescription();
+    updateUI();
 
-    const observer = new MutationObserver(() => {
+    new MutationObserver(() => {
         try {
-            setTitleAndDescription();
+            updateTitleAndDescription();
             updateUI();
         } catch (e) {
             console.info("WebChatGPT error --> Could not update UI:\n", e.stack);
         }
-    });
-
-    observer.observe(titleEl, {
-        childList: true
-    });
+    }).observe(rootEl, { childList: true });
 };
