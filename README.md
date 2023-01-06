@@ -1,4 +1,4 @@
-<h1 align="center">Web ChatGPT</h1>
+<h1 align="center">WebChatGPT</h1>
 
 This chrome extension adds web access capability to the [ChatGPT](https://chat.openai.com/) webapp. Get much more relevant and up-to-date answers from the chatbot!
 
