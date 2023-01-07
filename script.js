@@ -12,25 +12,10 @@ chrome.storage.sync.get(["num_web_results", "web_access", "region"], (data) => {
 });
 
 
-function setTitleAndDescription() {
-    const h1_title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-    if (!h1_title) {
-        return;
-    }
-
-    h1_title.textContent = "Web ChatGPT";
-
-    const div = document.createElement("div");
-    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-10", "border");
-    div.textContent = "With Web ChatGPT you can augment your prompts with relevant web search results for better and up-to-date answers.";
-    h1_title.parentNode.insertBefore(div, h1_title.nextSibling);
-
-}
-
 function showErrorMessage(e) {
-    console.log(e);
+    console.info("WebChatGPT error --> API error: ", e);
     var errorDiv = document.createElement("div");
-    errorDiv.classList.add("web-chatgpt-error", "absolute", "bottom-0", "right-1", "text-white", "bg-red-500", "p-4", "rounded-lg", "mb-4", "mr-4", "text-sm");
+    errorDiv.classList.add("web-chatgpt-error", "absolute", "bottom-0", "right-1", "dark:text-white", "bg-red-500", "p-4", "rounded-lg", "mb-4", "mr-4", "text-sm");
     errorDiv.innerHTML = "<b>An error occurred</b><br>" + e + "<br><br>Check the console for more details.";
     document.body.appendChild(errorDiv);
     setTimeout(() => { errorDiv.remove(); }, 5000);
@@ -42,7 +27,8 @@ function pasteWebResultsToTextArea(results, query) {
     formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "");
 
     formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
-    formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
+    formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.`;
+    formattedResults = formattedResults + `\nPrompt: ${query}`;
 
     textarea.value = formattedResults;
 }
@@ -91,13 +77,31 @@ function onSubmit(event) {
     }
 }
 
+function updateTitleAndDescription() {
+    const h1_title = document.evaluate("//h1[text()='ChatGPT']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (!h1_title) {
+        return;
+    }
+
+    h1_title.textContent = "WebChatGPT";
+
+    const div = document.createElement("div");
+    div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-10", "border");
+    div.textContent = "With WebChatGPT you can augment your prompts with relevant web search results for better and up-to-date answers.";
+    h1_title.parentNode.insertBefore(div, h1_title.nextSibling);
+
+}
+
 function updateUI() {
 
-    if (document.querySelector(".web-chatgpt-options")) {
+    if (document.querySelector(".web-chatgpt-toolbar")) {
         return;
     }
 
     textarea = document.querySelector("textarea");
+    if (!textarea) {
+        return;
+    }
     var textareaWrapper = textarea.parentNode;
 
     var btnSubmit = textareaWrapper.querySelector("button");
@@ -108,9 +112,18 @@ function updateUI() {
 
 
     var toolbarDiv = document.createElement("div");
-    toolbarDiv.classList.add("web-chatgpt-toolbar", "gap-3");
-    toolbarDiv.style.padding = "0em 0.5em 0em 0.5em";
+    toolbarDiv.classList.add("web-chatgpt-toolbar", "flex", "items-baseline", "gap-3", "mt-0");
+    toolbarDiv.style.padding = "0em 0.5em";
 
+    // settings button
+    settingsBtn = document.createElement("i");
+    settingsBtn.classList.add("material-icons", "md-18", "settings", "cursor-pointer", "text-gray-500", "dark:text-white");
+    settingsBtn.setAttribute("role", "img");
+    settingsBtn.setAttribute("aria-label", "Settings");
+    settingsBtn.textContent = "tune";
+    settingsBtn.addEventListener("click", () => {
+        toggleSettingsWindow();
+    });
 
     // Web access switch
     var toggleWebAccessDiv = document.createElement("div");
@@ -119,8 +132,6 @@ function updateUI() {
     chrome.storage.sync.get("web_access", (data) => {
         toggleWebAccessDiv.querySelector(".web-chatgpt-toggle-checkbox").checked = data.web_access;
     });
-    toolbarDiv.appendChild(toggleWebAccessDiv);
-
 
     var checkbox = toggleWebAccessDiv.querySelector(".web-chatgpt-toggle-checkbox");
     checkbox.addEventListener("click", () => {
@@ -128,55 +139,34 @@ function updateUI() {
             chrome.storage.sync.set({ "web_access": checkbox.checked });
         });
 
-    textareaWrapper.parentNode.insertBefore(toolbarDiv, textareaWrapper);
 
-    var divider = document.createElement("hr");
+    // Number of web results
+    var numResultsDropdown = document.createElement("select");
+    numResultsDropdown.classList.add("text-sm", "dark:text-white", "ml-0", "dark:bg-gray-800", "border-0");
 
-    var optionsDiv = document.createElement("div");
-    optionsDiv.classList.add("web-chatgpt-options", "p-4", "space-y-2");
+    for (let i = 1; i <= 10; i++) {
+        let optionElement = document.createElement("option");
+        optionElement.value = i;
+        optionElement.text = i + " result" + (i == 1 ? "" : "s");
+        numResultsDropdown.appendChild(optionElement);
+    }
 
-    var title = document.createElement("h4");
-    title.innerHTML = "Web ChatGPT Options";
-    title.classList.add("text-white", "pb-4", "text-lg", "font-bold");
-
-    var divNumResultsSlider = document.createElement("div");
-    divNumResultsSlider.classList.add("flex", "justify-between");
-
-    var label = document.createElement("label");
-    label.innerHTML = "Web results";
-    label.classList.add("text-white");
-
-    var value = document.createElement("span");
     chrome.storage.sync.get("num_web_results", (data) => {
-        value.innerHTML = data.num_web_results;
+        numResultsDropdown.value = data.num_web_results;
     });
-    label.appendChild(value);
 
-    divNumResultsSlider.appendChild(label);
-    divNumResultsSlider.appendChild(value);
-
-    var numResultsSlider = document.createElement("input");
-    numResultsSlider.type = "range";
-    numResultsSlider.min = 1;
-    numResultsSlider.max = 10;
-    numResultsSlider.step = 1;
-    chrome.storage.sync.get("num_web_results", (data) => {
-        numResultsSlider.value = data.num_web_results;
-    });
-    numResultsSlider.classList.add("w-full");
-
-    numResultsSlider.oninput = function () {
+    numResultsDropdown.onchange = function () {
         numWebResults = this.value;
-        value.innerHTML = numWebResults;
         chrome.storage.sync.set({ "num_web_results": this.value });
     };
 
+    // Time period
     var timePeriodLabel = document.createElement("label");
     timePeriodLabel.innerHTML = "Results from:";
-    timePeriodLabel.classList.add("text-white");
+    timePeriodLabel.classList.add("text-sm", "dark:text-white");
 
     var timePeriodDropdown = document.createElement("select");
-    timePeriodDropdown.classList.add("text-white", "ml-0", "bg-gray-900", "border", "w-full");
+    timePeriodDropdown.classList.add("text-sm", "dark:text-white", "ml-0", "dark:bg-gray-800", "border-0");
 
     var timePeriodOptions = [
         { value: "", label: "Any time" },
@@ -190,7 +180,7 @@ function updateUI() {
         var optionElement = document.createElement("option");
         optionElement.value = option.value;
         optionElement.innerHTML = option.label;
-        optionElement.classList.add("text-white");
+        optionElement.classList.add("text-sm", "dark:text-white");
         timePeriodDropdown.appendChild(optionElement);
     });
 
@@ -199,9 +189,9 @@ function updateUI() {
         timePeriod = this.value;
     };
 
-
+    // Region
     var regionDropdown = document.createElement("select");
-    regionDropdown.classList.add("text-white", "ml-0", "bg-gray-900", "border", "w-full");
+    regionDropdown.classList.add("text-sm", "dark:text-white", "ml-0", "dark:bg-gray-800", "border-0");
 
     fetch(chrome.runtime.getURL('regions.json'))
         .then(function (response) {
@@ -212,7 +202,7 @@ function updateUI() {
             var optionElement = document.createElement("option");
             optionElement.value = region.value;
             optionElement.innerHTML = region.label;
-            optionElement.classList.add("text-white");
+            optionElement.classList.add("text-sm", "dark:text-white");
             regionDropdown.appendChild(optionElement);
         });
 
@@ -224,38 +214,45 @@ function updateUI() {
         region = this.value;
     };
 
-    var emptyDiv = document.createElement("div");
-    emptyDiv.classList.add("p-4");
+    toolbarDiv.appendChild(settingsBtn);
+    toolbarDiv.appendChild(toggleWebAccessDiv);
+    toolbarDiv.appendChild(numResultsDropdown);
+    toolbarDiv.appendChild(timePeriodDropdown);
+    toolbarDiv.appendChild(regionDropdown);
 
-    var supportMe = document.createElement("a");
-    supportMe.innerHTML = "Like the extension?<br>Please consider <span class='underline'><a href='https://www.buymeacoffee.com/anzorq' target='_blank'>supporting me</a></span>";
-    supportMe.classList.add("text-sm", "text-gray-500");
+    textareaWrapper.parentNode.insertBefore(toolbarDiv, textareaWrapper.nextSibling);
+
+    toolbarDiv.parentNode.classList.remove("flex");
+    toolbarDiv.parentNode.classList.add("flex-col");
 
 
-    optionsDiv.appendChild(title);
-    optionsDiv.appendChild(divNumResultsSlider);
-    optionsDiv.appendChild(numResultsSlider);
-    optionsDiv.appendChild(timePeriodLabel);
-    optionsDiv.appendChild(timePeriodDropdown);
-    optionsDiv.appendChild(regionDropdown);
-    optionsDiv.appendChild(emptyDiv);
-    optionsDiv.appendChild(supportMe);
+    var bottomDiv = document.querySelector("div[class*='absolute bottom-0']");
 
-    var navMenu = document.querySelector('nav');
-    navMenu.appendChild(divider);
-    navMenu.appendChild(optionsDiv);
+    var footerDiv = document.createElement("div");
+
+    var extension_version = chrome.runtime.getManifest().version;
+    footerDiv.innerHTML = "<a href='https://github.com/qunash/chatgpt-advanced' target='_blank' class='underline'>WebChatGPT extension v." + extension_version + "</a>. If you like the extension, please consider <a href='https://www.buymeacoffee.com/anzorq' target='_blank' class='underline'>supporting me</a>.";
+
+    var lastElement = bottomDiv.lastElementChild;
+    lastElement.appendChild(footerDiv);
 }
 
-const titleEl = document.querySelector('title');
+function openSettings() {
+    
+}
 
-window.onload = function() {
+const rootEl = document.querySelector('div[id="__next"]');
+window.onload = () => {
+   
+    updateTitleAndDescription();
+    updateUI();
 
-    const observer = new MutationObserver(() => {
-        setTitleAndDescription();
-        updateUI();
-    });
-
-    observer.observe(titleEl, {
-        childList: true
-    });
+    new MutationObserver(() => {
+        try {
+            updateTitleAndDescription();
+            updateUI();
+        } catch (e) {
+            console.info("WebChatGPT error --> Could not update UI:\n", e.stack);
+        }
+    }).observe(rootEl, { childList: true });
 };

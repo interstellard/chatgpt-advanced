@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Web ChatGPT",
-  "version": "1.0.2",
+  "name": "WebChatGPT",
+  "version": "1.1.1",
   "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
@@ -10,31 +10,29 @@
   },
   "permissions": [
     "storage",
-    "webRequest", "https://ddg-webapp-aagd.vercel.app/*"
+    "webRequest",
+    "https://ddg-webapp-aagd.vercel.app/*"
   ],
   "background": {
-      "scripts": [ "background.js"]
+    "scripts": ["background.js"]
   },
-"browser_specific_settings": {
-  "gecko": {
-    "id": "{11bec73f-00fd-4d3b-8617-9ec92cb40df2}"
-  }
-},
+  "browser_action": {},
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{b13d04e3-41db-48b3-842c-8079df93c7ad}"
+    }
+  },
   "content_scripts": [
     {
-      "matches": [
-        "https://chat.openai.com/chat/*"
-      ],
-      "js": [
-        "script.js",
-        "api.js"
-      ],
-      "css": [
-        "styles.css"
-      ]
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["script.js", "api.js", "prompts-window/prompts-winow.js"],
+      "css": ["styles.css", "prompts-window/prompts-window.css"]
     }
   ],
-  "web_accessible_resources": [
-    "regions.json"
+  "web_accessible_resources":
+  [
+    "regions.json",
+    "icons/icon48.png",
+    "icons/MaterialIcons-Regular.woff2"
   ]
 }
