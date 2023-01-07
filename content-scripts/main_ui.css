@@ -1,0 +1,102 @@
+.web-chatgpt-toolbar {
+    margin: 0.5em 0em;
+    display: flex;
+    align-items: end;
+}
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.web-chatgpt-toggle {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0;
+}
+
+.web-chatgpt-toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 8px;
+    width: 29px;
+    height: 16px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+
+.web-chatgpt-toggle-switch:before,
+.web-chatgpt-toggle-switch:after {
+    content: "";
+}
+
+.web-chatgpt-toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.25s;
+}
+
+.web-chatgpt-toggle:hover .web-chatgpt-toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.5);
+}
+
+.web-chatgpt-toggle-checkbox:checked+.web-chatgpt-toggle-switch {
+    background: #10A37F;
+}
+
+.web-chatgpt-toggle-checkbox:checked+.web-chatgpt-toggle-switch:before {
+    left: 15px;
+}
+
+.web-chatgpt-toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.web-chatgpt-toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+}
+
+/* Google Material Design Icons */
+@font-face {
+    font-family: "Material Icons";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Material Icons"),
+        url("chrome-extension://__MSG_@@extension_id__/icons/MaterialIcons-Regular.woff2") format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    align-self: center;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}

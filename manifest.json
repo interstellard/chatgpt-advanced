@@ -24,20 +24,20 @@
         "https://chat.openai.com/chat/*"
       ],
       "js": [
-        "script.js",
+        "content-scripts/main_ui.js",
         "api.js",
-        "prompts-window/prompts-window.js"
+        "content-scripts/prompts-window/prompts-window.js"
       ],
       "css": [
-        "styles.css",
-        "prompts-window/prompts-window.css"
+        "content-scripts/main_ui.css",
+        "content-scripts/prompts-window/prompts-window.css"
       ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "regions.json",
+        "data/regions.json",
         "icons/icon48.png",
         "icons/MaterialIcons-Regular.woff2"
       ],
