@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "WebChatGPT",
+  "version": "1.2.0",
+  "description": "Augment your ChatGPT prompts with relevant results from the web.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://ddg-webapp-aagd.vercel.app/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/chat/*"
+      ],
+      "js": [
+        "content-scripts/main_ui.js",
+        "api.js",
+        "content-scripts/prompts-window/prompts-window.js"
+      ],
+      "css": [
+        "content-scripts/main_ui.css",
+        "content-scripts/prompts-window/prompts-window.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "data/default_prompt.txt",
+        "data/regions.json",
+        "icons/icon48.png",
+        "icons/MaterialIcons-Regular.woff2"
+      ],
+      "matches": [
+        "https://chat.openai.com/*"
+      ]
+    }
+  ]
+}
