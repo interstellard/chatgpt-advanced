@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "build-dev": "node build.mjs",
     "build-prod": "node build.mjs --create-zips",
-    "build-dev": "node build.mjs"
+    "watch": "chokidar src -c \"npm run build-dev\""
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -25,6 +26,7 @@
     "@typescript-eslint/parser": "^5.30.6",
     "archiver": "^5.3.1",
     "autoprefixer": "^10.4.13",
+    "chokidar-cli": "^3.0.0",
     "esbuild": "^0.16.17",
     "esbuild-plugin-copy": "^2.0.1",
     "esbuild-style-plugin": "^1.6.1",
