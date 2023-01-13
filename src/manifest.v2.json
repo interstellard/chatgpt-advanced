@@ -25,13 +25,12 @@
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*"],
-      "js": ["content-scripts/main_ui.js", "api.js", "content-scripts/prompts-window/prompts-winow.js"],
-      "css": ["content-scripts/main_ui.css", "content-scripts/prompts-window/prompts-window.css"]
+      "js": ["content-scripts/main_ui.js"],
+      "css": []
     }
   ],
   "web_accessible_resources":
   [
-    "data/default_prompt.txt",
     "data/regions.json",
     "icons/icon48.png",
     "icons/MaterialIcons-Regular.woff2"

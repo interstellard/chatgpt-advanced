@@ -8,43 +8,27 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [
-    "storage"
-  ],
-  "host_permissions": [
-    "https://ddg-webapp-aagd.vercel.app/*"
-  ],
+  "permissions": ["storage"],
+  "host_permissions": ["https://ddg-webapp-aagd.vercel.app/*"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background/bg.js"
   },
   "action": {},
   "content_scripts": [
     {
-      "matches": [
-        "https://chat.openai.com/chat/*"
-      ],
-      "js": [
-        "content-scripts/main_ui.js",
-        "api.js",
-        "content-scripts/prompts-window/prompts-window.js"
-      ],
-      "css": [
-        "content-scripts/main_ui.css",
-        "content-scripts/prompts-window/prompts-window.css"
-      ]
+      "matches": ["https://chat.openai.com/chat/*"],
+      "js": ["content-scripts/main_ui.js"],
+      "css": []
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "data/default_prompt.txt",
         "data/regions.json",
         "icons/icon48.png",
         "icons/MaterialIcons-Regular.woff2"
       ],
-      "matches": [
-        "https://chat.openai.com/*"
-      ]
+      "matches": ["https://chat.openai.com/*"]
     }
   ]
 }

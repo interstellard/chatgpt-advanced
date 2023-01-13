@@ -7,6 +7,7 @@ import postcssPlugin from "esbuild-style-plugin";
 import copyStaticFilesPlugin from "esbuild-copy-files-plugin";
 
 const buildDir = "build";
+const minify = process.argv.includes("--minify");
 
 async function deleteBuildDir() {
   await fs.remove(buildDir);
@@ -14,10 +15,10 @@ async function deleteBuildDir() {
 
 async function runEsbuild() {
   await esbuild.build({
-    entryPoints: ["src/content-scripts/cs.tsx", "src/background/bg.ts"],
+    entryPoints: ["src/content-scripts/main_ui.tsx", "src/background/bg.ts"],
     outdir: buildDir,
     bundle: true,
-    minify: true,
+    minify: minify,
     treeShaking: true,
     define: {
       "process.env.NODE_ENV": '"production"',
@@ -35,9 +36,9 @@ async function runEsbuild() {
         },
       }),
       copyStaticFilesPlugin({
-        source: ["src/manifest.json", "src/assets/icons"],
+        source: ["src/manifest.json", "src/assets/"],
         target: buildDir,
-        copyWithFolder: true,
+        copyWithFolder: false,
       }),
     ],
   });
