@@ -4,7 +4,7 @@ import fs from "fs-extra";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import postcssPlugin from "esbuild-style-plugin";
-import copyStaticFilesPlugin from "esbuild-plugin-copy";
+import copyStaticFilesPlugin from "esbuild-copy-files-plugin";
 
 const buildDir = "build";
 
@@ -35,11 +35,9 @@ async function runEsbuild() {
         },
       }),
       copyStaticFilesPlugin({
-        resolveFrom: "cwd",
-        assets: {
-          from: ["src/manifest.json"],
-          to: [buildDir],
-        },
+        source: ["src/manifest.json", "src/assets/icons"],
+        target: buildDir,
+        copyWithFolder: true,
       }),
     ],
   });
