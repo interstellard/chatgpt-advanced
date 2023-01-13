@@ -15,7 +15,7 @@ async function deleteBuildDir() {
 
 async function runEsbuild() {
   await esbuild.build({
-    entryPoints: ["src/content-scripts/main_ui.tsx", "src/background/bg.ts"],
+    entryPoints: ["src/content-scripts/mainUI.tsx", "src/background/bg.ts"],
     outdir: buildDir,
     bundle: true,
     minify: minify,

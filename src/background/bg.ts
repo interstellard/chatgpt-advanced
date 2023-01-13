@@ -1,15 +1,10 @@
 import Browser from 'webextension-polyfill'
 
 
-var manifest_version = Browser.runtime.getManifest().manifest_version
+const manifest_version = Browser.runtime.getManifest().manifest_version
 
 
 Browser.runtime.onInstalled.addListener(async () => {
-    Browser.storage.sync.set({
-        num_web_results: 3,
-        web_access: true,
-        region: "wt-wt",
-    })
     openChatGPTWebpage()
 })
 
