@@ -16,7 +16,7 @@
   "action": {},
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/chat/*"],
+      "matches": ["https://chat.openai.com/chat*"],
       "js": ["content-scripts/mainUI.js"],
       "css": ["content-scripts/mainUI.css"]
     }
@@ -24,7 +24,6 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "data/regions.json",
         "icons/icon48.png",
         "icons/MaterialIcons-Regular.woff2"
       ],

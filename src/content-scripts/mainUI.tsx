@@ -1,22 +1,40 @@
 import '../style/base.css'
 import { h, render } from 'preact'
-import { getUserConfig } from '../util/userConfig'
-import * as elementFinder from '../util/elementFinder'
+import { getTextArea, getFooter, getRootElement } from '../util/elementFinder'
 import Toolbar from '../components/toolbar'
+import Footer from 'src/components/footer'
 
-async function getDefaultParams() {
-
-    const userConfig = await getUserConfig()
-
-    console.log(userConfig)
-}
-
-async function run() {
-    await getDefaultParams()
-    const textarea = elementFinder.getTextArea()
+async function updateUI() {
+    // console.log('run mainUI.tsx content script')
+    const textarea = getTextArea()
     if (textarea) {
-        render(<Toolbar />, textarea.parentElement.parentElement)
+        
+        const textareaParent = textarea.parentElement.parentElement
+        textareaParent.style.flexDirection = 'column'
+
+        // render(<Toolbar />, textareaParent)
+        let div = document.createElement('div')
+        textareaParent.appendChild(div)
+        render(<Toolbar />, div)
+    }
+
+    const footer = getFooter()
+    if (footer) {
+        let div = document.createElement('div')
+        footer.lastElementChild.appendChild(div)
+        render(<Footer />, div)
     }
 }
 
-run()
+const rootEl = getRootElement()
+window.onload = function () {
+    updateUI()
+
+    try {
+        new MutationObserver(() => {
+            updateUI()
+        }).observe(rootEl, { childList: true })
+    } catch (e) {
+        console.info("WebChatGPT error --> Could not update UI:\n", e.stack)
+    }
+}
