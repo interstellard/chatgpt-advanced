@@ -64,7 +64,7 @@ function Toolbar() {
             <label class="wcg-toggle wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
                 <input type="checkbox" value="" class="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
                 <div class="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer dark:wcg-bg-gray-704 peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
-                <span className="wcg-toggle-label wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']"/>
+                <span className="wcg-toggle-label wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
             </label>
             <Dropdown
                 value={numResults}
