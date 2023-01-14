@@ -7,11 +7,11 @@ import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
 
-let isProcessing = false;
+var isProcessing = false
 
-var btnSubmit: HTMLElement
+var btnSubmit: HTMLButtonElement
 var textarea: HTMLTextAreaElement
-var footer: HTMLElement
+var footer: HTMLDivElement
 
 async function onSubmit(event: any) {
 
@@ -29,29 +29,27 @@ async function onSubmit(event: any) {
 
         const userConfig = await getUserConfig()
 
-        isProcessing = true;
+        isProcessing = true
 
         if (!userConfig.webAccess) {
             textarea.value = query
             pressEnter()
-            isProcessing = false;
+            isProcessing = false
             return
         }
 
         textarea.value = ""
 
         try {
-            apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
-                .then(results => {
-                    pasteWebResultsToTextArea(results, query)
-                    pressEnter()
-                    isProcessing = false;
-                })
+            const results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
+            pasteWebResultsToTextArea(results, query)
+            pressEnter()
+            isProcessing = false
+
         } catch (error) {
-            isProcessing = false;
+            isProcessing = false
             showErrorMessage(error)
         }
-
     }
 }
 
@@ -68,13 +66,13 @@ function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
 }
 
 function pressEnter() {
-    textarea.focus();
+    textarea.focus()
     const enterEvent = new KeyboardEvent('keydown', {
         bubbles: true,
         cancelable: true,
         key: 'Enter',
         code: 'Enter'
-    });
+    })
     textarea.dispatchEvent(enterEvent)
 }
 
@@ -87,12 +85,12 @@ function showErrorMessage(error: any) {
 
 
 async function updateUI() {
+    
+    if (getWebChatGPTToolbar()) return
 
     btnSubmit = getSubmitButton()
     textarea = getTextArea()
     footer = getFooter()
-
-    if (getWebChatGPTToolbar()) return
 
     if (textarea && btnSubmit) {
 

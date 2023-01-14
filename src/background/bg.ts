@@ -4,9 +4,7 @@ import Browser from 'webextension-polyfill'
 const manifest_version = Browser.runtime.getManifest().manifest_version
 
 
-Browser.runtime.onInstalled.addListener(async () => {
-    openChatGPTWebpage()
-})
+Browser.runtime.onInstalled.addListener(async () => openChatGPTWebpage())
 
 function openChatGPTWebpage() {
     Browser.tabs.create({

@@ -1,11 +1,8 @@
-// preact MessageError, that displays an error message for 5 seconds
-// and then hides it again
-
 import { h } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 
 
-const MessageError = ({ message }) => {
+const ErrorMessage = ({ message }) => {
     const [show, setShow] = useState(true)
 
     useEffect(() => {
@@ -24,4 +21,4 @@ const MessageError = ({ message }) => {
     )
 }
 
-export default MessageError
+export default ErrorMessage
