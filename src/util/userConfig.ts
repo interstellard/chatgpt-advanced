@@ -1,13 +1,13 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 
+
 const defaultConfig = {
     numWebResults: 3,
     webAccess: true,
     region: 'wt-wt',
     timePeriod: '',
 }
-
 
 export type UserConfig = typeof defaultConfig
 

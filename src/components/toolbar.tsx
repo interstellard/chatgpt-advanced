@@ -1,7 +1,8 @@
 import { h } from 'preact'
-import { useCallback, useEffect, useState } from 'preact/hooks'
+import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { getUserConfig, updateUserConfig, timePeriodOptions, regionOptions } from 'src/util/userConfig'
 import Dropdown from './dropown'
+
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
     value: num,
@@ -21,18 +22,9 @@ function useUserConfig() {
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
         })
-    }, [])
+    })
 
-    return {
-        webAccess,
-        setWebAccess,
-        numResults,
-        setNumResults,
-        timePeriod,
-        setTimePeriod,
-        region,
-        setRegion
-    }
+    return { webAccess, setWebAccess, numResults, setNumResults, timePeriod, setTimePeriod, region, setRegion }
 }
 
 function Toolbar() {
@@ -76,7 +68,6 @@ function Toolbar() {
                 onChange={handleTimePeriodChange}
                 options={timePeriodOptions}
             />
-
             <Dropdown
                 value={region}
                 onChange={handleRegionChange}
