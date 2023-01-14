@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "WebChatGPT",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
@@ -14,7 +14,7 @@
     "https://ddg-webapp-aagd.vercel.app/*"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background/bg.js"]
   },
   "browser_action": {},
   "browser_specific_settings": {
@@ -31,7 +31,6 @@
   ],
   "web_accessible_resources":
   [
-    "data/regions.json",
     "icons/icon48.png",
     "icons/MaterialIcons-Regular.woff2"
   ]

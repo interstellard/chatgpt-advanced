@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WebChatGPT",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
