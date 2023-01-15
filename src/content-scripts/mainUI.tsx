@@ -6,6 +6,7 @@ import Footer from 'src/components/footer'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
+import { InstructionManager } from 'src/util/InstructionManager'
 
 var isProcessing = false
 
@@ -13,11 +14,12 @@ var btnSubmit: HTMLButtonElement
 var textarea: HTMLTextAreaElement
 var footer: HTMLDivElement
 
+const instructionManager = new InstructionManager()
+
 async function onSubmit(event: any) {
 
-    if (event.shiftKey && event.key === 'Enter') {
+    if (event.shiftKey && event.key === 'Enter')
         return
-    }
 
     if ((event.type === "click" || event.key === 'Enter') && !isProcessing) {
 
@@ -42,7 +44,7 @@ async function onSubmit(event: any) {
 
         try {
             const results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
-            pasteWebResultsToTextArea(results, query)
+            await pasteWebResultsToTextArea(results, query)
             pressEnter()
             isProcessing = false
 
@@ -53,16 +55,9 @@ async function onSubmit(event: any) {
     }
 }
 
-function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
-    let counter = 1
-    let formattedResults = "Web search results:\n\n"
-    formattedResults = formattedResults + results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "")
+async function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
 
-    formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`
-    formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.`
-    formattedResults = formattedResults + `\nPrompt: ${query}`
-
-    textarea.value = formattedResults
+    textarea.value = await instructionManager.getInstruction(results, query)
 }
 
 function pressEnter() {

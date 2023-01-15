@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "WebChatGPT",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "version": "2.0.0",
-  "description": "Augment your ChatGPT prompts with relevant results from the web.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

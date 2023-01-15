@@ -40,6 +40,11 @@ async function runEsbuild() {
         target: buildDir,
         copyWithFolder: false,
       }),
+      copyStaticFilesPlugin({
+        source: ["src/_locales/"],
+        target: buildDir,
+        copyWithFolder: true,
+      })
     ],
   });
 }
