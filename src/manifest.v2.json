@@ -23,6 +23,11 @@
       "id": "{b13d04e3-41db-48b3-842c-8079df93c7ad}"
     }
   },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true,
+    "chrome_style": true
+  },
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*"],
@@ -30,8 +35,7 @@
       "css": ["content-scripts/mainUI.css"]
     }
   ],
-  "web_accessible_resources":
-  [
+  "web_accessible_resources": [
     "icons/icon48.png",
     "icons/MaterialIcons-Regular.woff2"
   ]

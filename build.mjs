@@ -15,7 +15,11 @@ async function deleteBuildDir() {
 
 async function runEsbuild() {
   await esbuild.build({
-    entryPoints: ["src/content-scripts/mainUI.tsx", "src/background/bg.ts"],
+    entryPoints: [
+      "src/content-scripts/mainUI.tsx",
+      "src/background/bg.ts",
+      "src/options/options.tsx",
+    ],
     outdir: buildDir,
     bundle: true,
     minify: minify,
@@ -41,10 +45,15 @@ async function runEsbuild() {
         copyWithFolder: false,
       }),
       copyStaticFilesPlugin({
+        source: ["src/options/options.html"],
+        target: buildDir + "/options",
+        copyWithFolder: false,
+      }),
+      copyStaticFilesPlugin({
         source: ["src/_locales/"],
         target: buildDir,
         copyWithFolder: true,
-      })
+      }),
     ],
   });
 }

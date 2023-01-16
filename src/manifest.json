@@ -22,6 +22,11 @@
       "css": ["content-scripts/mainUI.css"]
     }
   ],
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true,
+    "css": ["options/options.css"]
+  },
   "web_accessible_resources": [
     {
       "resources": [
