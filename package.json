@@ -30,6 +30,7 @@
     "archiver": "^5.3.1",
     "autoprefixer": "^10.4.13",
     "chokidar-cli": "^3.0.0",
+    "daisyui": "^2.47.0",
     "esbuild": "^0.16.17",
     "esbuild-copy-files-plugin": "^1.1.0",
     "esbuild-style-plugin": "^1.6.1",

@@ -3,10 +3,13 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  content: ['./src/**/*.tsx'],
+  content: ["./src/**/*.tsx"],
   theme: {
     extend: {},
   },
-  plugins: [],
-  prefix: 'wcg-',
-}
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["dark"],
+  },
+  prefix: "wcg-",
+};

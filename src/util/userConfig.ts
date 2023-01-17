@@ -2,11 +2,22 @@ import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 
 
+export enum Languages {
+    Auto = 'auto',
+    English = 'english',
+    Chinese = 'chinese',
+    Spanish = 'spanish',
+    French = 'french',
+    Korean = 'korean',
+    Japanese = 'japanese',
+}
+
 const defaultConfig = {
     numWebResults: 3,
     webAccess: true,
     region: 'wt-wt',
     timePeriod: '',
+    language: Languages.Auto,
 }
 
 export type UserConfig = typeof defaultConfig

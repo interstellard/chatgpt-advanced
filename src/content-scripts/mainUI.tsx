@@ -57,7 +57,7 @@ async function onSubmit(event: any) {
 
 async function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
 
-    textarea.value = await instructionManager.getInstruction(results, query)
+    textarea.value = await instructionManager.compilePrompt(results, query)
 }
 
 function pressEnter() {

@@ -1,15 +1,23 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 
-export class InstructionManager {
-    DEFAULT_INSTRUCTION_KEY = 'default_instruction'
-    CURRENT_INSTRUCTION_KEY = 'current_instruction'
+export const DEFAULT_INSTRUCTION_KEY = 'default_instruction'
+export const CURRENT_INSTRUCTION_NAME_KEY = 'current_instruction_name'
+export const SAVED_INSTRUCTIONS_KEY = 'saved_instructions'
 
-    async getInstruction(results: SearchResult[], query: string) {
+export interface Instruction {
+    name: string,
+    text: string
+}
+
+
+export class InstructionManager {
+
+    async compilePrompt(results: SearchResult[], query: string) {
         const currentInstruction = await this.getCurrentInstruction()
         const formattedResults = this.formatWebResults(results)
         const currentDate = new Date().toLocaleDateString()
-        const instruction = this.replaceVariables(currentInstruction, {
+        const instruction = this.replaceVariables(currentInstruction.text, {
             '{web_results}': formattedResults,
             '{query}': query,
             '{current_date}': currentDate
@@ -17,10 +25,31 @@ export class InstructionManager {
         return instruction
     }
 
-    private async getCurrentInstruction(): Promise<string> {
-        const defaultInstruction = Browser.i18n.getMessage(this.DEFAULT_INSTRUCTION_KEY)
-        const data = await Browser.storage.sync.get([this.CURRENT_INSTRUCTION_KEY])
-        return data[this.CURRENT_INSTRUCTION_KEY] || defaultInstruction
+    getDefaultInstruction() {
+        return { name: 'default', text: Browser.i18n.getMessage(DEFAULT_INSTRUCTION_KEY) }
+    }
+
+    async getCurrentInstruction(): Promise<Instruction> {
+        const defaultInstruction = this.getDefaultInstruction()
+        const data = await Browser.storage.sync.get([CURRENT_INSTRUCTION_NAME_KEY, SAVED_INSTRUCTIONS_KEY])
+        const currentInstruction = data[SAVED_INSTRUCTIONS_KEY].find((i: Instruction) => i.name === data[CURRENT_INSTRUCTION_NAME_KEY])
+        return currentInstruction || defaultInstruction
+    }
+
+    async getSavedInstructions(): Promise<Instruction[]> {
+        const data = await Browser.storage.sync.get([SAVED_INSTRUCTIONS_KEY])
+        return data[SAVED_INSTRUCTIONS_KEY] || []
+    }
+
+    async saveInstruction(instruction: Instruction) {
+        let savedInstructions = await this.getSavedInstructions()
+        const index = savedInstructions.findIndex(i => i.name === instruction.name)
+        if (index >= 0) {
+            savedInstructions[index] = instruction
+        } else {
+            savedInstructions.push(instruction)
+        }
+        await Browser.storage.sync.set({ [SAVED_INSTRUCTIONS_KEY]: savedInstructions })
     }
 
     private formatWebResults(results: SearchResult[]) {
@@ -40,3 +69,4 @@ export class InstructionManager {
         return newInstruction
     }
 }
+
