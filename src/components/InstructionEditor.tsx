@@ -12,7 +12,6 @@ const InstructionsEditor = () => {
 
 
     useEffect(() => {
-        console.log("InstructionsEditor mounted")
         updateList()
     }, [])
 
@@ -103,6 +102,9 @@ const InstructionsEditor = () => {
                 <button
                     className="wcg-btn wcg-btn-primary wcg-w-full wcg-text-base"
                     onClick={handleAdd}>
+                    <span class="material-symbols-outlined wcg-mr-2">
+                        add_circle
+                    </span>
                     Add New Instruction
                 </button>
                 <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
@@ -121,18 +123,30 @@ const InstructionsEditor = () => {
                 </ul>
             </div>
             <div className="wcg-flex wcg-flex-col wcg-w-2/3">
-                <input
-                    ref={nameInputRef}
-                    className="wcg-input wcg-input-bordered"
-                    type="text"
-                    placeholder="Name"
-                    value={instruction.name}
-                    onChange={(e: Event) =>
-                        setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
-                    }
-                    disabled={instruction.name === defaultInstruction.name}
-                >
-                </input>
+                <div className="wcg-flex wcg-flex-row wcg-gap-2 wcg-items-center">
+
+                    <input
+                        ref={nameInputRef}
+                        className="wcg-input wcg-input-bordered wcg-flex-1"
+                        type="text"
+                        placeholder="Name"
+                        value={instruction.name}
+                        onChange={(e: Event) =>
+                            setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
+                        }
+                        disabled={instruction.name === defaultInstruction.name}
+                    >
+                    </input>
+                    <button
+                        className={"wcg-btn wcg-btn-primary wcg-text-base" + (instruction.name === defaultInstruction.name ? " wcg-hidden" : "")}
+                        onClick={handleSave}
+                        hidden={instruction.name === defaultInstruction.name}
+                    >
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
+                </div>
                 <br />
                 <textarea
                     ref={textareaRef}
