@@ -9,11 +9,16 @@ const InstructionsEditor = () => {
     const [instruction, setInstruction] = useState<Instruction>(defaultInstruction)
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
-    
+
 
     useEffect(() => {
+        console.log("InstructionsEditor mounted")
         updateList()
     }, [])
+
+    useEffect(() => {
+        updatePlaceholderButtons(instruction.text)
+    }, [instruction.text])
 
     async function updateList() {
         const savedInstructions = await instructionManager.getSavedInstructions()
@@ -23,7 +28,6 @@ const InstructionsEditor = () => {
 
     const handleSelect = (instruction: Instruction) => {
         setInstruction(instruction)
-        updatePlaceholderButtons(instruction.text)
     }
 
     const handleAdd = () => {
@@ -47,18 +51,17 @@ const InstructionsEditor = () => {
             const end = textareaRef.current.selectionEnd
             const currentText = textareaRef.current.value
             const newText = currentText.substring(0, start) + text + currentText.substring(end, currentText.length)
-            setInstruction({ ...instruction, text: newText })
             textareaRef.current.setSelectionRange(start + text.length, start + text.length)
             textareaRef.current.focus()
 
-            updatePlaceholderButtons(newText)
+            setInstruction({ ...instruction, text: newText })
         }
     }
 
-    const handleTextareaChange = (e: any) => {
-        if (e.target.value !== instruction.text) {
-            setInstruction({ ...instruction, text: e.target.value })
-            updatePlaceholderButtons(e.target.value)
+    const handleTextareaChange = (e: Event) => {
+        let text = (e.target as HTMLTextAreaElement).value
+        if (text !== instruction.text) {
+            setInstruction({ ...instruction, text: text })
         }
     }
 
@@ -102,8 +105,9 @@ const InstructionsEditor = () => {
                     onClick={handleAdd}>
                     Add New Instruction
                 </button>
-                <ul className="wcg-menu wcg-w-full
-                wcg-bg-base-100 wcg-p-0 overflow-y-auto wcg-border-solid wcg-border-2 wcg-border-white/20">
+                <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
+                wcg-flex wcg-flex-col wcg-flex-nowrap
+                wcg-border-solid wcg-border-2 wcg-border-white/20">
                     {savedInstructions.map((inst) => (
                         <li
                             key={inst.name}
@@ -119,7 +123,7 @@ const InstructionsEditor = () => {
             <div className="wcg-flex wcg-flex-col wcg-w-2/3">
                 <input
                     ref={nameInputRef}
-                    className="wcg-input wcg-w-full wcg-text-base wcg-border-solid wcg-border-2 wcg-border-white/20 wcg-py-2"
+                    className="wcg-input wcg-input-bordered"
                     type="text"
                     placeholder="Name"
                     value={instruction.name}
@@ -132,7 +136,7 @@ const InstructionsEditor = () => {
                 <br />
                 <textarea
                     ref={textareaRef}
-                    className="wcg-textarea wcg-w-full wcg-h-96 wcg-min-w-full wcg-resize-none wcg-text-base wcg-border-solid wcg-border-2 wcg-border-white/20"
+                    className="wcg-input wcg-input-bordered wcg-h-96 wcg-resize-none wcg-text-base"
                     value={instruction.text}
                     onChange={(e: Event) =>
                         setInstruction({ ...instruction, text: (e.target as HTMLInputElement).value })

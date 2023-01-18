@@ -2,9 +2,10 @@ import { h } from "preact"
 
 function Dropdown({ value, onChange, options }) {
     return (
-        <select className="wcg-dropdown wcg-bg-transparent wcg-text-sm wcg-block wcg-p-2.5 wcg-pr-6 wcg-border-0 dark:bg-gray-800
-        focus:wcg-ring-0
-        " value={value} onChange={onChange}>
+        <select className="wcg-dropdown dark:wcg-bg-[#343541] wcg-bg-white wcg-text-sm wcg-block wcg-p-2.5 wcg-pr-6 wcg-border-0 focus:wcg-ring-0"
+            value={value}
+            onChange={onChange}
+        >
             {options.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>
             ))}

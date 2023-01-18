@@ -1,3 +1,4 @@
+import "../style/base.css"
 import { h, render } from "preact";
 import App from './OptionsApp'
 

@@ -1,5 +1,4 @@
 import { h, JSX } from "preact"
-import "../style/base.css"
 import { getUserConfig, Languages as Language, updateUserConfig } from "src/util/userConfig"
 import { useCallback, useEffect, useState } from "preact/hooks"
 import { capitalize } from 'lodash-es'
@@ -8,12 +7,12 @@ import InstructionsEditor from "src/components/InstructionEditor"
 
 function SocialIconButton(props: { url: string, tip: string, icon: JSX.Element }) {
     return (
-        <span class="wcg-tooltip wcg-tooltip-bottom wcg-normal-case before:wcg-text-xs before:wcg-content-[attr(data-tip)]" data-tip={props.tip}>
-            <div className="wcg-btn wcg-btn-ghost wcg-p-2 wcg-px-4">
-                <a href={props.url} target="_blank" rel="noopener noreferrer">
+        <span className="wcg-tooltip wcg-tooltip-bottom wcg-normal-case before:wcg-text-xs before:wcg-content-[attr(data-tip)]" data-tip={props.tip}>
+            <a href={props.url} target="_blank" rel="noopener noreferrer">
+                <div className="wcg-btn wcg-btn-ghost wcg-p-2 wcg-px-4">
                     {props.icon}
-                </a>
-            </div>
+                </div>
+            </a>
         </span>
     )
 }
@@ -58,7 +57,7 @@ export default function App() {
         <div className="wcg-w-3/5">
             {navBar}
             {/* text-base-content glass xl:rounded-box -mt-48 grid max-w-screen-xl gap-4 bg-opacity-60 xl:pb-0 */}
-            <div class="wcg-container wcg-mx-auto wcg-p-4 wcg-h-screen">
+            <div className="wcg-container wcg-mx-auto wcg-p-4 wcg-h-screen">
                 <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
                     <span className="wcg-text-2xl wcg-font-bold">Language</span>
                     <select className="wcg-select wcg-select-bordered wcg-select-primary"
@@ -74,7 +73,6 @@ export default function App() {
                 </div>
 
                 {InstructionsEditor()}
-
 
 
                 {buyMeACoffeeButton}

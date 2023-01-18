@@ -7,6 +7,7 @@ import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
 import { InstructionManager } from 'src/util/InstructionManager'
+import createShadowRoot from 'src/util/createShadowRoot'
 
 var isProcessing = false
 
@@ -80,7 +81,7 @@ function showErrorMessage(error: any) {
 
 
 async function updateUI() {
-    
+
     if (getWebChatGPTToolbar()) return
 
     btnSubmit = getSubmitButton()
@@ -95,9 +96,13 @@ async function updateUI() {
         const textareaParent = textarea.parentElement.parentElement
         textareaParent.style.flexDirection = 'column'
 
-        let div = document.createElement('div')
-        textareaParent.appendChild(div)
-        render(<Toolbar />, div)
+        // let div = document.createElement('div')
+        // textareaParent.appendChild(div)
+        // render(<Toolbar />, div)
+
+        const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
+        textareaParent.appendChild(shadowRootDiv)
+        render(<Toolbar />, shadowRoot)
     }
 
     if (footer) {

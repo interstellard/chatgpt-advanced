@@ -13,7 +13,7 @@ const ErrorMessage = ({ message }) => {
     }, [])
 
     return show && (
-        <div class="wcg-error absolute wcg-bottom-0 wcg-right-1 dark:wcg-text-white wcg-bg-red-500 wcg-p-4 wcg-rounded-lg wcg-mb-4 wcg-mr-4 wcg-text-sm">
+        <div className="wcg-error absolute wcg-bottom-0 wcg-right-1 dark:wcg-text-white wcg-bg-red-500 wcg-p-4 wcg-rounded-lg wcg-mb-4 wcg-mr-4 wcg-text-sm">
             <b>An error occurred</b><br />
             {message}<br /><br />
             Check the console for more details.

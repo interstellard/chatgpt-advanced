@@ -62,7 +62,7 @@ export class InstructionManager {
         let newInstruction = instruction
         for (const key in variables) {
             try {
-                newInstruction = newInstruction.replace(key, variables[key])
+                newInstruction = newInstruction.replaceAll(key, variables[key])
             } catch (error) {
             }
         }
