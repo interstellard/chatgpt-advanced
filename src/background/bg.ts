@@ -18,3 +18,10 @@ if (manifest_version == 2) {
 } else {
     Browser.action.onClicked.addListener(openChatGPTWebpage)
 }
+
+
+Browser.runtime.onMessage.addListener((request) => {
+    if (request === "show_options") {
+      Browser.runtime.openOptionsPage()
+    }
+  })

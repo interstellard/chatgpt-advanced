@@ -1,6 +1,8 @@
 import { h } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
+import { icons } from 'src/util/icons'
 import { getUserConfig, updateUserConfig, timePeriodOptions, regionOptions } from 'src/util/userConfig'
+import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
 
 
@@ -51,13 +53,21 @@ function Toolbar() {
         updateUserConfig({ region: e.target.value })
     }, [region])
 
+    const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
+        <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
+        <div className="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
+        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
+    </label>
+
     return (
         <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-3 wcg-mt-0 wcg-p-0 wcg-px-2 wcg-rounded-md">
-            <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
-                <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
-                <div className="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
-                <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
-            </label>
+
+            <div className="wcg-cursor-pointer wcg-pt-2"
+                onClick={() => Browser.runtime.sendMessage("show_options")}
+            >
+                {icons.tune}
+            </div>
+            {webAccessToggle}
 
             <Dropdown
                 value={numResults}

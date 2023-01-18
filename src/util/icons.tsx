@@ -18,12 +18,16 @@ export const githubIcon = (
     </svg>
 )
 
+export const tuneIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+        <path fill="#aaa" d="M11 21v-6h2v2h8v2h-8v2Zm-8-2v-2h6v2Zm4-4v-2H3v-2h4V9h2v6Zm4-2v-2h10v2Zm4-4V3h2v2h4v2h-4v2ZM3 7V5h10v2Z" />
+    </svg>
+)
+
+
 export const icons = {
     twitter: twitterIcon,
     discord: discordIcon,
-    github: githubIcon
+    github: githubIcon,
+    tune: tuneIcon,
 }
-
-// how to scale down the icons to 0.5x?
-// A: use the viewBox attribute to scale the icons down to 0.5x, like this:
-// <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

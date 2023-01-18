@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, JSX } from "preact";
 
 function SocialIconButton(props: { url: string, tip: string, icon: JSX.Element }) {
     return (
