@@ -62,7 +62,7 @@ function Toolbar() {
     return (
         <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-3 wcg-mt-0 wcg-p-0 wcg-px-2 wcg-rounded-md">
 
-            <div className="wcg-cursor-pointer wcg-pt-2"
+            <div className="wcg-btn wcg-btn-xs"
                 onClick={() => Browser.runtime.sendMessage("show_options")}
             >
                 {icons.tune}
