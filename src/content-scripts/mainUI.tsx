@@ -96,10 +96,6 @@ async function updateUI() {
         const textareaParent = textarea.parentElement.parentElement
         textareaParent.style.flexDirection = 'column'
 
-        // let div = document.createElement('div')
-        // textareaParent.appendChild(div)
-        // render(<Toolbar />, div)
-
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
         textareaParent.appendChild(shadowRootDiv)
         render(<Toolbar />, shadowRoot)

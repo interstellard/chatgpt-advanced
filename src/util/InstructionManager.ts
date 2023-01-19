@@ -1,10 +1,11 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
+import { getUserConfig } from "./userConfig"
 
 
 export const DEFAULT_INSTRUCTION_KEY = 'default_instruction'
-export const CURRENT_INSTRUCTION_NAME_KEY = 'current_instruction_name'
+export const CURRENT_INSTRUCTION_UUID_KEY = 'instructionUUID'
 export const SAVED_INSTRUCTIONS_KEY = 'saved_instructions'
 
 export interface Instruction {
@@ -27,7 +28,7 @@ export class InstructionManager {
         })
         return instruction
     }
-    
+
     private formatWebResults(results: SearchResult[]) {
         let counter = 1
         let formattedResults = results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.href}\n\n`, "")
@@ -45,14 +46,19 @@ export class InstructionManager {
         return newInstruction
     }
 
-    getDefaultInstruction() {
-        return { name: 'default', text: Browser.i18n.getMessage(DEFAULT_INSTRUCTION_KEY) }
+    getDefaultInstruction(): Instruction {
+        return { name: 'Default prompt', text: Browser.i18n.getMessage(DEFAULT_INSTRUCTION_KEY), uuid: 'default' }
     }
 
     async getCurrentInstruction(): Promise<Instruction> {
         const defaultInstruction = this.getDefaultInstruction()
-        const data = await Browser.storage.sync.get([CURRENT_INSTRUCTION_NAME_KEY, SAVED_INSTRUCTIONS_KEY])
-        const currentInstruction = data[SAVED_INSTRUCTIONS_KEY].find((i: Instruction) => i.name === data[CURRENT_INSTRUCTION_NAME_KEY])
+        const data = await Browser.storage.sync.get()
+        const currentInstructionUuid = data[CURRENT_INSTRUCTION_UUID_KEY]
+        const savedInstructions = data[SAVED_INSTRUCTIONS_KEY]
+        if (!savedInstructions) {
+            return defaultInstruction
+        }
+        const currentInstruction = savedInstructions.find((i: Instruction) => i.uuid === currentInstructionUuid)
         return currentInstruction || defaultInstruction
     }
 

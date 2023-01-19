@@ -18,6 +18,7 @@ const defaultConfig = {
     region: 'wt-wt',
     timePeriod: '',
     language: Languages.Auto,
+    instructionUUID: 'default',
 }
 
 export type UserConfig = typeof defaultConfig

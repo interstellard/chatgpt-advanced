@@ -21,7 +21,7 @@ const InstructionsEditor = () => {
 
     useEffect(() => {
         updateList()
-    })
+    }, [])
 
     useEffect(() => {
         updatePlaceholderButtons(instruction.text)

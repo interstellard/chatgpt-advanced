@@ -1,6 +1,7 @@
 import { h } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
+import { Instruction, InstructionManager } from 'src/util/InstructionManager'
 import { getUserConfig, updateUserConfig, timePeriodOptions, regionOptions } from 'src/util/userConfig'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
@@ -11,11 +12,13 @@ const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) 
     label: `${num} result${num === 1 ? '' : 's'}`
 }))
 
-function useUserConfig() {
+function Toolbar() {
     const [webAccess, setWebAccess] = useState(true)
     const [numResults, setNumResults] = useState(3)
     const [timePeriod, setTimePeriod] = useState('')
     const [region, setRegion] = useState('wt-wt')
+    const [instructionUUID, setInstructionUUID] = useState<string>('')
+    const [instructions, setInstructions] = useState<Instruction[]>([])
 
     useEffect(() => {
         getUserConfig().then((userConfig) => {
@@ -23,14 +26,14 @@ function useUserConfig() {
             setNumResults(userConfig.numWebResults)
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
+            setInstructionUUID(userConfig.instructionUUID)
         })
-    })
-
-    return { webAccess, setWebAccess, numResults, setNumResults, timePeriod, setTimePeriod, region, setRegion }
-}
-
-function Toolbar() {
-    const { webAccess, setWebAccess, numResults, setNumResults, timePeriod, setTimePeriod, region, setRegion } = useUserConfig()
+        const im = new InstructionManager()
+        im.getSavedInstructions().then((savedInstructions) => {
+            const defaultInstruction = im.getDefaultInstruction()
+            setInstructions((instructions) => [defaultInstruction, ...savedInstructions])
+        })
+    }, [])
 
     const handleWebAccessToggle = useCallback(() => {
         setWebAccess(!webAccess)
@@ -52,6 +55,12 @@ function Toolbar() {
         setRegion(e.target.value)
         updateUserConfig({ region: e.target.value })
     }, [region])
+
+    const handleInstructionChange = useCallback((e: { target: { value: string } }) => {
+        setInstructionUUID(e.target.value)
+        console.log(e.target.value)
+        updateUserConfig({ instructionUUID: e.target.value })
+    }, [instructionUUID])
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
         <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
@@ -83,6 +92,13 @@ function Toolbar() {
                 value={region}
                 onChange={handleRegionChange}
                 options={regionOptions}
+            />
+            <Dropdown
+                value={instructionUUID}
+                onChange={handleInstructionChange}
+                options={
+                    instructions.map((instruction) => ({ value: instruction.uuid, label: instruction.name }))
+                }
             />
 
         </div>

@@ -37,7 +37,7 @@ export default function App() {
         getUserConfig().then(config => {
             setLanguage(config.language)
         })
-    })
+    }, [])
 
     const onLanguageChange = useCallback((language: Language) => {
         updateUserConfig({ language })
