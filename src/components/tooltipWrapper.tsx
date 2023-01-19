@@ -7,15 +7,19 @@ export const tooltipPositions = {
 
 
 function TooltipWrapper(props: { tip: string, children: JSX.Element, position?: string }) {
-    return (
-        <span className={
-            `wcg-tooltip ${props.position || tooltipPositions.bottom}
+    if (!props.tip) {
+        return props.children
+    } else {
+        return (
+            <span className={
+                `wcg-tooltip ${props.position || tooltipPositions.bottom}
              wcg-normal-case before:wcg-text-xs before:wcg-content-[attr(data-tip)]`
-        }
-            data-tip={props.tip}>
-            {props.children}
-        </span>
-    )
+            }
+                data-tip={props.tip}>
+                {props.children}
+            </span>
+        )
+    }
 }
 
 export default TooltipWrapper

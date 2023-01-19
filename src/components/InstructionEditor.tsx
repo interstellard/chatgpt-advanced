@@ -12,6 +12,12 @@ const InstructionsEditor = () => {
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
     const [deleteBtnText, setDeleteBtnText] = useState("delete")
 
+    const [showErrors, setShowErrors] = useState(false)
+    const [nameError, setNameError] = useState(false)
+    const [textError, setTextError] = useState(false)
+    const [webResultsError, setWebResultsError] = useState(false)
+    const [queryError, setQueryError] = useState(false)
+
 
     useEffect(() => {
         updateList()
@@ -21,6 +27,13 @@ const InstructionsEditor = () => {
         updatePlaceholderButtons(instruction.text)
     }, [instruction.text])
 
+    useEffect(() => {
+        setNameError(instruction.name.trim() === '')
+        setTextError(instruction.text.trim() === '')
+        setWebResultsError(!instruction.text.includes('{web_results}'))
+        setQueryError(!instruction.text.includes('{query}'))
+    }, [instruction])
+
     async function updateList() {
         const savedInstructions = await instructionManager.getSavedInstructions()
         savedInstructions.unshift(defaultInstruction)
@@ -28,11 +41,14 @@ const InstructionsEditor = () => {
     }
 
     const handleSelect = (instruction: Instruction) => {
+        setShowErrors(false)
         setInstruction(instruction)
         setDeleteBtnText("delete")
     }
 
+
     const handleAdd = () => {
+        setShowErrors(false)
         setInstruction({ name: '', text: '' })
         setDeleteBtnText("delete")
         if (nameInputRef.current) {
@@ -41,6 +57,11 @@ const InstructionsEditor = () => {
     }
 
     const handleSave = async () => {
+        setShowErrors(true)
+        if (nameError || textError || webResultsError || queryError) {
+            return
+        }
+
         await instructionManager.saveInstruction(instruction)
         updateList()
     }
@@ -79,6 +100,7 @@ const InstructionsEditor = () => {
     const handleTextareaChange = (e: Event) => {
         let text = (e.target as HTMLTextAreaElement).value
         if (text !== instruction.text) {
+            setTextError(false)
             setInstruction({ ...instruction, text: text })
         }
     }
@@ -91,30 +113,38 @@ const InstructionsEditor = () => {
     const actionToolbar = (
         <div className="wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4">
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                <TooltipWrapper tip="Insert placeholder for web results (required)">
+                <TooltipWrapper tip={showErrors ? "Insert placeholder for web results (required)" : ""}>
                     <button
-                        className={`wcg-btn ${hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-lowercase wcg-p-1`}
-                        onClick={() => handleInsertText('{web_results}')}
+                        className={`wcg-btn
+                        ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        wcg-lowercase wcg-p-1`}
+                        onClick={() => {
+                            setWebResultsError(false)
+                            handleInsertText('{web_results}')
+                        }}
                     >
                         &#123;web_results&#125;
                     </button>
                 </TooltipWrapper>
-                <TooltipWrapper tip="Insert placeholder for the original query (required)">
+                <TooltipWrapper tip={showErrors ? "Insert placeholder for the current query (required)" : ""}>
                     <button
-                        className={`wcg-btn ${hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-lowercase wcg-p-1`}
-                        onClick={() => handleInsertText('{query}')}
+                        className={`wcg-btn
+                        ${showErrors && queryError ? "wcg-btn-error" : hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        wcg-lowercase wcg-p-1`}
+                        onClick={() => {
+                            setQueryError(false)
+                            handleInsertText('{query}')
+                        }}
                     >
                         &#123;query&#125;
                     </button>
                 </TooltipWrapper>
-                <TooltipWrapper tip="Insert placeholder for the current date (optional)">
-                    <button
-                        className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
-                        onClick={() => handleInsertText('{current_date}')}
-                    >
-                        &#123;current_date&#125;
-                    </button>
-                </TooltipWrapper>
+                <button
+                    className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
+                    onClick={() => handleInsertText('{current_date}')}
+                >
+                    &#123;current_date&#125;
+                </button>
             </div>
 
             <button
@@ -126,68 +156,85 @@ const InstructionsEditor = () => {
         </div>
     )
 
+    const instructionList = (
+        <div>
+            <button
+                className="wcg-btn wcg-btn-primary wcg-w-full wcg-text-base"
+                onClick={handleAdd}>
+                <span class="material-symbols-outlined wcg-mr-2">
+                    add_circle
+                </span>
+                Add New Instruction
+            </button>
+            <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
+                    wcg-flex wcg-flex-col wcg-flex-nowrap
+                    wcg-border-solid wcg-border-2 wcg-border-white/20">
+                {savedInstructions.map((inst) => (
+                    <li
+                        key={inst.name}
+                        onClick={() => handleSelect(inst)}
+                    >
+                        <a className={`wcg-text-base ${inst.uuid === instruction.uuid ? 'wcg-active' : ''}`}>
+                            📝 {inst.name}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+
+    const nameInput = (
+        <input
+            ref={nameInputRef}
+            className={`wcg-input wcg-input-bordered
+                            ${showErrors && nameError ? "wcg-input-error" : ""}
+                            wcg-flex-1`}
+            placeholder="Name"
+            value={instruction.name}
+            onInput={(e: Event) => {
+                setNameError(false)
+                setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
+            }}
+            disabled={instruction.name === defaultInstruction.name} />)
+
+    const btnDelete = (
+        <button
+            className={`wcg-btn
+                            ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
+                            wcg-text-base
+                            ${instruction.name === defaultInstruction.name ? "wcg-hidden" : ""}`}
+            onClick={handleDeleteBtnClick}
+            hidden={instruction.name === defaultInstruction.name}
+        >
+            <span class="material-symbols-outlined">
+                {deleteBtnText}
+            </span>
+        </button>
+    )
+
+    const textArea = (
+        <textarea
+            ref={textareaRef}
+            className={`wcg-textarea wcg-textarea-bordered
+                        ${showErrors && textError ? "wcg-textarea-error" : ""}
+                        wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2`}
+            value={instruction.text}
+            onInput={handleTextareaChange}
+            disabled={instruction.name === defaultInstruction.name} />
+    )
 
     return (
         <div className="wcg-w-4/5 wcg-border wcg-rounded-box wcg-py-4 wcg-flex wcg-flex-row wcg-gap-4 wcg-h-96">
             <div className="wcg-w-1/3">
-                <button
-                    className="wcg-btn wcg-btn-primary wcg-w-full wcg-text-base"
-                    onClick={handleAdd}>
-                    <span class="material-symbols-outlined wcg-mr-2">
-                        add_circle
-                    </span>
-                    Add New Instruction
-                </button>
-                <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
-                wcg-flex wcg-flex-col wcg-flex-nowrap
-                wcg-border-solid wcg-border-2 wcg-border-white/20">
-                    {savedInstructions.map((inst) => (
-                        <li
-                            key={inst.name}
-                            onClick={() => handleSelect(inst)}
-                        >
-                            <a className={`wcg-text-base ${inst.uuid === instruction.uuid ? 'wcg-active' : ''}`}>
-                                📝 {inst.name}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+                {instructionList}
             </div>
+
             <div className="wcg-flex wcg-flex-col wcg-w-2/3">
                 <div className="wcg-flex wcg-flex-row wcg-gap-2 wcg-items-center">
-                    <input
-                        ref={nameInputRef}
-                        className="wcg-input wcg-input-bordered wcg-flex-1"
-                        placeholder="Name"
-                        value={instruction.name}
-                        onInput={(e: Event) =>
-                            setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
-                        }
-                        disabled={instruction.name === defaultInstruction.name}
-                    />
-
-                    <button
-                        className={
-                            `wcg-btn
-                            ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
-                            wcg-text-base
-                            ${instruction.name === defaultInstruction.name ? "wcg-hidden" : ""}`
-                        }
-                        onClick={handleDeleteBtnClick}
-                        hidden={instruction.name === defaultInstruction.name}
-                    >
-                        <span class="material-symbols-outlined">
-                            {deleteBtnText}
-                        </span>
-                    </button>
+                    {nameInput}
+                    {btnDelete}
                 </div>
-                <textarea
-                    ref={textareaRef}
-                    className="wcg-textarea wcg-textarea-bordered wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2"
-                    value={instruction.text}
-                    onInput={handleTextareaChange}
-                    disabled={instruction.name === defaultInstruction.name}
-                />
+                {textArea}
 
                 {instruction.name !== defaultInstruction.name && (
                     actionToolbar
