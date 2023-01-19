@@ -1,7 +1,6 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
-import { getUserConfig } from "./userConfig"
 
 
 export const DEFAULT_PROMPT_KEY = 'default_prompt'

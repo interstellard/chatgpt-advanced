@@ -27,7 +27,6 @@ function Toolbar() {
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
             setPromptUUID(userConfig.promptUUID)
-            console.log(userConfig)
         })
         const im = new PromptManager()
         im.getSavedPrompts().then((savedPrompts) => {
@@ -69,7 +68,7 @@ function Toolbar() {
     </label>
 
     return (
-        <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-3 wcg-mt-0 wcg-p-0 wcg-px-2 wcg-rounded-md">
+        <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-mt-0 wcg-p-0 wcg-px-1 wcg-rounded-md">
 
             <div className="wcg-btn wcg-btn-xs"
                 onClick={() => Browser.runtime.sendMessage("show_options")}

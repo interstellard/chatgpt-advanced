@@ -224,7 +224,7 @@ const PromptEditor = () => {
     )
 
     return (
-        <div className="wcg-w-4/5 wcg-border wcg-rounded-box wcg-py-4 wcg-flex wcg-flex-row wcg-gap-4 wcg-h-96">
+        <div className="wcg-w-4/5 wcg-border wcg-rounded-box wcg-py-4 wcg-flex wcg-flex-row wcg-gap-4 wcg-h-[32rem]">
             <div className="wcg-w-1/3">
                 {PromptList}
             </div>
