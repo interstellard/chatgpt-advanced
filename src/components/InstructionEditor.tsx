@@ -10,6 +10,7 @@ const InstructionsEditor = () => {
     const [instruction, setInstruction] = useState<Instruction>(defaultInstruction)
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
+    const [deleteBtnText, setDeleteBtnText] = useState("delete")
 
 
     useEffect(() => {
@@ -28,10 +29,12 @@ const InstructionsEditor = () => {
 
     const handleSelect = (instruction: Instruction) => {
         setInstruction(instruction)
+        setDeleteBtnText("delete")
     }
 
     const handleAdd = () => {
         setInstruction({ name: '', text: '' })
+        setDeleteBtnText("delete")
         if (nameInputRef.current) {
             nameInputRef.current.focus()
         }
@@ -42,10 +45,20 @@ const InstructionsEditor = () => {
         updateList()
     }
 
+    const handleDeleteBtnClick = () => {
+        if (deleteBtnText === "delete") {
+            setDeleteBtnText("check");
+        } else {
+            handleDelete();
+        }
+    }
+
     const handleDelete = async () => {
         await instructionManager.deleteInstruction(instruction)
         updateList()
+        handleAdd()
     }
+
 
     const nameInputRef = useRef<HTMLInputElement>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -154,18 +167,23 @@ const InstructionsEditor = () => {
                     />
 
                     <button
-                        className={"wcg-btn wcg-btn-primary wcg-text-base" + (instruction.name === defaultInstruction.name ? " wcg-hidden" : "")}
-                        onClick={handleDelete}
+                        className={
+                            `wcg-btn
+                            ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
+                            wcg-text-base
+                            ${instruction.name === defaultInstruction.name ? "wcg-hidden" : ""}`
+                        }
+                        onClick={handleDeleteBtnClick}
                         hidden={instruction.name === defaultInstruction.name}
                     >
                         <span class="material-symbols-outlined">
-                            delete
+                            {deleteBtnText}
                         </span>
                     </button>
                 </div>
                 <textarea
                     ref={textareaRef}
-                    className="wcg-input wcg-input-bordered wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2 wcg-pt-2"
+                    className="wcg-textarea wcg-textarea-bordered wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2"
                     value={instruction.text}
                     onInput={handleTextareaChange}
                     disabled={instruction.name === defaultInstruction.name}
