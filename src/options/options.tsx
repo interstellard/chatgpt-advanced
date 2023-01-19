@@ -4,7 +4,7 @@ import { getUserConfig, Languages as Language, updateUserConfig } from "src/util
 import { useCallback, useEffect, useState } from "preact/hooks"
 import { capitalize } from 'lodash-es'
 import { icons } from 'src/util/icons'
-import InstructionsEditor from "src/components/InstructionEditor"
+import PromptEditor from "src/components/promptEditor"
 import SocialIconButton from "src/components/socialIconButton"
 
 const buyMeACoffeeButton = (
@@ -63,7 +63,7 @@ export default function App() {
 
                 <div className="wcg-divider wcg-my-4"></div>
 
-                {InstructionsEditor()}
+                {PromptEditor()}
 
 
                 {buyMeACoffeeButton}

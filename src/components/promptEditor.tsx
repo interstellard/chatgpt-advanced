@@ -1,13 +1,13 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
-import { InstructionManager, Instruction } from 'src/util/InstructionManager'
+import { PromptManager, Prompt } from 'src/util/promptManager'
 import TooltipWrapper from './tooltipWrapper'
 
-const InstructionsEditor = () => {
-    const [instructionManager] = useState(new InstructionManager())
-    const [savedInstructions, setSavedInstructions] = useState<Instruction[]>([])
-    const [defaultInstruction] = useState(instructionManager.getDefaultInstruction())
-    const [instruction, setInstruction] = useState<Instruction>(defaultInstruction)
+const PromptEditor = () => {
+    const [promptManager] = useState(new PromptManager())
+    const [savedPrompts, setSavedPrompts] = useState<Prompt[]>([])
+    const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
+    const [prompt, setPrompt] = useState<Prompt>(defaultPrompt)
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
     const [deleteBtnText, setDeleteBtnText] = useState("delete")
@@ -24,32 +24,32 @@ const InstructionsEditor = () => {
     }, [])
 
     useEffect(() => {
-        updatePlaceholderButtons(instruction.text)
-    }, [instruction.text])
+        updatePlaceholderButtons(prompt.text)
+    }, [prompt.text])
 
     useEffect(() => {
-        setNameError(instruction.name.trim() === '')
-        setTextError(instruction.text.trim() === '')
-        setWebResultsError(!instruction.text.includes('{web_results}'))
-        setQueryError(!instruction.text.includes('{query}'))
-    }, [instruction])
+        setNameError(prompt.name.trim() === '')
+        setTextError(prompt.text.trim() === '')
+        setWebResultsError(!prompt.text.includes('{web_results}'))
+        setQueryError(!prompt.text.includes('{query}'))
+    }, [prompt])
 
     async function updateList() {
-        const savedInstructions = await instructionManager.getSavedInstructions()
-        savedInstructions.unshift(defaultInstruction)
-        setSavedInstructions(savedInstructions)
+        const savedPrompts = await promptManager.getSavedPrompts()
+        savedPrompts.unshift(defaultPrompt)
+        setSavedPrompts(savedPrompts)
     }
 
-    const handleSelect = (instruction: Instruction) => {
+    const handleSelect = (prompt: Prompt) => {
         setShowErrors(false)
-        setInstruction(instruction)
+        setPrompt(prompt)
         setDeleteBtnText("delete")
     }
 
 
     const handleAdd = () => {
         setShowErrors(false)
-        setInstruction({ name: '', text: '' })
+        setPrompt({ name: '', text: '' })
         setDeleteBtnText("delete")
         if (nameInputRef.current) {
             nameInputRef.current.focus()
@@ -62,7 +62,7 @@ const InstructionsEditor = () => {
             return
         }
 
-        await instructionManager.saveInstruction(instruction)
+        await promptManager.savePrompt(prompt)
         updateList()
     }
 
@@ -75,7 +75,7 @@ const InstructionsEditor = () => {
     }
 
     const handleDelete = async () => {
-        await instructionManager.deleteInstruction(instruction)
+        await promptManager.deletePrompt(prompt)
         updateList()
         handleAdd()
     }
@@ -93,15 +93,15 @@ const InstructionsEditor = () => {
             textareaRef.current.setSelectionRange(start + text.length, start + text.length)
             textareaRef.current.focus()
 
-            setInstruction({ ...instruction, text: newText })
+            setPrompt({ ...prompt, text: newText })
         }
     }
 
     const handleTextareaChange = (e: Event) => {
         let text = (e.target as HTMLTextAreaElement).value
-        if (text !== instruction.text) {
+        if (text !== prompt.text) {
             setTextError(false)
-            setInstruction({ ...instruction, text: text })
+            setPrompt({ ...prompt, text: text })
         }
     }
 
@@ -156,7 +156,7 @@ const InstructionsEditor = () => {
         </div>
     )
 
-    const instructionList = (
+    const PromptList = (
         <div>
             <button
                 className="wcg-btn wcg-btn-primary wcg-w-full wcg-text-base"
@@ -164,17 +164,17 @@ const InstructionsEditor = () => {
                 <span class="material-symbols-outlined wcg-mr-2">
                     add_circle
                 </span>
-                Add New Instruction
+                Add New Prompt
             </button>
             <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
                     wcg-flex wcg-flex-col wcg-flex-nowrap
                     wcg-border-solid wcg-border-2 wcg-border-white/20">
-                {savedInstructions.map((inst) => (
+                {savedPrompts.map((inst) => (
                     <li
                         key={inst.name}
                         onClick={() => handleSelect(inst)}
                     >
-                        <a className={`wcg-text-base ${inst.uuid === instruction.uuid ? 'wcg-active' : ''}`}>
+                        <a className={`wcg-text-base ${inst.uuid === prompt.uuid ? 'wcg-active' : ''}`}>
                             📝 {inst.name}
                         </a>
                     </li>
@@ -190,21 +190,21 @@ const InstructionsEditor = () => {
                             ${showErrors && nameError ? "wcg-input-error" : ""}
                             wcg-flex-1`}
             placeholder="Name"
-            value={instruction.name}
+            value={prompt.name}
             onInput={(e: Event) => {
                 setNameError(false)
-                setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
+                setPrompt({ ...prompt, name: (e.target as HTMLInputElement).value })
             }}
-            disabled={instruction.name === defaultInstruction.name} />)
+            disabled={prompt.name === defaultPrompt.name} />)
 
     const btnDelete = (
         <button
             className={`wcg-btn
                             ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
                             wcg-text-base
-                            ${instruction.name === defaultInstruction.name ? "wcg-hidden" : ""}`}
+                            ${prompt.name === defaultPrompt.name ? "wcg-hidden" : ""}`}
             onClick={handleDeleteBtnClick}
-            hidden={instruction.name === defaultInstruction.name}
+            hidden={prompt.name === defaultPrompt.name}
         >
             <span class="material-symbols-outlined">
                 {deleteBtnText}
@@ -218,15 +218,15 @@ const InstructionsEditor = () => {
             className={`wcg-textarea wcg-textarea-bordered
                         ${showErrors && textError ? "wcg-textarea-error" : ""}
                         wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2`}
-            value={instruction.text}
+            value={prompt.text}
             onInput={handleTextareaChange}
-            disabled={instruction.name === defaultInstruction.name} />
+            disabled={prompt.name === defaultPrompt.name} />
     )
 
     return (
         <div className="wcg-w-4/5 wcg-border wcg-rounded-box wcg-py-4 wcg-flex wcg-flex-row wcg-gap-4 wcg-h-96">
             <div className="wcg-w-1/3">
-                {instructionList}
+                {PromptList}
             </div>
 
             <div className="wcg-flex wcg-flex-col wcg-w-2/3">
@@ -236,7 +236,7 @@ const InstructionsEditor = () => {
                 </div>
                 {textArea}
 
-                {instruction.name !== defaultInstruction.name && (
+                {prompt.name !== defaultPrompt.name && (
                     actionToolbar
                 )}
             </div>
@@ -244,4 +244,4 @@ const InstructionsEditor = () => {
     )
 }
 
-export default InstructionsEditor
+export default PromptEditor

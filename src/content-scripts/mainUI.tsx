@@ -6,7 +6,7 @@ import Footer from 'src/components/footer'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
-import { InstructionManager } from 'src/util/InstructionManager'
+import { PromptManager } from 'src/util/promptManager'
 import createShadowRoot from 'src/util/createShadowRoot'
 
 var isProcessing = false
@@ -15,7 +15,7 @@ var btnSubmit: HTMLButtonElement
 var textarea: HTMLTextAreaElement
 var footer: HTMLDivElement
 
-const instructionManager = new InstructionManager()
+const promptManager = new PromptManager()
 
 async function onSubmit(event: any) {
 
@@ -58,7 +58,7 @@ async function onSubmit(event: any) {
 
 async function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
 
-    textarea.value = await instructionManager.compilePrompt(results, query)
+    textarea.value = await promptManager.compilePrompt(results, query)
 }
 
 function pressEnter() {

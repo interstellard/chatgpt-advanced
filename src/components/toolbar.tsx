@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
-import { Instruction, InstructionManager } from 'src/util/InstructionManager'
+import { Prompt, PromptManager } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig, timePeriodOptions, regionOptions } from 'src/util/userConfig'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
@@ -17,8 +17,8 @@ function Toolbar() {
     const [numResults, setNumResults] = useState(3)
     const [timePeriod, setTimePeriod] = useState('')
     const [region, setRegion] = useState('wt-wt')
-    const [instructionUUID, setInstructionUUID] = useState<string>('')
-    const [instructions, setInstructions] = useState<Instruction[]>([])
+    const [promptUUID, setPromptUUID] = useState<string>('')
+    const [prompts, setPrompts] = useState<Prompt[]>([])
 
     useEffect(() => {
         getUserConfig().then((userConfig) => {
@@ -26,12 +26,13 @@ function Toolbar() {
             setNumResults(userConfig.numWebResults)
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
-            setInstructionUUID(userConfig.instructionUUID)
+            setPromptUUID(userConfig.promptUUID)
+            console.log(userConfig)
         })
-        const im = new InstructionManager()
-        im.getSavedInstructions().then((savedInstructions) => {
-            const defaultInstruction = im.getDefaultInstruction()
-            setInstructions((instructions) => [defaultInstruction, ...savedInstructions])
+        const im = new PromptManager()
+        im.getSavedPrompts().then((savedPrompts) => {
+            const defaultPrompt = im.getDefaultPrompt()
+            setPrompts((prompts) => [defaultPrompt, ...savedPrompts])
         })
     }, [])
 
@@ -56,11 +57,10 @@ function Toolbar() {
         updateUserConfig({ region: e.target.value })
     }, [region])
 
-    const handleInstructionChange = useCallback((e: { target: { value: string } }) => {
-        setInstructionUUID(e.target.value)
-        console.log(e.target.value)
-        updateUserConfig({ instructionUUID: e.target.value })
-    }, [instructionUUID])
+    const handlePromptChange = useCallback((e: { target: { value: string } }) => {
+        setPromptUUID(e.target.value)
+        updateUserConfig({ promptUUID: e.target.value })
+    }, [promptUUID])
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
         <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
@@ -94,10 +94,10 @@ function Toolbar() {
                 options={regionOptions}
             />
             <Dropdown
-                value={instructionUUID}
-                onChange={handleInstructionChange}
+                value={promptUUID}
+                onChange={handlePromptChange}
                 options={
-                    instructions.map((instruction) => ({ value: instruction.uuid, label: instruction.name }))
+                    prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))
                 }
             />
 
