@@ -137,19 +137,17 @@ const InstructionsEditor = () => {
             </div>
             <div className="wcg-flex wcg-flex-col wcg-w-2/3">
                 <div className="wcg-flex wcg-flex-row wcg-gap-2 wcg-items-center">
-
                     <input
                         ref={nameInputRef}
                         className="wcg-input wcg-input-bordered wcg-flex-1"
-                        type="text"
                         placeholder="Name"
                         value={instruction.name}
-                        onChange={(e: Event) =>
+                        onInput={(e: Event) =>
                             setInstruction({ ...instruction, name: (e.target as HTMLInputElement).value })
                         }
                         disabled={instruction.name === defaultInstruction.name}
-                    >
-                    </input>
+                    />
+
                     <button
                         className={"wcg-btn wcg-btn-primary wcg-text-base" + (instruction.name === defaultInstruction.name ? " wcg-hidden" : "")}
                         onClick={handleSave}
@@ -165,9 +163,6 @@ const InstructionsEditor = () => {
                     ref={textareaRef}
                     className="wcg-input wcg-input-bordered wcg-h-96 wcg-resize-none wcg-text-base"
                     value={instruction.text}
-                    onChange={(e: Event) =>
-                        setInstruction({ ...instruction, text: (e.target as HTMLInputElement).value })
-                    }
                     onInput={handleTextareaChange}
                     disabled={instruction.name === defaultInstruction.name}
                 />
