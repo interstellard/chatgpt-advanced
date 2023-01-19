@@ -42,6 +42,11 @@ const InstructionsEditor = () => {
         updateList()
     }
 
+    const handleDelete = async () => {
+        await instructionManager.deleteInstruction(instruction)
+        updateList()
+    }
+
     const nameInputRef = useRef<HTMLInputElement>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -150,7 +155,7 @@ const InstructionsEditor = () => {
 
                     <button
                         className={"wcg-btn wcg-btn-primary wcg-text-base" + (instruction.name === defaultInstruction.name ? " wcg-hidden" : "")}
-                        onClick={handleSave}
+                        onClick={handleDelete}
                         hidden={instruction.name === defaultInstruction.name}
                     >
                         <span class="material-symbols-outlined">
@@ -158,10 +163,9 @@ const InstructionsEditor = () => {
                         </span>
                     </button>
                 </div>
-                <br />
                 <textarea
                     ref={textareaRef}
-                    className="wcg-input wcg-input-bordered wcg-h-96 wcg-resize-none wcg-text-base"
+                    className="wcg-input wcg-input-bordered wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2 wcg-pt-2"
                     value={instruction.text}
                     onInput={handleTextareaChange}
                     disabled={instruction.name === defaultInstruction.name}
