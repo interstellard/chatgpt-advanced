@@ -20,10 +20,12 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "preact": "^10.10.0"
+    "preact": "^10.10.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",
+    "@types/uuid": "^9.0.0",
     "@types/webextension-polyfill": "^0.10.0",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",

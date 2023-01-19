@@ -1,11 +1,14 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
+import { v4 as uuidv4 } from 'uuid'
+
 
 export const DEFAULT_INSTRUCTION_KEY = 'default_instruction'
 export const CURRENT_INSTRUCTION_NAME_KEY = 'current_instruction_name'
 export const SAVED_INSTRUCTIONS_KEY = 'saved_instructions'
 
 export interface Instruction {
+    uuid?: string,
     name: string,
     text: string
 }
@@ -23,6 +26,23 @@ export class InstructionManager {
             '{current_date}': currentDate
         })
         return instruction
+    }
+    
+    private formatWebResults(results: SearchResult[]) {
+        let counter = 1
+        let formattedResults = results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.href}\n\n`, "")
+        return formattedResults
+    }
+
+    private replaceVariables(instruction: string, variables: { [key: string]: string }) {
+        let newInstruction = instruction
+        for (const key in variables) {
+            try {
+                newInstruction = newInstruction.replaceAll(key, variables[key])
+            } catch (error) {
+            }
+        }
+        return newInstruction
     }
 
     getDefaultInstruction() {
@@ -43,30 +63,20 @@ export class InstructionManager {
 
     async saveInstruction(instruction: Instruction) {
         let savedInstructions = await this.getSavedInstructions()
-        const index = savedInstructions.findIndex(i => i.name === instruction.name)
+        const index = savedInstructions.findIndex(i => i.uuid === instruction.uuid)
         if (index >= 0) {
             savedInstructions[index] = instruction
         } else {
+            instruction.uuid = uuidv4()
             savedInstructions.push(instruction)
         }
         await Browser.storage.sync.set({ [SAVED_INSTRUCTIONS_KEY]: savedInstructions })
     }
 
-    private formatWebResults(results: SearchResult[]) {
-        let counter = 1
-        let formattedResults = results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.href}\n\n`, "")
-        return formattedResults
-    }
-
-    private replaceVariables(instruction: string, variables: { [key: string]: string }) {
-        let newInstruction = instruction
-        for (const key in variables) {
-            try {
-                newInstruction = newInstruction.replaceAll(key, variables[key])
-            } catch (error) {
-            }
-        }
-        return newInstruction
+    async deleteInstruction(instruction: Instruction) {
+        let savedInstructions = await this.getSavedInstructions()
+        savedInstructions = savedInstructions.filter(i => i.uuid !== instruction.uuid)
+        await Browser.storage.sync.set({ [SAVED_INSTRUCTIONS_KEY]: savedInstructions })
     }
 }
 

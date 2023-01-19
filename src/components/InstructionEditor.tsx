@@ -1,6 +1,7 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
 import { InstructionManager, Instruction } from 'src/util/InstructionManager'
+import TooltipWrapper from './tooltipWrapper'
 
 const InstructionsEditor = () => {
     const [instructionManager] = useState(new InstructionManager())
@@ -13,7 +14,7 @@ const InstructionsEditor = () => {
 
     useEffect(() => {
         updateList()
-    }, [])
+    })
 
     useEffect(() => {
         updatePlaceholderButtons(instruction.text)
@@ -72,18 +73,30 @@ const InstructionsEditor = () => {
     const actionToolbar = (
         <div className="wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4">
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                <button
-                    className={`wcg-btn ${hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-text-sm wcg-lowercase wcg-p-1`}
-                    onClick={() => handleInsertText('{web_results}')}
-                >
-                    &#123;web_results&#125;
-                </button>
-                <button
-                    className={`wcg-btn ${hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-text-sm wcg-lowercase wcg-p-1`}
-                    onClick={() => handleInsertText('{query}')}
-                >
-                    &#123;query&#125;
-                </button>
+                <TooltipWrapper tip="Insert placeholder for web results (required)">
+                    <button
+                        className={`wcg-btn ${hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-lowercase wcg-p-1`}
+                        onClick={() => handleInsertText('{web_results}')}
+                    >
+                        &#123;web_results&#125;
+                    </button>
+                </TooltipWrapper>
+                <TooltipWrapper tip="Insert placeholder for the original query (required)">
+                    <button
+                        className={`wcg-btn ${hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"} wcg-lowercase wcg-p-1`}
+                        onClick={() => handleInsertText('{query}')}
+                    >
+                        &#123;query&#125;
+                    </button>
+                </TooltipWrapper>
+                <TooltipWrapper tip="Insert placeholder for the current date (optional)">
+                    <button
+                        className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
+                        onClick={() => handleInsertText('{current_date}')}
+                    >
+                        &#123;current_date&#125;
+                    </button>
+                </TooltipWrapper>
             </div>
 
             <button
@@ -115,7 +128,7 @@ const InstructionsEditor = () => {
                             key={inst.name}
                             onClick={() => handleSelect(inst)}
                         >
-                            <a className={`wcg-text-base ${inst.name === instruction.name ? 'wcg-active' : ''}`}>
+                            <a className={`wcg-text-base ${inst.uuid === instruction.uuid ? 'wcg-active' : ''}`}>
                                 📝 {inst.name}
                             </a>
                         </li>
