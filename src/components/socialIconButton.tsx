@@ -1,7 +1,7 @@
 import { h, JSX } from "preact";
 import TooltipWrapper from "./tooltipWrapper";
 
-function SocialIconButton(props: { url: string, tip: string, icon: JSX.Element }) {
+function IconButton(props: { url: string, tip: string, icon: JSX.Element }) {
     return (
         <TooltipWrapper tip={props.tip}>
             <a href={props.url} target="_blank" rel="noopener noreferrer">
@@ -13,4 +13,4 @@ function SocialIconButton(props: { url: string, tip: string, icon: JSX.Element }
     )
 }
 
-export default SocialIconButton
+export default IconButton

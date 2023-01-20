@@ -1,12 +1,18 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
+import { LocalizationKeys, LocalizationManager } from 'src/util/localization'
 import { PromptManager, Prompt } from 'src/util/promptManager'
 import TooltipWrapper from './tooltipWrapper'
 
-const PromptEditor = () => {
+const PromptEditor = (
+    props: {
+        localizationManager: LocalizationManager
+    }
+) => {
     const [promptManager] = useState(new PromptManager())
     const [savedPrompts, setSavedPrompts] = useState<Prompt[]>([])
-    const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
+    // const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
+    const [defaultPrompt] = useState(props.localizationManager.getString(LocalizationKeys.defaultPrompt))
     const [prompt, setPrompt] = useState<Prompt>(defaultPrompt)
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
@@ -33,6 +39,7 @@ const PromptEditor = () => {
         setWebResultsError(!prompt.text.includes('{web_results}'))
         setQueryError(!prompt.text.includes('{query}'))
     }, [prompt])
+
 
     async function updateList() {
         const savedPrompts = await promptManager.getSavedPrompts()
@@ -113,7 +120,7 @@ const PromptEditor = () => {
     const actionToolbar = (
         <div className="wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4">
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                <TooltipWrapper tip={showErrors ? "Insert placeholder for web results (required)" : ""}>
+                <TooltipWrapper tip={showErrors ? props.localizationManager.getString(LocalizationKeys.placeHolderTips.webResults) : ""}>
                     <button
                         className={`wcg-btn
                         ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
@@ -126,7 +133,7 @@ const PromptEditor = () => {
                         &#123;web_results&#125;
                     </button>
                 </TooltipWrapper>
-                <TooltipWrapper tip={showErrors ? "Insert placeholder for the current query (required)" : ""}>
+                <TooltipWrapper tip={showErrors ? props.localizationManager.getString(LocalizationKeys.placeHolderTips.query) : ""}>
                     <button
                         className={`wcg-btn
                         ${showErrors && queryError ? "wcg-btn-error" : hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
@@ -139,19 +146,21 @@ const PromptEditor = () => {
                         &#123;query&#125;
                     </button>
                 </TooltipWrapper>
-                <button
-                    className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
-                    onClick={() => handleInsertText('{current_date}')}
-                >
-                    &#123;current_date&#125;
-                </button>
+                <TooltipWrapper tip={props.localizationManager.getString(LocalizationKeys.placeHolderTips.currentDate)}>
+                    <button
+                        className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
+                        onClick={() => handleInsertText('{current_date}')}
+                    >
+                        &#123;current_date&#125;
+                    </button>
+                </TooltipWrapper>
             </div>
 
             <button
                 className="wcg-btn wcg-btn-primary wcg-text-base"
                 onClick={handleSave}
             >
-                Save
+                {props.localizationManager.getString(LocalizationKeys.buttons.save)}
             </button>
         </div>
     )
@@ -164,7 +173,7 @@ const PromptEditor = () => {
                 <span class="material-symbols-outlined wcg-mr-2">
                     add_circle
                 </span>
-                Add New Prompt
+                {props.localizationManager.getString(LocalizationKeys.buttons.newPrompt)}
             </button>
             <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
                     wcg-flex wcg-flex-col wcg-flex-nowrap
@@ -189,7 +198,7 @@ const PromptEditor = () => {
             className={`wcg-input wcg-input-bordered
                             ${showErrors && nameError ? "wcg-input-error" : ""}
                             wcg-flex-1`}
-            placeholder="Name"
+            placeholder={props.localizationManager.getString(LocalizationKeys.placeholders.namePlaceholder)}
             value={prompt.name}
             onInput={(e: Event) => {
                 setNameError(false)
