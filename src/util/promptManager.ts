@@ -1,6 +1,7 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
+import { getTranslation, localizationKeys } from "./localization"
 
 
 export const DEFAULT_PROMPT_KEY = 'default_prompt'
@@ -46,7 +47,7 @@ export class PromptManager {
     }
 
     getDefaultPrompt(): Prompt {
-        return { name: 'Default prompt', text: Browser.i18n.getMessage(DEFAULT_PROMPT_KEY), uuid: 'default' }
+        return { name: 'Default prompt', text: getTranslation(localizationKeys.defaultPrompt), uuid: 'default' }
     }
 
     async getCurrentPrompt(): Promise<Prompt> {

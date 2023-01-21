@@ -3,7 +3,7 @@ import { h, render } from "preact"
 import { getUserConfig, updateUserConfig } from "src/util/userConfig"
 import { useCallback, useEffect, useState } from "preact/hooks"
 import PromptEditor from "src/components/promptEditor"
-import { getCurrentLanguage as getSystemLanguage, Languages, LocalizationKeys, LocalizationManager } from "src/util/localization"
+import { getSystemLanguage, Languages, setLocaleLanguage } from "src/util/localization"
 import NavBar from "src/components/navBar"
 
 
@@ -18,20 +18,19 @@ const buyMeACoffeeButton = (
 
 export default function OptionsPage() {
 
-    const [language, setLanguage] = useState<string>(Object.keys(Languages)[0])
-    const [localizationManager, setLocalizationManager] = useState<LocalizationManager>(new LocalizationManager(getSystemLanguage()))
+    const [language, setLanguage] = useState<string>(getSystemLanguage())
 
     useEffect(() => {
         getUserConfig().then(config => {
-            setLocalizationManager(new LocalizationManager(config.language))
             setLanguage(config.language)
+            setLocaleLanguage(config.language)
         })
     }, [])
 
     const onLanguageChange = useCallback((language: string) => {
         setLanguage(language)
         updateUserConfig({ language })
-        setLocalizationManager(new LocalizationManager(language))
+        setLocaleLanguage(language)
     }, [])
 
 
@@ -41,12 +40,9 @@ export default function OptionsPage() {
             <NavBar
                 language={language}
                 onLanguageChange={onLanguageChange}
-                localizationManager={localizationManager}
             />
 
-            <PromptEditor
-                localizationManager={localizationManager}
-            />
+            <PromptEditor />
 
             {buyMeACoffeeButton}
         </div >

@@ -1,0 +1,7 @@
+[
+  { "value": "", "label": "Any time" },
+  { "value": "d", "label": "Past day" },
+  { "value": "w", "label": "Past week" },
+  { "value": "m", "label": "Past month" },
+  { "value": "y", "label": "Past year" }
+]
