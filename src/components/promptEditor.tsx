@@ -1,14 +1,13 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
 import { getTranslation, localizationKeys } from 'src/util/localization'
-import { PromptManager, Prompt } from 'src/util/promptManager'
+import {  deletePrompt, getDefaultPrompt, getSavedPrompts, Prompt, savePrompt } from 'src/util/promptManager'
 import TooltipWrapper from './tooltipWrapper'
 
 const PromptEditor = () => {
-    const [promptManager] = useState(new PromptManager())
     const [savedPrompts, setSavedPrompts] = useState<Prompt[]>([])
     // const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
-    const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
+    const [defaultPrompt] = useState(getDefaultPrompt())
     const [prompt, setPrompt] = useState<Prompt>(defaultPrompt)
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
@@ -38,7 +37,7 @@ const PromptEditor = () => {
 
 
     async function updateList() {
-        const savedPrompts = await promptManager.getSavedPrompts()
+        const savedPrompts = await getSavedPrompts()
         savedPrompts.unshift(defaultPrompt)
         setSavedPrompts(savedPrompts)
     }
@@ -66,7 +65,7 @@ const PromptEditor = () => {
             return
         }
 
-        await promptManager.savePrompt(prompt)
+        await savePrompt(prompt)
         updateList()
     }
 
@@ -79,7 +78,7 @@ const PromptEditor = () => {
     }
 
     const handleDelete = async () => {
-        await promptManager.deletePrompt(prompt)
+        await deletePrompt(prompt)
         updateList()
         handleAdd()
     }

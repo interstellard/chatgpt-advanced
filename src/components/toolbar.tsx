@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
-import { Prompt, PromptManager } from 'src/util/promptManager'
+import { getDefaultPrompt, getSavedPrompts, Prompt } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig } from 'src/util/userConfig'
 import timePeriodOptions from 'src/util/timePeriodOptions.json'
 import regionOptions from 'src/util/regionOptions.json'
@@ -30,9 +30,8 @@ function Toolbar() {
             setRegion(userConfig.region)
             setPromptUUID(userConfig.promptUUID)
         })
-        const im = new PromptManager()
-        im.getSavedPrompts().then((savedPrompts) => {
-            const defaultPrompt = im.getDefaultPrompt()
+        getSavedPrompts().then((savedPrompts) => {
+            const defaultPrompt = getDefaultPrompt()
             setPrompts((prompts) => [defaultPrompt, ...savedPrompts])
         })
     }, [])
