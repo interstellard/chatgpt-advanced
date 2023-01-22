@@ -7,6 +7,7 @@ import timePeriodOptions from 'src/util/timePeriodOptions.json'
 import regionOptions from 'src/util/regionOptions.json'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
+import { setLocaleLanguage } from 'src/util/localization'
 
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
@@ -29,10 +30,11 @@ function Toolbar() {
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
             setPromptUUID(userConfig.promptUUID)
+
+            setLocaleLanguage(userConfig.language)
         })
         getSavedPrompts().then((savedPrompts) => {
-            const defaultPrompt = getDefaultPrompt()
-            setPrompts((prompts) => [defaultPrompt, ...savedPrompts])
+            setPrompts(savedPrompts)
         })
     }, [])
 

@@ -1,7 +1,7 @@
 import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
-import { getTranslation, localizationKeys } from "./localization"
+import { getLocaleLanguage, getTranslation, localizationKeys } from "./localization"
 
 export const DEFAULT_PROMPT_KEY = 'default_prompt'
 export const CURRENT_PROMPT_UUID_KEY = 'promptUUID'
@@ -66,7 +66,9 @@ export const getSavedPrompts = async () => {
     const data = await Browser.storage.sync.get([SAVED_PROMPTS_KEY])
     const savedPrompts = data[SAVED_PROMPTS_KEY] || []
 
-    addPrompt(savedPrompts, getDefaultEnglishPrompt())
+    if (getLocaleLanguage() !== 'en') {
+        addPrompt(savedPrompts, getDefaultEnglishPrompt())
+    }
     addPrompt(savedPrompts, getDefaultPrompt())
     return savedPrompts
 
@@ -82,18 +84,20 @@ export const getSavedPrompts = async () => {
 
 export const savePrompt = async (prompt: Prompt) => {
     let savedPrompts = await getSavedPrompts()
-    const index = savedPrompts.findIndex((i : Prompt) => i.uuid === prompt.uuid)
+    const index = savedPrompts.findIndex((i: Prompt) => i.uuid === prompt.uuid)
     if (index >= 0) {
         savedPrompts[index] = prompt
     } else {
         prompt.uuid = uuidv4()
         savedPrompts.push(prompt)
     }
+
+    savedPrompts = savedPrompts.filter((i: Prompt) => i.uuid !== 'default' && i.uuid !== 'default_en')
     await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
 }
 
 export const deletePrompt = async (prompt: Prompt) => {
     let savedPrompts = await getSavedPrompts()
-    savedPrompts = savedPrompts.filter((i : Prompt) => i.uuid !== prompt.uuid)
+    savedPrompts = savedPrompts.filter((i: Prompt) => i.uuid !== prompt.uuid)
     await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
 }
