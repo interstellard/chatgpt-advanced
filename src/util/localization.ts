@@ -1,5 +1,6 @@
 import Browser from "webextension-polyfill"
 import * as localizedStrings from './localizedStrings.json'
+import { getUserConfig } from "./userConfig"
 
 export const getSystemLanguage = () => Browser.i18n.getUILanguage().split("-")[0]
 
@@ -18,11 +19,18 @@ export const Languages = {
 
 const DEFAULT_LANGUAGE = 'en'
 
+
 let language = getSystemLanguage()
 
-export const setLocaleLanguage = (newLanguage: string) => language = newLanguage
+export const setLocaleLanguage = (newLanguage: string) => {
+    language = newLanguage === 'auto' ? getSystemLanguage() : newLanguage
+    console.log(`Language set to ${language}`)
+}
 
-export const getTranslation = (key: string) => {
+export const getTranslation = (key: string, lang? : string) => {
+    if(lang) {
+        return localizedStrings[key][lang]
+    }
     if (language in localizedStrings[key]) {
         return localizedStrings[key][language]
     }

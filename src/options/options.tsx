@@ -1,9 +1,9 @@
 import "../style/base.css"
 import { h, render } from "preact"
 import { getUserConfig, updateUserConfig } from "src/util/userConfig"
-import { useCallback, useEffect, useState } from "preact/hooks"
+import { useLayoutEffect, useState } from "preact/hooks"
 import PromptEditor from "src/components/promptEditor"
-import { getSystemLanguage, Languages, setLocaleLanguage } from "src/util/localization"
+import { setLocaleLanguage } from "src/util/localization"
 import NavBar from "src/components/navBar"
 
 
@@ -18,21 +18,25 @@ const buyMeACoffeeButton = (
 
 export default function OptionsPage() {
 
-    const [language, setLanguage] = useState<string>(getSystemLanguage())
+    const [language, setLanguage] = useState<string>(null)
 
-    useEffect(() => {
+
+    useLayoutEffect(() => {
         getUserConfig().then(config => {
             setLanguage(config.language)
             setLocaleLanguage(config.language)
         })
     }, [])
 
-    const onLanguageChange = useCallback((language: string) => {
+    const onLanguageChange = (language: string) => {
         setLanguage(language)
         updateUserConfig({ language })
         setLocaleLanguage(language)
-    }, [])
+    }
 
+    if (!language) {
+        return <div></div>
+    }
 
     return (
         <div className="wcg-w-3/5">
@@ -42,7 +46,9 @@ export default function OptionsPage() {
                 onLanguageChange={onLanguageChange}
             />
 
-            <PromptEditor />
+            <PromptEditor
+                language={language}
+            />
 
             {buyMeACoffeeButton}
         </div >

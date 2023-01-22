@@ -12,7 +12,6 @@ const NavBar = (
         onLanguageChange: (language: string) => void,
     }
 ) => {
-    console.log(props.language)
 
     return (<div className="wcg-sticky wcg-top-0 wcg-z-30 wcg-navbar wcg-bg-base-200 wcg-rounded-lg">
         <div className="wcg-flex-1">

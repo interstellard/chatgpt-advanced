@@ -1,14 +1,16 @@
 import { h } from 'preact'
-import { useState, useEffect, useRef } from 'preact/hooks'
+import { useState, useEffect, useRef, useLayoutEffect } from 'preact/hooks'
 import { getTranslation, localizationKeys } from 'src/util/localization'
-import {  deletePrompt, getDefaultPrompt, getSavedPrompts, Prompt, savePrompt } from 'src/util/promptManager'
+import { deletePrompt, getDefaultPrompt, getSavedPrompts, Prompt, savePrompt } from 'src/util/promptManager'
 import TooltipWrapper from './tooltipWrapper'
 
-const PromptEditor = () => {
+const PromptEditor = (
+    props: {
+        language: string
+    }
+) => {
     const [savedPrompts, setSavedPrompts] = useState<Prompt[]>([])
-    // const [defaultPrompt] = useState(promptManager.getDefaultPrompt())
-    const [defaultPrompt] = useState(getDefaultPrompt())
-    const [prompt, setPrompt] = useState<Prompt>(defaultPrompt)
+    const [prompt, setPrompt] = useState<Prompt>(getDefaultPrompt())
     const [hasWebResultsPlaceholder, setHasWebResultsPlaceholder] = useState(false)
     const [hasQueryPlaceholder, setHasQueryPlaceholder] = useState(false)
     const [deleteBtnText, setDeleteBtnText] = useState("delete")
@@ -19,14 +21,25 @@ const PromptEditor = () => {
     const [webResultsError, setWebResultsError] = useState(false)
     const [queryError, setQueryError] = useState(false)
 
+    useLayoutEffect(() => {
+        updateSavedPrompts()
+    }, [])
+
+    const updateSavedPrompts = async () => {
+        let prompts = await getSavedPrompts()
+        setSavedPrompts(prompts)
+        if (prompt.uuid === 'default') {
+            setPrompt(prompts[0])
+        }
+    }
 
     useEffect(() => {
-        updateList()
-    }, [])
+        updateSavedPrompts()
+    }, [props.language])
 
     useEffect(() => {
         updatePlaceholderButtons(prompt.text)
-    }, [prompt.text])
+    }, [prompt])
 
     useEffect(() => {
         setNameError(prompt.name.trim() === '')
@@ -35,15 +48,13 @@ const PromptEditor = () => {
         setQueryError(!prompt.text.includes('{query}'))
     }, [prompt])
 
-
     async function updateList() {
-        const savedPrompts = await getSavedPrompts()
-        savedPrompts.unshift(defaultPrompt)
-        setSavedPrompts(savedPrompts)
+        getSavedPrompts().then(sp => {
+            setSavedPrompts(sp)
+        })
     }
 
     const handleSelect = (prompt: Prompt) => {
-        console.log(prompt)
         setShowErrors(false)
         setPrompt(prompt)
         setDeleteBtnText("delete")
@@ -66,7 +77,7 @@ const PromptEditor = () => {
         }
 
         await savePrompt(prompt)
-        updateList()
+        await updateList()
     }
 
     const handleDeleteBtnClick = () => {
@@ -114,7 +125,9 @@ const PromptEditor = () => {
     }
 
     const actionToolbar = (
-        <div className="wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4">
+        <div className={`wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4
+                        ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
+        >
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
                 <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}>
                     <button
@@ -158,7 +171,7 @@ const PromptEditor = () => {
             >
                 {getTranslation(localizationKeys.buttons.save)}
             </button>
-        </div>
+        </div >
     )
 
     const PromptList = (
@@ -174,13 +187,13 @@ const PromptEditor = () => {
             <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
                     wcg-flex wcg-flex-col wcg-flex-nowrap
                     wcg-border-solid wcg-border-2 wcg-border-white/20">
-                {savedPrompts.map((inst) => (
+                {savedPrompts.map((prmpt: Prompt) => (
                     <li
-                        key={inst.name}
-                        onClick={() => handleSelect(inst)}
+                        key={prmpt.uuid}
+                        onClick={() => handleSelect(prmpt)}
                     >
-                        <a className={`wcg-text-base ${inst.uuid === prompt.uuid ? 'wcg-active' : ''}`}>
-                            📝 {inst.name}
+                        <a className={`wcg-text-base ${prmpt.uuid === prompt.uuid ? 'wcg-active' : ''}`}>
+                            📝 {prmpt.name}
                         </a>
                     </li>
                 ))}
@@ -191,25 +204,25 @@ const PromptEditor = () => {
     const nameInput = (
         <input
             ref={nameInputRef}
-            className={`wcg-input wcg-input-bordered
-                            ${showErrors && nameError ? "wcg-input-error" : ""}
-                            wcg-flex-1`}
+            className={`wcg-input wcg-input-bordered wcg-flex-1
+                        ${showErrors && nameError ? "wcg-input-error" : ""}`
+            }
             placeholder={getTranslation(localizationKeys.placeholders.namePlaceholder)}
             value={prompt.name}
             onInput={(e: Event) => {
                 setNameError(false)
                 setPrompt({ ...prompt, name: (e.target as HTMLInputElement).value })
             }}
-            disabled={prompt.name === defaultPrompt.name} />)
+            disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+        />
+    )
 
     const btnDelete = (
         <button
-            className={`wcg-btn
-                            ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
-                            wcg-text-base
-                            ${prompt.name === defaultPrompt.name ? "wcg-hidden" : ""}`}
+            className={`wcg-btn wcg-text-base
+                    ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
+                    ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
             onClick={handleDeleteBtnClick}
-            hidden={prompt.name === defaultPrompt.name}
         >
             <span class="material-symbols-outlined">
                 {deleteBtnText}
@@ -225,7 +238,8 @@ const PromptEditor = () => {
                         wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2`}
             value={prompt.text}
             onInput={handleTextareaChange}
-            disabled={prompt.name === defaultPrompt.name} />
+            disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+        />
     )
 
     return (
@@ -241,9 +255,7 @@ const PromptEditor = () => {
                 </div>
                 {textArea}
 
-                {prompt.name !== defaultPrompt.name && (
-                    actionToolbar
-                )}
+                {actionToolbar}
             </div>
         </div >
     )

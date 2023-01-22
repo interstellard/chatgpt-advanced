@@ -46,6 +46,10 @@ export const getDefaultPrompt = () => {
     return { name: 'Default prompt', text: getTranslation(localizationKeys.defaultPrompt), uuid: 'default' }
 }
 
+const getDefaultEnglishPrompt = () => {
+    return { name: 'Default English', text: getTranslation(localizationKeys.defaultPrompt, 'en'), uuid: 'default_en' }
+}
+
 export const getCurrentPrompt = async () => {
     const defaultPrompt = getDefaultPrompt()
     const data = await Browser.storage.sync.get()
@@ -60,12 +64,25 @@ export const getCurrentPrompt = async () => {
 
 export const getSavedPrompts = async () => {
     const data = await Browser.storage.sync.get([SAVED_PROMPTS_KEY])
-    return data[SAVED_PROMPTS_KEY] || []
+    const savedPrompts = data[SAVED_PROMPTS_KEY] || []
+
+    addPrompt(savedPrompts, getDefaultEnglishPrompt())
+    addPrompt(savedPrompts, getDefaultPrompt())
+    return savedPrompts
+
+    function addPrompt(prompts: Prompt[], prompt: Prompt) {
+        const index = prompts.findIndex((i: Prompt) => i.uuid === prompt.uuid)
+        if (index >= 0) {
+            prompts[index] = prompt
+        } else {
+            prompts.unshift(prompt)
+        }
+    }
 }
 
 export const savePrompt = async (prompt: Prompt) => {
     let savedPrompts = await getSavedPrompts()
-    const index = savedPrompts.findIndex(i => i.uuid === prompt.uuid)
+    const index = savedPrompts.findIndex((i : Prompt) => i.uuid === prompt.uuid)
     if (index >= 0) {
         savedPrompts[index] = prompt
     } else {
@@ -77,6 +94,6 @@ export const savePrompt = async (prompt: Prompt) => {
 
 export const deletePrompt = async (prompt: Prompt) => {
     let savedPrompts = await getSavedPrompts()
-    savedPrompts = savedPrompts.filter(i => i.uuid !== prompt.uuid)
+    savedPrompts = savedPrompts.filter((i : Prompt) => i.uuid !== prompt.uuid)
     await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
 }
