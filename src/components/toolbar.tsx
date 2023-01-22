@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
-import { getDefaultPrompt, getSavedPrompts, Prompt } from 'src/util/promptManager'
+import { getSavedPrompts, Prompt } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig } from 'src/util/userConfig'
 import timePeriodOptions from 'src/util/timePeriodOptions.json'
 import regionOptions from 'src/util/regionOptions.json'
@@ -38,28 +38,34 @@ function Toolbar() {
         })
     }, [])
 
+    const handlePromptClick = () => {
+        getSavedPrompts().then((savedPrompts) => {
+            setPrompts(savedPrompts)
+        })
+    }
+
     const handleWebAccessToggle = useCallback(() => {
         setWebAccess(!webAccess)
         updateUserConfig({ webAccess: !webAccess })
     }, [webAccess])
 
-    const handleNumResultsChange = useCallback((e: { target: { value: string } }) => {
+    const handleNumResultsChange = useCallback((e: { target: { value: string} } ) => {
         const value = parseInt(e.target.value)
         setNumResults(value)
         updateUserConfig({ numWebResults: value })
     }, [numResults])
 
-    const handleTimePeriodChange = useCallback((e: { target: { value: string } }) => {
+    const handleTimePeriodChange = useCallback((e: { target: { value: string} } ) => {
         setTimePeriod(e.target.value)
         updateUserConfig({ timePeriod: e.target.value })
     }, [timePeriod])
 
-    const handleRegionChange = useCallback((e: { target: { value: string } }) => {
+    const handleRegionChange = useCallback((e: { target: { value: string} } ) => {
         setRegion(e.target.value)
         updateUserConfig({ region: e.target.value })
     }, [region])
 
-    const handlePromptChange = useCallback((e: { target: { value: string } }) => {
+    const handlePromptChange = useCallback((e: { target: { value: string} } ) => {
         setPromptUUID(e.target.value)
         updateUserConfig({ promptUUID: e.target.value })
     }, [promptUUID])
@@ -83,25 +89,20 @@ function Toolbar() {
             <Dropdown
                 value={numResults}
                 onChange={handleNumResultsChange}
-                options={numResultsOptions}
-            />
+                options={numResultsOptions} />
             <Dropdown
                 value={timePeriod}
                 onChange={handleTimePeriodChange}
-                options={timePeriodOptions}
-            />
+                options={timePeriodOptions} />
             <Dropdown
                 value={region}
                 onChange={handleRegionChange}
-                options={regionOptions}
-            />
+                options={regionOptions} />
             <Dropdown
                 value={promptUUID}
                 onChange={handlePromptChange}
-                options={
-                    prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))
-                }
-            />
+                onClick={handlePromptClick}
+                options={prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))} />
 
         </div>
     )

@@ -1,8 +1,8 @@
-import { h } from 'preact'
+import { h, JSX } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 
 
-const ErrorMessage = ({ message }) => {
+function ErrorMessage({ message }) {
     const [show, setShow] = useState(true)
 
     useEffect(() => {
