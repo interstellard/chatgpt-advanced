@@ -23,6 +23,8 @@ let language = getSystemLanguage()
 
 export const getLocaleLanguage = () => language
 
+export const getCurrentLanguageName = () => language === Languages.auto ? Languages.en : Languages[language]
+
 export const setLocaleLanguage = (newLanguage: string) => {
     language = newLanguage === 'auto' ? getSystemLanguage() : newLanguage
     console.debug(`Language set to ${language}`)

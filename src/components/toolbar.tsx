@@ -33,12 +33,14 @@ function Toolbar() {
 
             setLocaleLanguage(userConfig.language)
         })
-        getSavedPrompts().then((savedPrompts) => {
-            setPrompts(savedPrompts)
-        })
+        updatePrompts()
     }, [])
 
     const handlePromptClick = () => {
+        updatePrompts()
+    }
+
+    const updatePrompts = () => {
         getSavedPrompts().then((savedPrompts) => {
             setPrompts(savedPrompts)
         })
@@ -66,13 +68,17 @@ function Toolbar() {
     }, [region])
 
     const handlePromptChange = (uuid: string) => {
-        const elem = document.activeElement
-        if (elem) {
-            (elem as HTMLElement)?.blur() // removes focus from current element
-        }
+        removeFocusFromCurrentElement()
 
         setPromptUUID(uuid)
         updateUserConfig({ promptUUID: uuid })
+    }
+
+    const removeFocusFromCurrentElement = () => {
+        const elem = document.activeElement
+        if (elem) {
+            (elem as HTMLElement)?.blur()
+        }
     }
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
