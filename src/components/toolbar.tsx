@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, options } from 'preact'
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
 import { getSavedPrompts, Prompt } from 'src/util/promptManager'
@@ -7,7 +7,7 @@ import timePeriodOptions from 'src/util/timePeriodOptions.json'
 import regionOptions from 'src/util/regionOptions.json'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
-import { setLocaleLanguage } from 'src/util/localization'
+import { getTranslation, localizationKeys, setLocaleLanguage } from 'src/util/localization'
 
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
@@ -49,26 +49,31 @@ function Toolbar() {
         updateUserConfig({ webAccess: !webAccess })
     }, [webAccess])
 
-    const handleNumResultsChange = useCallback((e: { target: { value: string} } ) => {
+    const handleNumResultsChange = useCallback((e: { target: { value: string } }) => {
         const value = parseInt(e.target.value)
         setNumResults(value)
         updateUserConfig({ numWebResults: value })
     }, [numResults])
 
-    const handleTimePeriodChange = useCallback((e: { target: { value: string} } ) => {
+    const handleTimePeriodChange = useCallback((e: { target: { value: string } }) => {
         setTimePeriod(e.target.value)
         updateUserConfig({ timePeriod: e.target.value })
     }, [timePeriod])
 
-    const handleRegionChange = useCallback((e: { target: { value: string} } ) => {
+    const handleRegionChange = useCallback((e: { target: { value: string } }) => {
         setRegion(e.target.value)
         updateUserConfig({ region: e.target.value })
     }, [region])
 
-    const handlePromptChange = useCallback((e: { target: { value: string} } ) => {
-        setPromptUUID(e.target.value)
-        updateUserConfig({ promptUUID: e.target.value })
-    }, [promptUUID])
+    const handlePromptChange = (uuid: string) => {
+        const elem = document.activeElement
+        if (elem) {
+            (elem as HTMLElement)?.blur() // removes focus from current element
+        }
+
+        setPromptUUID(uuid)
+        updateUserConfig({ promptUUID: uuid })
+    }
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
         <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
@@ -98,11 +103,40 @@ function Toolbar() {
                 value={region}
                 onChange={handleRegionChange}
                 options={regionOptions} />
-            <Dropdown
+            {/* <Dropdown
                 value={promptUUID}
                 onChange={handlePromptChange}
                 onClick={handlePromptClick}
-                options={prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))} />
+                options={prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))} /> */}
+            <div className="wcg-dropdown wcg-dropdown-top"
+                onClick={handlePromptClick}
+            >
+                <div tabIndex={0} className="wcg-flex wcg-items-center wcg-gap-0 wcg-flex-row wcg-cursor-pointer">
+                    <label className="wcg-btn wcg-text-sm wcg-normal-case   wcg-pr-0 wcg-max-w-[7rem] wcg-truncate wcg-justify-start">
+                        {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
+                    </label>
+                    {icons.expand}
+                </div>
+                <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-p-0 wcg-m-0 wcg-rounded-md wcg-w-52 wcg-bg-gray-800
+                wcg-max-h-96 wcg-overflow-auto
+                wcg-flex wcg-flex-col wcg-flex-nowrap"
+                >
+                    {prompts.map((prompt) =>
+                        <li tabIndex={0} className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
+                            onClick={() => handlePromptChange(prompt.uuid)}
+                        >
+                            <a>{prompt.name}</a>
+                        </li>
+                    )
+                    }
+                    <li className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
+                        onClick={() => Browser.runtime.sendMessage("show_options")
+                        }
+                    >
+                        <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
+                    </li>
+                </ul>
+            </div>
 
         </div>
     )
