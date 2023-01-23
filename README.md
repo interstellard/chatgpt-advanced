@@ -4,10 +4,11 @@
 [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) ![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)
 </div>
 
-This chrome extension `adds web access` capability to [ChatGPT](https://chat.openai.com/). Get much more relevant and up-to-date answers from the chatbot!
+This browser extension `adds web access` capability to [ChatGPT](https://chat.openai.com/). Get much more relevant and up-to-date answers from the chatbot!
 
 ![image](https://user-images.githubusercontent.com/3750161/214144292-4fb34667-015a-43f3-906d-1d2d065d67f0.png)
 
+<br>
 
 [link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
@@ -17,6 +18,8 @@ This chrome extension `adds web access` capability to [ChatGPT](https://chat.ope
 <br>
 [<img valign="middle" src="https://img.shields.io/amo/v/web-chatgpt">][link-firefox]
 [<img valign="middle" alt="Mozilla Add-on" src="https://img.shields.io/amo/users/web-chatgpt">][link-firefox]
+
+<br>
 
 https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9ce7-e68aed11e73d.mp4
 
@@ -64,8 +67,9 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
 ## Contributing
 
 Contributions are welcome! Please submit pull requests to the `dev` branch.
+
 <br><br><br>
----
+
 
 Like this free project? Please consider [supporting me](https://www.buymeacoffee.com/anzorq) to keep it running.
 
