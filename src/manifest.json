@@ -30,8 +30,7 @@
     {
       "resources": [
         "content-scripts/mainUI.css",
-        "icons/icon48.png",
-        "icons/MaterialIcons-Regular.woff2"
+        "icons/icon48.png"
       ],
       "matches": ["https://chat.openai.com/*"]
     }

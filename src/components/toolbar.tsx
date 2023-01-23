@@ -74,12 +74,8 @@ function Toolbar() {
         updateUserConfig({ promptUUID: uuid })
     }
 
-    const removeFocusFromCurrentElement = () => {
-        const elem = document.activeElement
-        if (elem) {
-            (elem as HTMLElement)?.blur()
-        }
-    }
+    const removeFocusFromCurrentElement = () => (document.activeElement as HTMLElement)?.blur()
+
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
         <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
