@@ -43,6 +43,17 @@
         "ja": "このプロジェクトを支援",
         "ko": "이 프로젝트 지원"
     },
+    "support_me": {
+        "en": "This extension is free! 🥳 But the server it runs on is not. 😬\nPlease help me keep it alive! ⤵️",
+        "pt": "Esta extensão é gratuita! 🥳 Mas o servidor em que ela é executada não é. 😬\nAjude-me a mantê-lo vivo! ⤵️",
+        "es": "¡Esta extensión es gratuita! 🥳 Pero el servidor en el que se ejecuta no lo es. 😬\n¡Ayúdame a mantenerla viva! ⤵️",
+        "fr": "Cette extension est gratuite ! 🥳 Mais le serveur sur lequel elle fonctionne ne l'est pas. 😬\nVeuillez m'aider à la maintenir en vie ! ⤵️",
+        "de": "Diese Erweiterung ist kostenlos! 🥳 Aber der Server, auf dem sie läuft, ist es nicht. 😬\nBitte hilf mir, sie am Leben zu erhalten! ⤵️",
+        "it": "Questa estensione è gratuita! 🥳 Ma il server su cui viene eseguita non lo è. 😬\nPer favore aiutami a tenerlo vivo! ⤵️",
+        "zh": "此扩展程序是免费的！🥳 但是它运行的服务器不是。😬\n帮助这个项目继续下去！⤵️",
+        "ja": "この拡張機能は無料です！🥳 しかし、それが実行されているサーバーは無料ではありません。😬\nこのプロジェクトを維持するのを手伝ってください！⤵️",
+        "ko": "이 확장 프로그램은 무료입니다! 🥳 그러나 그것이 실행되는 서버는 아닙니다. 😬\n이 프로젝트를 계속 유지하도록 도와주세요! ⤵️"
+    },
     "save": {
         "en": "Save",
         "pt": "Salvar",

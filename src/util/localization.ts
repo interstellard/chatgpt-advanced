@@ -46,6 +46,7 @@ export const localizationKeys = {
     UI: {
         language: 'language',
         supportThisProject: 'support_this_project',
+        supportMe: 'support_me',
         chooseLanguage: 'choose_language',
     },
     placeholders: {
