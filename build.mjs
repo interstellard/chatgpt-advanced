@@ -5,6 +5,8 @@ import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import postcssPlugin from "esbuild-style-plugin";
 import copyStaticFilesPlugin from "esbuild-copy-files-plugin";
+import path from 'path';
+
 
 const buildDir = "build";
 const minify = process.argv.includes("--minify");
@@ -82,6 +84,7 @@ async function addFilesToZip(archive, browser) {
     if (entryStat.isDirectory()) {
       archive.directory(`build/${entry}`, entry);
     } else {
+      if (path.extname(entry) === ".zip") continue;
       if (entry === "manifest.json") continue;
       archive.file(`build/${entry}`, { name: entry });
     }
