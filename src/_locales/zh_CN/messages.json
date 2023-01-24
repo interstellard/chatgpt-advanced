@@ -1,4 +1,7 @@
 {
+  "appName": {
+    "message": "WebChatGPT"
+  },
   "appDesc": {
     "message": "使用来自网络的相关结果增强您的 ChatGPT 提示。"
   }

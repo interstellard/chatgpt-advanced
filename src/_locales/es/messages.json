@@ -1,4 +1,7 @@
 {
+  "appName": {
+    "message": "WebChatGPT"
+  },
   "appDesc": {
     "message": "Aumente sus prompts ChatGPT con resultados relevantes de la web."
   }
