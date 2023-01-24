@@ -46,7 +46,7 @@ export const getDefaultPrompt = () => {
     return {
         name: 'Default prompt',
         // text: getTranslation(localizationKeys.defaultPrompt),
-        text: getTranslation(localizationKeys.defaultPrompt, 'en') + '\nReply in ' + getCurrentLanguageName(),
+        text: getTranslation(localizationKeys.defaultPrompt, 'en') + (getLocaleLanguage() !== 'en' ? '\nReply in ' + getCurrentLanguageName() : ''),
         uuid: 'default'
     }
 }
