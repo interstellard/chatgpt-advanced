@@ -2,6 +2,7 @@ import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
 import { getCurrentLanguageName, getLocaleLanguage, getTranslation, localizationKeys } from "./localization"
+import { getUserConfig } from "./userConfig"
 
 export const DEFAULT_PROMPT_KEY = 'default_prompt'
 export const CURRENT_PROMPT_UUID_KEY = 'promptUUID'
@@ -56,8 +57,8 @@ const getDefaultEnglishPrompt = () => {
 }
 
 export const getCurrentPrompt = async () => {
-    const data = await Browser.storage.sync.get()
-    const currentPromptUuid = data[CURRENT_PROMPT_UUID_KEY]
+    const userConfig = await getUserConfig()
+    const currentPromptUuid = userConfig.promptUUID
     const savedPrompts = await getSavedPrompts()
     return savedPrompts.find((i: Prompt) => i.uuid === currentPromptUuid)
 }
