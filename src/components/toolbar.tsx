@@ -10,7 +10,7 @@ import Dropdown from './dropdown'
 import { getTranslation, localizationKeys, setLocaleLanguage } from 'src/util/localization'
 
 
-const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
+const numResultsOptions = Array.from({ length: 11 }, (_, i) => i).map((num) => ({
     value: num,
     label: `${num} result${num === 1 ? '' : 's'}`
 }))
@@ -46,7 +46,7 @@ function Toolbar() {
         })
     }
 
-    const handleWebAccessToggle = useCallback(() => {
+    const handleFunctionalityToggle = useCallback(() => {
         setWebAccess(!webAccess)
         updateUserConfig({ webAccess: !webAccess })
     }, [webAccess])
@@ -77,10 +77,10 @@ function Toolbar() {
     const removeFocusFromCurrentElement = () => (document.activeElement as HTMLElement)?.blur()
 
 
-    const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
-        <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
+    const functionalityToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
+        <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleFunctionalityToggle} />
         <div className="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
-        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
+        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Enable_extensions'] after:wcg-content-['Web']" />
     </label>
 
     return (
@@ -91,7 +91,7 @@ function Toolbar() {
             >
                 {icons.tune}
             </div>
-            {webAccessToggle}
+            {functionalityToggle}
 
             <Dropdown
                 value={numResults}

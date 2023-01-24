@@ -10,6 +10,17 @@
         "ja": "Web 検索結果:\n\n{web_results}\n現在の日付: {current_date}\n\n指示: 提供された Web 検索結果を使用して、指定されたクエリに対する包括的な回答を作成します。 参考文献の後に必ず[[数字](URL)]表記で結果を引用してください。 提供された検索結果が同じ名前の複数の件名を参照している場合は、件名ごとに個別の回答を記述してください。\nクエリ: {query}",
         "ko": "웹 검색 결과:\n\n{web_results}\n현재 날짜: {current_date}\n\n지침: 제공된 웹 검색 결과를 사용하여 주어진 쿼리에 대한 포괄적인 회신을 작성합니다. 반드시 [[숫자](URL)] 표기를 사용하여 결과를 인용한다. 제공된 검색 결과가 동일한 이름을 가진 여러 주제를 참조하는 경우 각 주제에 대해 별도의 답변을 작성하십시오.\n쿼리: {query}"
     },
+    "spelling_and_grammar_prompt": {
+      "en": "[Please correct the grammar and spelling of the following text, and explain your changes:] \"{query}\"",
+      "pt": "[Corrija a gramática e ortografia do texto a seguir e explique suas alterações:] \"{query}\"",
+      "es": "[Corrija la gramática y la ortografía del siguiente texto y explique los cambios:] \"{query}\"",
+      "fr": "[Veuillez corriger la grammaire et l'orthographe du texte suivant et expliquer vos modifications:] \"{query}\"",
+      "de": "[Bitte korrigieren Sie die Grammatik und Rechtschreibung des folgenden Textes und erläutern Sie Ihre Änderungen:] \"{query}\"",
+      "it": "[Correggi la grammatica e l'ortografia del seguente testo e spiega le tue modifiche:] \"{query}\"",
+      "zh": "[请更正以下文本的语法和拼写，并说明您的更改:] \"{query}\"",
+      "ja": "[次のテキストの文法とスペルを修正し、変更内容を説明してください:] \"{query}\"",
+      "ko": "[다음 텍스트의 문법과 철자를 수정하고 변경 사항을 설명하십시오:] \"{query}\""
+    },
     "language": {
         "en": "Language",
         "pt": "Idioma",

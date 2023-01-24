@@ -57,7 +57,7 @@ const getDefaultEnglishPrompt = () => {
 
 export const getCurrentPrompt = async () => {
     const data = await Browser.storage.sync.get()
-    const currentPromptUuid = data[CURRENT_PROMPT_UUID_KEY]
+    const currentPromptUuid = data[CURRENT_PROMPT_UUID_KEY] || getDefaultPrompt().uuid;
     const savedPrompts = await getSavedPrompts()
     return savedPrompts.find((i: Prompt) => i.uuid === currentPromptUuid)
 }
@@ -77,7 +77,13 @@ function addDefaultPrompts(prompts: Prompt[]) {
     if (getLocaleLanguage() !== 'en') {
         addPrompt(prompts, getDefaultEnglishPrompt())
     }
+    addPrompt(prompts, {
+      name: 'Spelling and grammar',
+      text: getTranslation(localizationKeys.spellingAndGrammarPrompt, 'en') + (getLocaleLanguage() !== 'en' ? '\nReply in ' + getCurrentLanguageName() : ''),
+      uuid: 'spelling_and_grammar_prompt'
+    })
     addPrompt(prompts, getDefaultPrompt())
+    
     return prompts
 
     function addPrompt(prompts: Prompt[], prompt: Prompt) {

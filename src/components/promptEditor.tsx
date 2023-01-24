@@ -4,6 +4,11 @@ import { getTranslation, localizationKeys } from 'src/util/localization'
 import { deletePrompt, getDefaultPrompt, getSavedPrompts, Prompt, savePrompt } from 'src/util/promptManager'
 import TooltipWrapper from './tooltipWrapper'
 
+const isDefaultPrompt = (prompt:Prompt):boolean => (
+  prompt.uuid === 'default' ||
+  prompt.uuid === 'default_en' ||
+  prompt.uuid === 'spelling_and_grammar_prompt')
+
 const PromptEditor = (
     props: {
         language: string
@@ -126,7 +131,7 @@ const PromptEditor = (
 
     const actionToolbar = (
         <div className={`wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4
-                        ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
+                        ${isDefaultPrompt(prompt) ? "wcg-hidden" : ""}`}
         >
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
                 <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}>
@@ -213,7 +218,7 @@ const PromptEditor = (
                 setNameError(false)
                 setPrompt({ ...prompt, name: (e.target as HTMLInputElement).value })
             }}
-            disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+            disabled={isDefaultPrompt(prompt)}
         />
     )
 
@@ -221,7 +226,7 @@ const PromptEditor = (
         <button
             className={`wcg-btn wcg-text-base
                     ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
-                    ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
+                    ${isDefaultPrompt(prompt) ? "wcg-hidden" : ""}`}
             onClick={handleDeleteBtnClick}
         >
             <span class="material-symbols-outlined">
@@ -238,7 +243,7 @@ const PromptEditor = (
                         wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2`}
             value={prompt.text}
             onInput={handleTextareaChange}
-            disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+            disabled={isDefaultPrompt(prompt) || prompt.uuid === 'spelling_and_grammar_prompt'}
         />
     )
 

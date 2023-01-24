@@ -43,6 +43,7 @@ export const getTranslation = (key: string, lang? : string) => {
 
 export const localizationKeys = {
     defaultPrompt: 'default_prompt',
+    spellingAndGrammarPrompt: 'spelling_and_grammar_prompt',
     UI: {
         language: 'language',
         supportThisProject: 'support_this_project',
