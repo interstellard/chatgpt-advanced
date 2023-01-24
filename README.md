@@ -1,28 +1,37 @@
-<h1 align="center">Web ChatGPT</h1>
 
-This chrome extension adds web access capability to the [ChatGPT](https://chat.openai.com/) webapp. Get much more relevant and up-to-date answers from the chatbot!
-
-![img](https://user-images.githubusercontent.com/3750161/205716268-7b44d522-eef0-44af-b8ec-cf8943a97622.PNG)
-
-[![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB)
-
-## Installation
-
-### Download from Web Stores
 [link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
-[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png" width="256" alt="Chrome" valign="middle">][link-chrome] [<img src="https://extensionworkshop.com/assets/img/documentation/publish/get-the-addon-178x60px.dad84b42.png" height="75" alt="Firefox" valign="middle">][link-firefox]
+
+<div align="center">
+<h1>WebChatGPT</h1>
+
+[![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) ![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)
+
+
+This browser extension `adds web access` capability to [ChatGPT](https://chat.openai.com/). Get much more relevant and up-to-date answers from the chatbot!
+
+![image](https://user-images.githubusercontent.com/3750161/214144292-4fb34667-015a-43f3-906d-1d2d065d67f0.png)
+
+
+<br>
+
+[<img src="https://user-images.githubusercontent.com/3750161/214147732-c75e96a4-48a4-4b64-b407-c2402e899a75.PNG" height="67" alt="Chrome" valign="middle">][link-chrome] [<img src="https://user-images.githubusercontent.com/3750161/214148610-acdef778-753e-470e-8765-6cc97bca85ed.png" height="67" alt="Firefox" valign="middle">][link-firefox]
 
 [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/lpfemeioodjbpieminkklglpmhlngfcn.svg">][link-chrome] [<img valign="middle" alt="Chrome Web Store" src="https://img.shields.io/chrome-web-store/users/lpfemeioodjbpieminkklglpmhlngfcn?color=blue">][link-chrome]
 <br>
 [<img valign="middle" src="https://img.shields.io/amo/v/web-chatgpt">][link-firefox]
 [<img valign="middle" alt="Mozilla Add-on" src="https://img.shields.io/amo/users/web-chatgpt">][link-firefox]
+</div>
+<br>
+
+https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9ce7-e68aed11e73d.mp4
+
 
 <details>
-   <summary><h2>Manual installation</h1></summary>
+   <summary><h2>Manual installation</h2></summary>
 
-  ### Chrome and Microsoft Edge
-  1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
+  ### Chrome, Microsoft Edge, etc.
+  1. Download prebuilt chrome zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/main/build).
   2. Unzip the file.
   3. Open `chrome://extensions` in Chrome / `edge://extensions` in Microsoft Edge.
   4. Enable developer mode (top right corner).
@@ -30,7 +39,7 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
   6. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
 
   ### Firefox
-  1. Download the code as a zip file [here](https://github.com/qunash/chatgpt-advanced/archive/master.zip).
+  1. Download prebuilt firefox zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/main/build).
   2. Unzip the file.
   3. Rename `manifest.v2.json` to `manifest.json`.
   4. Re-zip the folder.
@@ -49,19 +58,25 @@ This chrome extension adds web access capability to the [ChatGPT](https://chat.o
   7. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
 </details>
 
-## Demo
+<details>
+<summary><h2>Build from source</h2></summary>
 
-https://user-images.githubusercontent.com/3750161/206865843-111435ea-67ab-4034-a594-bfc778e86c57.mp4
+1. `git clone https://github.com/qunash/chatgpt-advanced.git`
+2. `npm install`
+3. `npm run build-prod`
+4. Grab your zip extension from `build/` folder
+</details>
 
 ## Contributing
 
 Contributions are welcome! Please submit pull requests to the `dev` branch.
 
----
+<br><br><br>
 
-If you found this project interesting, please consider [supporting me](https://www.buymeacoffee.com/anzorq) or <a href="https://twitter.com/hahahahohohe">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+
+Like this free project? Please consider [supporting me](https://www.buymeacoffee.com/anzorq) to keep it running.
 
 [<a href="https://www.buymeacoffee.com/anzorq" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45px" width="162px" alt="Buy Me A Coffee"></a>](https://www.buymeacoffee.com/anzorq)
 
-[![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me)
+[![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me) [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) ![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)
 
