@@ -11,8 +11,12 @@ import path from 'path';
 const buildDir = "build";
 const minify = process.argv.includes("--minify");
 
-async function deleteBuildDir() {
-  await fs.remove(buildDir);
+async function cleanBuildDir() {
+  const entries = await fs.readdir(buildDir);
+  for (const entry of entries) {
+    if (path.extname(entry) === ".zip") continue;
+    await fs.remove(`${buildDir}/${entry}`);
+  }
 }
 
 async function runEsbuild() {
@@ -97,7 +101,7 @@ async function addFilesToZip(archive, browser) {
 }
 
 async function build() {
-  await deleteBuildDir();
+  await cleanBuildDir();
   await runEsbuild();
 
   const createZips = process.argv.includes("--create-zips");
