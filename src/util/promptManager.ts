@@ -60,7 +60,7 @@ export const getCurrentPrompt = async () => {
     const userConfig = await getUserConfig()
     const currentPromptUuid = userConfig.promptUUID
     const savedPrompts = await getSavedPrompts()
-    return savedPrompts.find((i: Prompt) => i.uuid === currentPromptUuid)
+    return savedPrompts.find((i: Prompt) => i.uuid === currentPromptUuid) || getDefaultPrompt()
 }
 
 export const getSavedPrompts = async (addDefaults: boolean = true) => {
