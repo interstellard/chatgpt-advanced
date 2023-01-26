@@ -8,7 +8,7 @@ function ErrorMessage({ message }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShow(false)
-        }, 5000)
+        }, 7000)
         return () => clearTimeout(timer)
     }, [])
 

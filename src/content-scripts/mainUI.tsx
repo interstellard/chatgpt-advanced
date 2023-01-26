@@ -70,11 +70,11 @@ function pressEnter() {
     textarea.dispatchEvent(enterEvent)
 }
 
-function showErrorMessage(error: any) {
+function showErrorMessage(error: Error) {
     console.log("WebChatGPT error --> API error: ", error)
     let div = document.createElement('div')
     document.body.appendChild(div)
-    render(<ErrorMessage message={error} />, div)
+    render(<ErrorMessage message={error.message} />, div)
 }
 
 
