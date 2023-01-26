@@ -5,22 +5,19 @@ export interface SearchResult {
 }
 
 export async function apiSearch(query: string, numResults: number, timePeriod: string, region: string): Promise<SearchResult[]> {
-    let url = `https://ddg-webapp-aagd.vercel.app/search?max_results=${numResults}&q=${query}`
-    if (timePeriod !== "") {
-        url += `&time=${timePeriod}`
-    }
-    if (region !== "") {
-        url += `&region=${region}`
-    }
+    const url = `https://ddg-webapp-aagd.vercel.app/search?`
+        + `max_results=${numResults}`
+        + `&q=${query}`
+        + (timePeriod ? `&time=${timePeriod}` : "")
+        + (region ? `&region=${region}` : "")
 
     const response = await fetch(url)
-    const data = await response.json();
-    const results = data.map((item: { body: string; href: string; title: string }) => {
+    const results = await response.json()
+    return results.map((result: any) => {
         return {
-            body: item.body,
-            href: item.href,
-            title: item.title
+            body: result.body,
+            href: result.href,
+            title: result.title
         }
     })
-    return results;
 }
