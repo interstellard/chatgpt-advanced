@@ -64,7 +64,7 @@ async function runEsbuild() {
   });
 }
 
-async function zipExtensionForBrowser(browser) {
+async function createZipExtensionForBrowser(browser) {
   const manifest = await fs.readJson(`${buildDir}/manifest.json`);
   const version = manifest.version;
   let archiveName = `build/webchatgpt-${version}-${browser}.zip`;
@@ -107,14 +107,25 @@ async function build() {
   const createZips = process.argv.includes("--create-zips");
   if (createZips) {
     try {
-      await zipExtensionForBrowser("chrome");
-      await zipExtensionForBrowser("firefox");
+      await deleteZipsInBuildFolder();
+
+      await createZipExtensionForBrowser("chrome");
+      await createZipExtensionForBrowser("firefox");
     } catch (error) {
       console.error(error);
     }
   }
 
   console.log("Build complete");
+
+  async function deleteZipsInBuildFolder() {
+    const entries = await fs.readdir("build");
+    for (const entry of entries) {
+      if (path.extname(entry) === ".zip") {
+        await fs.remove(`build/${entry}`);
+      }
+    }
+  }
 }
 
 build();
