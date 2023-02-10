@@ -17,7 +17,7 @@ function ErrorMessage({ message }) {
         <div role="alert" className="absolute bottom-0 right-1 dark:text-white bg-red-500 p-4 rounded-lg mb-4 mr-4 text-sm">
             <b>An error occurred</b><br />
             {message}<br /><br />
-            Check the console for more details. (Ctrl+Shift+J)
+            Please Check the console for more details. (Ctrl+Shift+J)
         </div>
     )
 }
