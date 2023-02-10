@@ -4,8 +4,6 @@
 <div align="center">
 <h1>WebChatGPT</h1>
 
-[link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
-[link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
 
 [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)](https://twitter.com/hahahahohohe)
 
@@ -42,10 +40,7 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
 
   ### Firefox
   1. Download prebuilt firefox zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/main/build).
-  2. Unzip the file.
-  3. Rename `manifest.v2.json` to `manifest.json`.
-  4. Re-zip the folder.
-
+  
   #### Temporary installation, in official Release or Beta
   1. Go to `about:debugging#/runtime/this-firefox`.
   2. Click `Load Temporary Add-on` button, then select the zip file you re-zipped.
@@ -81,4 +76,3 @@ Like this free project? Please consider [supporting me](https://www.buymeacoffee
 [<a href="https://www.buymeacoffee.com/anzorq" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45px" width="162px" alt="Buy Me A Coffee"></a>](https://www.buymeacoffee.com/anzorq)
 
 [![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me) [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)](https://twitter.com/hahahahohohe)
-
