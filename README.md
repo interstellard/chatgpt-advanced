@@ -1,9 +1,10 @@
-
 [link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
 
+
 <div align="center">
 <h1>WebChatGPT</h1>
+
 
 [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)](https://twitter.com/hahahahohohe)
 
@@ -31,7 +32,7 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
    <summary><h2>Manual installation</h2></summary>
 
   ### Chrome, Microsoft Edge, etc.
-  1. Download prebuilt chrome zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/main/build).
+  1. Download the prebuilt chrome zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/main/build).
   2. Unzip the file.
   3. Open `chrome://extensions` in Chrome / `edge://extensions` in Microsoft Edge.
   4. Enable developer mode (top right corner).
