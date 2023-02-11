@@ -50,9 +50,7 @@ async function runEsbuild() {
         copyWithFolder: false,
       }),
       copyStaticFilesPlugin({
-        // Source file to copy
         source: ["src/options/options.html"],
-        // Target directory
         target: buildDir + "/options",
         copyWithFolder: false,
       }),
