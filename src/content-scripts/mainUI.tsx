@@ -8,7 +8,6 @@ import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
-import SlashButton from 'src/components/slashButton'
 import SlashCommandsMenu from 'src/components/slashCommandsMenu'
 
 var isProcessing = false
@@ -17,27 +16,8 @@ var btnSubmit: HTMLButtonElement
 var textarea: HTMLTextAreaElement
 var footer: HTMLDivElement
 
-function onSlashButtonClick() {
-    textarea.value = "/"
-    textarea.focus()
-    // onTextAreaInput()
-}
-
-function renderSlashButton() {
-    let div = document.querySelector('wcg-slash-button-div')
-    if (div) div.remove()
-
-    div = document.createElement('wcg-slash-button-div')
-    div.className = "self-center"
-    textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
-    render(<SlashButton
-        show={textarea.value === ""}
-        onclick={onSlashButtonClick} />, div)
-}
 
 function renderSlashCommandsMenu() {
-
-    const showSlashCommandsMenu = textarea.value.startsWith("/") && textarea.value.length === 1
 
     let div = document.querySelector('wcg-slash-commands-menu')
     if (div) div.remove()
@@ -46,20 +26,8 @@ function renderSlashCommandsMenu() {
     const textareaParentParent = textarea.parentElement.parentElement
 
     textareaParentParent.insertBefore(div, textareaParentParent.firstChild)
-    // render(<SlashCommandsMenu show={showSlashCommandsMenu} onclick={onSlashMenuItemClick} />, div)
     render(<SlashCommandsMenu textarea={textarea} />, div)
 }
-
-function onSlashMenuItemClick(command: string) {
-    textarea.value = command
-    textarea.focus()
-    // onTextAreaInput()
-}
-
-// function onTextAreaInput() {
-//     renderSlashButton()
-//     // renderSlashCommandsMenu()
-// }
 
 async function onSubmit(event: any) {
 
@@ -145,7 +113,6 @@ async function updateUI() {
         render(<Toolbar />, shadowRoot)
 
         textarea.parentElement.style.flexDirection = 'row'
-        renderSlashButton()
 
         renderSlashCommandsMenu()
     }

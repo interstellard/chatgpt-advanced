@@ -1,5 +1,6 @@
-import { h } from 'preact'
+import { h, render } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
+import SlashButton from './slashButton'
 
 interface Command {
     name: string
@@ -24,7 +25,7 @@ const SlashCommandItem = (props: {
     active?: boolean
 }) => {
     return (
-        <div className={`flex-col p-3 gap-3 rounded-md hover:bg-[#2A2B32] cursor-pointer text-white
+        <div className={`flex-col p-3 gap-3 hover:bg-[#2A2B32] cursor-pointer text-white
                         ${props.active ? 'bg-gray-800' : ''}`}
             onClick={() => props.onclick(props.command)}
         >
@@ -34,13 +35,23 @@ const SlashCommandItem = (props: {
     )
 }
 
+const renderSlashButton = (textarea: HTMLTextAreaElement, show: boolean, onClick: () => void) => {
+    let div = document.querySelector('wcg-slash-button-div')
+    if (div) div.remove()
+
+    div = document.createElement('wcg-slash-button-div')
+    div.className = "self-center"
+    textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
+    render(<SlashButton show={show} onclick={onClick} />, div)
+}
+
 function SlashCommandsMenu(
     props: {
         textarea: HTMLTextAreaElement | null,
     }
 ) {
 
-    const [show, setShow] = useState<boolean>(false)
+    const [showMenu, setShowMenu] = useState<boolean>(false)
     const [activeElementIndex, setActiveElementIndex] = useState<number>(0)
     const [filter, setFilter] = useState<string>('')
     const [filteredCommands, setFilteredCommands] = useState<Command[]>(slashCommands)
@@ -50,7 +61,7 @@ function SlashCommandsMenu(
 
     const onTextAreaKeyDown = (e: KeyboardEvent) => {
 
-        if (!show) return
+        if (!showMenu) return
 
         if (e.key === 'ArrowUp') {
             e.preventDefault()
@@ -68,7 +79,6 @@ function SlashCommandsMenu(
             if (command) {
                 onCommandClick(command)
             }
-            setShow(false)
         }
     }
 
@@ -78,13 +88,20 @@ function SlashCommandsMenu(
             setFilter(text)
         } else {
             setFilter('')
-            setActiveElementIndex(0)
         }
+        setActiveElementIndex(0)
     }
 
     const onCommandClick = (command: Command) => {
-        props.textarea.value = command.name
-        setShow(false)
+        console.log(command)
+        setTextAreaValue(command.name, false)
+        setShowMenu(false)
+    }
+
+    function setTextAreaValue(value: string, dispatchEvent = true) {
+        props.textarea.value = value
+        if (dispatchEvent)
+            props.textarea.dispatchEvent(new Event('input', { bubbles: true }))
         props.textarea.focus()
     }
 
@@ -101,22 +118,30 @@ function SlashCommandsMenu(
 
     useEffect(() => {
         if (filter === '') {
-            setShow(false)
+            setShowMenu(false)
             return
         }
-        
+
         const newFilteredCommands = slashCommands.filter((command) => command.name.startsWith(filter))
         setFilteredCommands(newFilteredCommands)
 
-        setShow(newFilteredCommands.length > 0)
+        setShowMenu(newFilteredCommands.length > 0)
 
     }, [filter])
 
+    // useEffect(() => {
+    //     renderSlashButton(props.textarea, !showMenu,
+    //         onclick = () => {
+    //             setTextAreaValue('/')
+    //         })
+    // }, [showMenu])
 
-    if (!show) return null
+
+    if (!showMenu) return null
 
     return (
-        <ul className={`flex-col flex-1 overflow-y-auto border border-white/20 rounded-md bg-gray-900`}>
+        <ul className={`flex-col flex-1 overflow-y-auto border border-white/20 rounded-md bg-gray-900 shadow-[0_0_10px_rgba(0,0,0,0.10)]`}>
+            <div className='px-3 p-2 text-xs text-white b-2 border-b border-white/20'>WebChatGPT Commands</div>
 
             {filteredCommands.map((command) => {
                 return (
