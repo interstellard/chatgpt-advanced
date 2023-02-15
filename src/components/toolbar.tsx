@@ -1,5 +1,5 @@
-import { h, options } from 'preact'
-import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
+import { h } from 'preact'
+import { useCallback, useEffect, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
 import { getSavedPrompts, Prompt } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig } from 'src/util/userConfig'
@@ -8,6 +8,7 @@ import regionOptions from 'src/util/regionOptions.json'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
 import { getTranslation, localizationKeys, setLocaleLanguage } from 'src/util/localization'
+import Footer from './footer'
 
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
@@ -80,66 +81,61 @@ function Toolbar() {
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
         <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
         <div className="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
-        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
+        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Web_access'] after:wcg-content-['Web']" />
     </label>
 
     return (
-        <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-mt-0 wcg-p-0 wcg-px-1 wcg-rounded-md">
-
-            <div className="wcg-btn wcg-btn-xs"
-                onClick={() => Browser.runtime.sendMessage("show_options")}
-            >
-                {icons.tune}
-            </div>
-            {webAccessToggle}
-
-            <Dropdown
-                value={numResults}
-                onChange={handleNumResultsChange}
-                options={numResultsOptions} />
-            <Dropdown
-                value={timePeriod}
-                onChange={handleTimePeriodChange}
-                options={timePeriodOptions} />
-            <Dropdown
-                value={region}
-                onChange={handleRegionChange}
-                options={regionOptions} />
-            {/* <Dropdown
-                value={promptUUID}
-                onChange={handlePromptChange}
-                onClick={handlePromptClick}
-                options={prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))} /> */}
-            <div className="wcg-dropdown wcg-dropdown-top"
-                onClick={handlePromptClick}
-            >
-                <div tabIndex={0} className="wcg-flex wcg-items-center wcg-gap-0 wcg-flex-row wcg-cursor-pointer">
-                    <label className="wcg-btn wcg-text-sm wcg-normal-case   wcg-pr-0 wcg-max-w-[7rem] wcg-truncate wcg-justify-start">
-                        {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
-                    </label>
-                    {icons.expand}
-                </div>
-                <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-p-0 wcg-m-0 wcg-rounded-md wcg-w-52 wcg-bg-gray-800
-                wcg-max-h-96 wcg-overflow-auto
-                wcg-flex wcg-flex-col wcg-flex-nowrap"
+        <div className="wcg-flex wcg-flex-col wcg-gap-0">
+            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-px-1 wcg-rounded-md wcg-justify-between">
+                <div className="wcg-btn wcg-btn-xs"
+                    onClick={() => Browser.runtime.sendMessage("show_options")}
                 >
-                    {prompts.map((prompt) =>
-                        <li tabIndex={0} className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
-                            onClick={() => handlePromptChange(prompt.uuid)}
-                        >
-                            <a>{prompt.name}</a>
-                        </li>
-                    )
-                    }
-                    <li className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
-                        onClick={() => Browser.runtime.sendMessage("show_options")
-                        }
+                    {icons.tune}
+                </div>
+                {webAccessToggle}
+                <Dropdown
+                    value={numResults}
+                    onChange={handleNumResultsChange}
+                    options={numResultsOptions} />
+                <Dropdown
+                    value={timePeriod}
+                    onChange={handleTimePeriodChange}
+                    options={timePeriodOptions} />
+                <Dropdown
+                    value={region}
+                    onChange={handleRegionChange}
+                    options={regionOptions} />
+                <div className="wcg-dropdown wcg-dropdown-top"
+                    onClick={handlePromptClick}
+                >
+                    <div tabIndex={0} className="wcg-flex wcg-items-center wcg-gap-0 wcg-flex-row wcg-cursor-pointer">
+                        <label className="wcg-cursor-pointer wcg-font-semibold wcg-text-sm wcg-normal-case wcg-pr-0 wcg-max-w-[7rem] wcg-truncate wcg-justify-start">
+                            {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
+                        </label>
+                        {icons.expand}
+                    </div>
+                    <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-p-0 wcg-m-0 wcg-rounded-md wcg-w-52 wcg-bg-gray-800
+                    wcg-max-h-96 wcg-overflow-auto
+                    wcg-flex wcg-flex-col wcg-flex-nowrap"
                     >
-                        <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
-                    </li>
-                </ul>
+                        {prompts.map((prompt) =>
+                            <li tabIndex={0} className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
+                                onClick={() => handlePromptChange(prompt.uuid)}
+                            >
+                                <a>{prompt.name}</a>
+                            </li>
+                        )
+                        }
+                        <li className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
+                            onClick={() => Browser.runtime.sendMessage("show_options")
+                            }
+                        >
+                            <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
+            <Footer />
         </div>
     )
 }

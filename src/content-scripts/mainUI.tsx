@@ -2,7 +2,6 @@ import '../style/base.css'
 import { h, render } from 'preact'
 import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTToolbar } from '../util/elementFinder'
 import Toolbar from 'src/components/toolbar'
-import Footer from 'src/components/footer'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
 import { apiSearch, SearchResult } from './api'
@@ -93,6 +92,9 @@ async function updateUI() {
 
         const textareaParent = textarea.parentElement.parentElement
         textareaParent.style.flexDirection = 'column'
+        textareaParent.parentElement.style.flexDirection = 'column'
+        textareaParent.parentElement.style.gap = '0px'
+        textareaParent.parentElement.style.marginBottom = '0.5em'
 
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
         textareaParent.appendChild(shadowRootDiv)
@@ -100,9 +102,9 @@ async function updateUI() {
     }
 
     if (footer) {
-        let div = document.createElement('div')
-        footer.lastElementChild.appendChild(div)
-        render(<Footer />, div)
+        const lastChild = footer.lastElementChild as HTMLElement
+        if (lastChild)
+            lastChild.style.padding = '0 0 0.5em 0'
     }
 }
 
