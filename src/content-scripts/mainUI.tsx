@@ -8,20 +8,20 @@ import { apiSearch, SearchResult } from './api'
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
 
-var isProcessing = false
+let isProcessing = false
 
-var btnSubmit: HTMLButtonElement
-var textarea: HTMLTextAreaElement
-var footer: HTMLDivElement
+let btnSubmit: HTMLButtonElement
+let textarea: HTMLTextAreaElement
+let footer: HTMLDivElement
 
-async function onSubmit(event: any) {
+async function onSubmit(event: MouseEvent | KeyboardEvent) {
 
-    if (event.shiftKey && event.key === 'Enter')
+    if (event instanceof KeyboardEvent && event.shiftKey && event.key === 'Enter')
         return
 
-    if ((event.type === "click" || event.key === 'Enter') && !isProcessing) {
+    if ((event.type === "click" || (event instanceof KeyboardEvent && event.key === 'Enter')) && !isProcessing) {
 
-        let query = textarea.value.trim()
+        const query = textarea.value.trim()
 
         if (query === "") return
 
@@ -71,7 +71,7 @@ function pressEnter() {
 
 function showErrorMessage(error: Error) {
     console.log("WebChatGPT error --> API error: ", error)
-    let div = document.createElement('div')
+    const div = document.createElement('div')
     document.body.appendChild(div)
     render(<ErrorMessage message={error.message} />, div)
 }
