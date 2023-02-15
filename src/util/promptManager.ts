@@ -47,7 +47,7 @@ export const getDefaultPrompt = () => {
     return {
         name: 'Default prompt',
         // text: getTranslation(localizationKeys.defaultPrompt),
-        text: getTranslation(localizationKeys.defaultPrompt, 'en') + (getLocaleLanguage() !== 'en' ? '\nReply in ' + getCurrentLanguageName() : ''),
+        text: getTranslation(localizationKeys.defaultPrompt, 'en') + (getLocaleLanguage() !== 'en' ? `\nReply in ${getCurrentLanguageName()}` : ''),
         uuid: 'default'
     }
 }
@@ -63,7 +63,7 @@ export const getCurrentPrompt = async () => {
     return savedPrompts.find((i: Prompt) => i.uuid === currentPromptUuid) || getDefaultPrompt()
 }
 
-export const getSavedPrompts = async (addDefaults: boolean = true) => {
+export const getSavedPrompts = async (addDefaults = true) => {
     const data = await Browser.storage.sync.get([SAVED_PROMPTS_KEY])
     const savedPrompts = data[SAVED_PROMPTS_KEY] || []
 
@@ -92,7 +92,7 @@ function addDefaultPrompts(prompts: Prompt[]) {
 }
 
 export const savePrompt = async (prompt: Prompt) => {
-    let savedPrompts = await getSavedPrompts(false)
+    const savedPrompts = await getSavedPrompts(false)
     const index = savedPrompts.findIndex((i: Prompt) => i.uuid === prompt.uuid)
     if (index >= 0) {
         savedPrompts[index] = prompt

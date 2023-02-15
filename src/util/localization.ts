@@ -4,18 +4,19 @@ import * as localizedStrings from './localizedStrings.json'
 export const getSystemLanguage = () => Browser.i18n.getUILanguage().split("-")[0]
 
 export const Languages = {
-    "auto": "Auto",
-    "en": "English",
-    "de": "Deutsch",
-    "es": "Español",
-    "fr": "Français",
-    "it": "Italiano",
-    "ja": "日本語",
-    "ko": "한국어",
-    "pt": "Português",
-    "zh": "中文",
+    auto: "Auto",
+    en: "English",
+    de: "Deutsch",
+    es: "Español",
+    fr: "Français",
+    it: "Italiano",
+    ja: "日本語",
+    ko: "한국어",
+    pt: "Português",
+    ru: "Русский",
+    zh: "中文",
     "zh-TW": "中文（臺灣）",
-    "he": "עברית"
+    he: "עברית"
 }
 
 const DEFAULT_LANGUAGE = 'en'

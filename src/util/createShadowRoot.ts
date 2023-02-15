@@ -1,7 +1,7 @@
 import Browser from "webextension-polyfill"
 
 async function createShadowRoot(pathToCSS: string) {
-    let shadowRootDiv = document.createElement('div')
+    const shadowRootDiv = document.createElement('div')
     const shadowRoot = shadowRootDiv.attachShadow({ mode: 'open' })
     const style = document.createElement('style')
     style.textContent = await fetch(Browser.runtime.getURL(pathToCSS)).then(response => response.text())

@@ -2,16 +2,14 @@ import { h, JSX } from "preact"
 
 function Dropdown(props: {
     value: string | number
-    onChange: (e: any) => void
-    options: Array<{ value: any; label: string }>
-    onClick?: (e: any) => void
+    onChange: any
+    options: Array<{ value: string | number; label: string }>
 }): JSX.Element {
-    
+
     return (
-        <select className="wcg-bg-[#343541] wcg-text-white wcg-text-sm wcg-block wcg-p-2.5 wcg-pr-2 wcg-border-0 focus:wcg-ring-0 wcg-max-w-[9.5rem]"
+        <select className="wcg-block wcg-max-w-[9.5rem] wcg-border-0 wcg-bg-[#343541] wcg-p-2.5 wcg-pr-2 wcg-text-sm wcg-text-white focus:wcg-ring-0"
             value={props.value}
             onChange={props.onChange}
-            onClick={props.onClick}
         >
             {props.options.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>

@@ -26,7 +26,7 @@ const PromptEditor = (
     }, [])
 
     const updateSavedPrompts = async () => {
-        let prompts = await getSavedPrompts()
+        const prompts = await getSavedPrompts()
         setSavedPrompts(prompts)
         if (prompt.uuid === 'default') {
             setPrompt(prompts[0])
@@ -112,10 +112,10 @@ const PromptEditor = (
     }
 
     const handleTextareaChange = (e: Event) => {
-        let text = (e.target as HTMLTextAreaElement).value
+        const text = (e.target as HTMLTextAreaElement).value
         if (text !== prompt.text) {
             setTextError(false)
-            setPrompt({ ...prompt, text: text })
+            setPrompt({ ...prompt, text })
         }
     }
 
@@ -125,7 +125,7 @@ const PromptEditor = (
     }
 
     const actionToolbar = (
-        <div className={`wcg-flex wcg-flex-row wcg-justify-between wcg-mt-4
+        <div className={`wcg-mt-4 wcg-flex wcg-flex-row wcg-justify-between
                         ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
         >
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
@@ -133,7 +133,7 @@ const PromptEditor = (
                     <button
                         className={`wcg-btn
                         ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
-                        wcg-lowercase wcg-p-1`}
+                        wcg-p-1 wcg-lowercase`}
                         onClick={() => {
                             setWebResultsError(false)
                             handleInsertText('{web_results}')
@@ -146,7 +146,7 @@ const PromptEditor = (
                     <button
                         className={`wcg-btn
                         ${showErrors && queryError ? "wcg-btn-error" : hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
-                        wcg-lowercase wcg-p-1`}
+                        wcg-p-1 wcg-lowercase`}
                         onClick={() => {
                             setQueryError(false)
                             handleInsertText('{query}')
@@ -157,7 +157,7 @@ const PromptEditor = (
                 </TooltipWrapper>
                 <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.currentDate)}>
                     <button
-                        className="wcg-btn wcg-btn-success wcg-lowercase wcg-p-1"
+                        className="wcg-btn-success wcg-btn wcg-p-1 wcg-lowercase"
                         onClick={() => handleInsertText('{current_date}')}
                     >
                         &#123;current_date&#125;
@@ -166,7 +166,7 @@ const PromptEditor = (
             </div>
 
             <button
-                className="wcg-btn wcg-btn-primary wcg-text-base"
+                className="wcg-btn-primary wcg-btn wcg-text-base"
                 onClick={handleSave}
             >
                 {getTranslation(localizationKeys.buttons.save)}
@@ -177,16 +177,16 @@ const PromptEditor = (
     const PromptList = (
         <div>
             <button
-                className="wcg-btn wcg-btn-primary wcg-w-full wcg-text-base"
+                className="wcg-btn-primary wcg-btn wcg-w-full wcg-text-base"
                 onClick={handleAdd}>
                 <span class="material-symbols-outlined wcg-mr-2">
                     add_circle
                 </span>
                 {getTranslation(localizationKeys.buttons.newPrompt)}
             </button>
-            <ul className="wcg-menu wcg-p-0 wcg-max-h-96 wcg-scroll-m-0 wcg-scroll-y wcg-overflow-auto wcg-mt-4
-                    wcg-flex wcg-flex-col wcg-flex-nowrap
-                    wcg-border-solid wcg-border-2 wcg-border-white/20">
+            <ul className="wcg-scroll-y wcg-menu wcg-mt-4 wcg-flex wcg-max-h-96 wcg-scroll-m-0 wcg-flex-col
+                    wcg-flex-nowrap wcg-overflow-auto wcg-border-2
+                    wcg-border-solid wcg-border-white/20 wcg-p-0">
                 {savedPrompts.map((prmpt: Prompt) => (
                     <li
                         key={prmpt.uuid}
@@ -204,7 +204,7 @@ const PromptEditor = (
     const nameInput = (
         <input
             ref={nameInputRef}
-            className={`wcg-input wcg-input-bordered wcg-flex-1
+            className={`wcg-input-bordered wcg-input wcg-flex-1
                         ${showErrors && nameError ? "wcg-input-error" : ""}`
             }
             placeholder={getTranslation(localizationKeys.placeholders.namePlaceholder)}
@@ -233,9 +233,9 @@ const PromptEditor = (
     const textArea = (
         <textarea
             ref={textareaRef}
-            className={`wcg-textarea wcg-textarea-bordered
+            className={`wcg-textarea-bordered wcg-textarea
                         ${showErrors && textError ? "wcg-textarea-error" : ""}
-                        wcg-h-96 wcg-resize-none wcg-text-base wcg-mt-2`}
+                        wcg-mt-2 wcg-h-96 wcg-resize-none wcg-text-base`}
             value={prompt.text}
             onInput={handleTextareaChange}
             disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
@@ -243,13 +243,13 @@ const PromptEditor = (
     )
 
     return (
-        <div className="wcg-w-4/5 wcg-border wcg-rounded-box wcg-py-4 wcg-flex wcg-flex-row wcg-gap-4 wcg-h-[32rem] wcg-mt-10">
+        <div className="wcg-rounded-box wcg-mt-10 wcg-flex wcg-h-[32rem] wcg-w-4/5 wcg-flex-row wcg-gap-4 wcg-border wcg-py-4">
             <div className="wcg-w-1/3">
                 {PromptList}
             </div>
 
-            <div className="wcg-flex wcg-flex-col wcg-w-2/3">
-                <div className="wcg-flex wcg-flex-row wcg-gap-2 wcg-items-center">
+            <div className="wcg-flex wcg-w-2/3 wcg-flex-col">
+                <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
                     {nameInput}
                     {btnDelete}
                 </div>

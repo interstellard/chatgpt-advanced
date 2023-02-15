@@ -11,15 +11,17 @@ export async function apiSearch(query: string, numResults: number, timePeriod: s
     if (pageOperatorMatches)
         queryUrl = pageOperatorMatches[1]
 
-    let url: RequestInfo | URL
+    var url: RequestInfo | URL
     if (queryUrl) {
         url = `https://ddg-webapp-aagd.vercel.app/url_to_text?url=${queryUrl}`
     } else {
-        url = `https://ddg-webapp-aagd.vercel.app/search?`
-            + `max_results=${numResults}`
-            + `&q=${query}`
-            + (timePeriod ? `&time=${timePeriod}` : "")
-            + (region ? `&region=${region}` : "")
+        const searchParams = new URLSearchParams()
+        searchParams.set('q', query)
+        searchParams.set('max_results', numResults.toString())
+        if (timePeriod) searchParams.set('time', timePeriod)
+        if (region) searchParams.set('region', region)
+
+        url = `https://ddg-webapp-aagd.vercel.app/search?${searchParams.toString()}`
     }
 
     const response = await fetch(url)

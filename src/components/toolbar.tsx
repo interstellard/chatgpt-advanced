@@ -51,21 +51,21 @@ function Toolbar() {
         updateUserConfig({ webAccess: !webAccess })
     }, [webAccess])
 
-    const handleNumResultsChange = useCallback((e: { target: { value: string } }) => {
-        const value = parseInt(e.target.value)
+    const handleNumResultsChange = (e: { target: { value: string } }) => {
+        const value = parseInt(e.target.value, 10)
         setNumResults(value)
         updateUserConfig({ numWebResults: value })
-    }, [numResults])
+    }
 
-    const handleTimePeriodChange = useCallback((e: { target: { value: string } }) => {
+    const handleTimePeriodChange = (e: { target: { value: string } }) => {
         setTimePeriod(e.target.value)
         updateUserConfig({ timePeriod: e.target.value })
-    }, [timePeriod])
+    }
 
-    const handleRegionChange = useCallback((e: { target: { value: string } }) => {
+    const handleRegionChange = (e: { target: { value: string } }) => {
         setRegion(e.target.value)
         updateUserConfig({ region: e.target.value })
-    }, [region])
+    }
 
     const handlePromptChange = (uuid: string) => {
         removeFocusFromCurrentElement()
@@ -77,19 +77,63 @@ function Toolbar() {
     const removeFocusFromCurrentElement = () => (document.activeElement as HTMLElement)?.blur()
 
 
-    const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-items-center wcg-cursor-pointer">
-        <input type="checkbox" value="" className="wcg-sr-only wcg-peer" checked={webAccess} onChange={handleWebAccessToggle} />
-        <div className="wcg-w-9 wcg-h-5 wcg-bg-gray-500 wcg-rounded-full wcg-peer peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white after:wcg-content-[''] after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-bg-white after:wcg-border-gray-300 after:wcg-border after:wcg-rounded-full after:wcg-h-4 after:wcg-w-4 after:wcg-transition-all dark:wcg-border-gray-600 peer-checked:wcg-bg-emerald-700" />
-        <span className="wcg-ml-1 wcg-text-sm md:after:wcg-content-['Search_on_the_web'] after:wcg-content-['Web']" />
+    const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-cursor-pointer wcg-items-center">
+        <input type="checkbox" value="" className="wcg-peer wcg-sr-only" checked={webAccess} onChange={handleWebAccessToggle} />
+        <div className="wcg-peer wcg-h-5 wcg-w-9 wcg-rounded-full wcg-bg-gray-500 after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-h-4 after:wcg-w-4 after:wcg-rounded-full after:wcg-border after:wcg-border-gray-300 after:wcg-bg-white after:wcg-transition-all after:wcg-content-[''] peer-checked:wcg-bg-emerald-700 peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white dark:wcg-border-gray-600" />
+        <span className="wcg-ml-1 wcg-pl-1 wcg-text-sm wcg-font-semibold after:wcg-content-['Web'] md:after:wcg-content-['Web_access']" />
     </label>
 
     return (
-        <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-mt-0 wcg-p-0 wcg-px-1 wcg-rounded-md">
-
-            <div className="wcg-btn wcg-btn-xs"
-                onClick={() => Browser.runtime.sendMessage("show_options")}
-            >
-                {icons.tune}
+        <div className="wcg-flex wcg-flex-col wcg-gap-0">
+            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-rounded-md wcg-px-1">
+                <div className="wcg-btn-xs wcg-btn"
+                    onClick={() => Browser.runtime.sendMessage("show_options")}
+                >
+                    {icons.tune}
+                </div>
+                {webAccessToggle}
+                <Dropdown
+                    value={numResults}
+                    onChange={handleNumResultsChange}
+                    options={numResultsOptions} />
+                <Dropdown
+                    value={timePeriod}
+                    onChange={handleTimePeriodChange}
+                    options={timePeriodOptions} />
+                <Dropdown
+                    value={region}
+                    onChange={handleRegionChange}
+                    options={regionOptions} />
+                <div className="wcg-dropdown-top wcg-dropdown wcg-min-w-[9.5rem]"
+                    onClick={handlePromptClick}
+                >
+                    <div tabIndex={0} className="wcg-flex wcg-cursor-pointer wcg-flex-row wcg-items-center wcg-justify-between wcg-gap-0 wcg-px-2">
+                        <label className="wcg-max-w-[7rem] wcg-cursor-pointer wcg-justify-start wcg-truncate wcg-pr-0 wcg-text-sm wcg-font-semibold wcg-normal-case">
+                            {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
+                        </label>
+                        {icons.expand}
+                    </div>
+                    <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-m-0 wcg-flex wcg-max-h-96 wcg-w-52 wcg-flex-col
+                    wcg-flex-nowrap wcg-overflow-auto
+                    wcg-rounded-md wcg-bg-gray-800 wcg-p-0"
+                    >
+                        {prompts.map((prompt) =>
+                            <li tabIndex={0} className="wcg-text-sm wcg-text-white hover:wcg-bg-gray-700"
+                                onClick={() => handlePromptChange(prompt.uuid)}
+                                key={prompt.uuid}
+                            >
+                                <a>{prompt.name}</a>
+                            </li>
+                        )
+                        }
+                        <li className="wcg-text-sm wcg-text-white hover:wcg-bg-gray-700"
+                            onClick={() => Browser.runtime.sendMessage("show_options")
+                            }
+                        >
+                            <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             {webAccessToggle}
 
