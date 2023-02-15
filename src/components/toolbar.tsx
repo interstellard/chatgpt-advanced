@@ -1,5 +1,5 @@
-import { h, options } from 'preact'
-import { useCallback, useEffect, useMemo, useState } from 'preact/hooks'
+import { h } from 'preact'
+import { useCallback, useEffect, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
 import { getSavedPrompts, Prompt } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig } from 'src/util/userConfig'
@@ -8,6 +8,7 @@ import regionOptions from 'src/util/regionOptions.json'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
 import { getTranslation, localizationKeys, setLocaleLanguage } from 'src/util/localization'
+import Footer from './footer'
 
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
@@ -135,55 +136,7 @@ function Toolbar() {
                     </ul>
                 </div>
             </div>
-            {webAccessToggle}
-
-            <Dropdown
-                value={numResults}
-                onChange={handleNumResultsChange}
-                options={numResultsOptions} />
-            <Dropdown
-                value={timePeriod}
-                onChange={handleTimePeriodChange}
-                options={timePeriodOptions} />
-            <Dropdown
-                value={region}
-                onChange={handleRegionChange}
-                options={regionOptions} />
-            {/* <Dropdown
-                value={promptUUID}
-                onChange={handlePromptChange}
-                onClick={handlePromptClick}
-                options={prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name }))} /> */}
-            <div className="wcg-dropdown wcg-dropdown-top"
-                onClick={handlePromptClick}
-            >
-                <div tabIndex={0} className="wcg-flex wcg-items-center wcg-gap-0 wcg-flex-row wcg-cursor-pointer">
-                    <label className="wcg-btn wcg-text-sm wcg-normal-case   wcg-pr-0 wcg-max-w-[7rem] wcg-truncate wcg-justify-start">
-                        {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
-                    </label>
-                    {icons.expand}
-                </div>
-                <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-p-0 wcg-m-0 wcg-rounded-md wcg-w-52 wcg-bg-gray-800
-                wcg-max-h-96 wcg-overflow-auto
-                wcg-flex wcg-flex-col wcg-flex-nowrap"
-                >
-                    {prompts.map((prompt) =>
-                        <li tabIndex={0} className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
-                            onClick={() => handlePromptChange(prompt.uuid)}
-                        >
-                            <a>{prompt.name}</a>
-                        </li>
-                    )
-                    }
-                    <li className="hover:wcg-bg-gray-700 wcg-text-sm wcg-text-white"
-                        onClick={() => Browser.runtime.sendMessage("show_options")
-                        }
-                    >
-                        <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
-                    </li>
-                </ul>
-            </div>
-
+            <Footer />
         </div>
     )
 }
