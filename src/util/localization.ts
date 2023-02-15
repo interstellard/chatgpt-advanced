@@ -13,7 +13,8 @@ export const Languages = {
     "ja": "日本語",
     "ko": "한국어",
     "pt": "Português",
-    "zh": "中文"
+    "zh": "中文",
+    "he": "עברית"
 }
 
 const DEFAULT_LANGUAGE = 'en'
