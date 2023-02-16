@@ -8,7 +8,8 @@
         "it": "Risultati della ricerca Web:\n\n{web_results}\nData corrente: {current_date}\n\nIstruzioni: utilizzando i risultati della ricerca Web forniti, scrivere una risposta completa alla query specificata. Assicurati di citare i risultati utilizzando la notazione [[numero](URL)] dopo il riferimento. Se i risultati di ricerca forniti si riferiscono a più argomenti con lo stesso nome, scrivi risposte separate per ogni argomento.\nQuery: {query}",
         "zh": "网络搜索结果:\n\n{web_results}\n当前日期: {current_date}\n\n说明: 使用提供的网络搜索结果，对给定的查询进行综合回复。 确保在参考文献后使用 [[数字](URL)] 符号来引用结果。 如果提供的搜索结果涉及同名的多个主题，请为每个主题分别写下答案。\n查询: {query}",
         "ja": "Web 検索結果:\n\n{web_results}\n現在の日付: {current_date}\n\n指示: 提供された Web 検索結果を使用して、指定されたクエリに対する包括的な回答を作成します。 参考文献の後に必ず[[数字](URL)]表記で結果を引用してください。 提供された検索結果が同じ名前の複数の件名を参照している場合は、件名ごとに個別の回答を記述してください。\nクエリ: {query}",
-        "ko": "웹 검색 결과:\n\n{web_results}\n현재 날짜: {current_date}\n\n지침: 제공된 웹 검색 결과를 사용하여 주어진 쿼리에 대한 포괄적인 회신을 작성합니다. 반드시 [[숫자](URL)] 표기를 사용하여 결과를 인용한다. 제공된 검색 결과가 동일한 이름을 가진 여러 주제를 참조하는 경우 각 주제에 대해 별도의 답변을 작성하십시오.\n쿼리: {query}"
+        "ko": "웹 검색 결과:\n\n{web_results}\n현재 날짜: {current_date}\n\n지침: 제공된 웹 검색 결과를 사용하여 주어진 쿼리에 대한 포괄적인 회신을 작성합니다. 반드시 [[숫자](URL)] 표기를 사용하여 결과를 인용한다. 제공된 검색 결과가 동일한 이름을 가진 여러 주제를 참조하는 경우 각 주제에 대해 별도의 답변을 작성하십시오.\n쿼리: {query}",
+        "ru": "Результаты веб-поиска:\n\n{web_results}\nТекущая дата: {current_date}\n\nИнструкции: Используя предоставленные результаты веб-поиска, напиши исчерпывающей ответ на запрос. Обязательно дай сноску на конкретный результат поиска в формате [[number](URL)] после блока текста, в котором используется этот результат. Если представленные результаты относятся к нескольким темам, имеющим одинаковое название, напиши отдельные ответы по каждой из тем.\nЗапрос: {query}"
     },
     "language": {
         "en": "Language",
@@ -19,7 +20,8 @@
         "it": "Lingua",
         "zh": "语言",
         "ja": "言語",
-        "ko": "언어"
+        "ko": "언어",
+        "ru": "язык"
     },
     "choose_language": {
         "en": "Choose language",
@@ -30,7 +32,8 @@
         "it": "Scegli la lingua",
         "zh": "选择语言",
         "ja": "言語を選択",
-        "ko": "언어 선택"
+        "ko": "언어 선택",
+        "ru": "Выберите язык"
     },
     "support_this_project": {
         "en": "Support this project",
@@ -41,7 +44,8 @@
         "it": "Sostieni questo progetto",
         "zh": "支持此项目",
         "ja": "このプロジェクトを支援",
-        "ko": "이 프로젝트 지원"
+        "ko": "이 프로젝트 지원",
+        "ru": "Поддержите проект"
     },
     "support_me": {
         "en": "This extension is free! 🥳 But the server it runs on is not. 😬\nPlease help me keep it alive! ⤵️",
@@ -52,7 +56,8 @@
         "it": "Questa estensione è gratuita! 🥳 Ma il server su cui viene eseguita non lo è. 😬\nPer favore aiutami a tenerlo vivo! ⤵️",
         "zh": "此扩展程序是免费的！🥳 但是它运行的服务器不是。😬\n帮助这个项目继续下去！⤵️",
         "ja": "この拡張機能は無料です！🥳 しかし、それが実行されているサーバーは無料ではありません。😬\nこのプロジェクトを維持するのを手伝ってください！⤵️",
-        "ko": "이 확장 프로그램은 무료입니다! 🥳 그러나 그것이 실행되는 서버는 아닙니다. 😬\n이 프로젝트를 계속 유지하도록 도와주세요! ⤵️"
+        "ko": "이 확장 프로그램은 무료입니다! 🥳 그러나 그것이 실행되는 서버는 아닙니다. 😬\n이 프로젝트를 계속 유지하도록 도와주세요! ⤵️",
+        "ru": "Это бесплатное расширение! 🥳 Но сервер, на котором оно работает, не бесплатен. 😬\nПожалуйста, поддержите его работу! ⤵️"
     },
     "save": {
         "en": "Save",
@@ -63,7 +68,8 @@
         "it": "Salva",
         "zh": "保存",
         "ja": "保存",
-        "ko": "저장"
+        "ko": "저장",
+        "ru": "Сохранить"
     },
     "new_prompt": {
         "en": "New prompt",
@@ -74,7 +80,8 @@
         "it": "Nuovo prompt",
         "zh": "新提示",
         "ja": "新しいプロンプト",
-        "ko": "새로운 프롬프트"
+        "ko": "새로운 프롬프트",
+        "ru": "Новый запрос"
     },
     "name_placeholder": {
         "en": "Name",
@@ -85,7 +92,8 @@
         "it": "Nome",
         "zh": "名称",
         "ja": "名前",
-        "ko": "이름"
+        "ko": "이름",
+        "ru": "Название"
     },
     "current_date_placeholder_tip": {
         "en": "Insert placeholder for the current date (optional)",
@@ -96,7 +104,8 @@
         "it": "Inserisci il segnaposto per la data attuale (opzionale)",
         "zh": "插入当前日期的占位符（可选）",
         "ja": "現在の日付のプレースホルダーを挿入（任意）",
-        "ko": "현재 날짜의 자리 표시자를 삽입 (선택 사항)"
+        "ko": "현재 날짜의 자리 표시자를 삽입 (선택 사항)",
+        "ru": "Укажите текущую дату (опционально)"
     },
     "web_results_placeholder_tip": {
         "en": "Insert placeholder for the web results (required)",
@@ -107,7 +116,8 @@
         "it": "Inserisci il segnaposto per i risultati web (richiesto)",
         "zh": "插入网络搜索结果的占位符（必需）",
         "ja": "Web結果のプレースホルダーを挿入（必須）",
-        "ko": "웹 검색 결과의 자리 표시자를 삽입 (필수)"
+        "ko": "웹 검색 결과의 자리 표시자를 삽입 (필수)",
+        "ru": "Укажите количество веб-результатов (обязательно)"
     },
     "query_placeholder_tip": {
         "en": "Insert placeholder for the initial query (required)",
@@ -118,7 +128,8 @@
         "it": "Inserisci il segnaposto per la query iniziale (richiesto)",
         "zh": "插入初始查询的占位符（必需）",
         "ja": "初期クエリのプレースホルダーを挿入（必須）",
-        "ko": "초기 쿼리의 자리 표시자를 삽입 (필수)"
+        "ko": "초기 쿼리의 자리 표시자를 삽입 (필수)",
+        "ru": "Укажите требуемый запрос (обязательно)"
     },
     "twitter_button_tip": {
         "en": "Follow me on Twitter",
@@ -129,7 +140,8 @@
         "it": "Seguimi su Twitter",
         "zh": "在 Twitter 上关注我",
         "ja": "Twitterで私をフォロー",
-        "ko": "Twitter에서 나를 팔로우하세요"
+        "ko": "Twitter에서 나를 팔로우하세요",
+        "ru": "Подпишитесь на меня в Twitter"
     },
     "github_button_tip": {
         "en": "View the source code on GitHub",
@@ -140,7 +152,8 @@
         "it": "Visualizza il codice sorgente su GitHub",
         "zh": "在 GitHub 上查看源代码",
         "ja": "GitHub上のソースコードを見る",
-        "ko": "GitHub에서 소스 코드 보기"
+        "ko": "GitHub에서 소스 코드 보기",
+        "ru": "Посмотреть исходный код на GitHub"
     },
     "discord_button_tip": {
         "en": "Join our Discord community",
@@ -151,6 +164,7 @@
         "it": "Unisciti alla nostra comunità su Discord",
         "zh": "加入我们的 Discord 社区",
         "ja": "私たちのDiscordコミュニティに参加してください",
-        "ko": "우리의 Discord 커뮤니티에 가입하세요"
+        "ko": "우리의 Discord 커뮤니티에 가입하세요",
+        "ru": "Присоединиться к нашему сообществу на Discord"
     }
 }
