@@ -1,4 +1,4 @@
-import { h, JSX } from "preact";
+import { h, JSX } from "preact"
 
 export const tooltipPositions = {
     top: "wcg-tooltip-top",

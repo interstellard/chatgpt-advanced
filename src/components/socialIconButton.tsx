@@ -1,5 +1,5 @@
-import { h, JSX } from "preact";
-import TooltipWrapper from "./tooltipWrapper";
+import { h, JSX } from "preact"
+import TooltipWrapper from "./tooltipWrapper"
 
 function IconButton(props: { url: string, tip: string, icon: JSX.Element }) {
     return (

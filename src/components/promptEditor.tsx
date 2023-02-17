@@ -82,9 +82,9 @@ const PromptEditor = (
 
     const handleDeleteBtnClick = () => {
         if (deleteBtnText === "delete") {
-            setDeleteBtnText("check");
+            setDeleteBtnText("check")
         } else {
-            handleDelete();
+            handleDelete()
         }
     }
 
@@ -139,7 +139,7 @@ const PromptEditor = (
                             handleInsertText('{web_results}')
                         }}
                     >
-                        &#123;web_results&#125;
+                        &#123web_results&#125
                     </button>
                 </TooltipWrapper>
                 <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}>
@@ -152,7 +152,7 @@ const PromptEditor = (
                             handleInsertText('{query}')
                         }}
                     >
-                        &#123;query&#125;
+                        &#123query&#125
                     </button>
                 </TooltipWrapper>
                 <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.currentDate)}>
@@ -160,7 +160,7 @@ const PromptEditor = (
                         className="wcg-btn-success wcg-btn wcg-p-1 wcg-lowercase"
                         onClick={() => handleInsertText('{current_date}')}
                     >
-                        &#123;current_date&#125;
+                        &#123current_date&#125
                     </button>
                 </TooltipWrapper>
             </div>
