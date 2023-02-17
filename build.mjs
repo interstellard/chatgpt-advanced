@@ -1,21 +1,21 @@
-import esbuild from "esbuild";
-import archiver from "archiver";
-import fs from "fs-extra";
-import tailwindcss from "tailwindcss";
-import autoprefixer from "autoprefixer";
-import postcssPlugin from "esbuild-style-plugin";
-import copyStaticFilesPlugin from "esbuild-copy-files-plugin";
-import path from 'path';
+import esbuild from "esbuild"
+import archiver from "archiver"
+import fs from "fs-extra"
+import tailwindcss from "tailwindcss"
+import autoprefixer from "autoprefixer"
+import postcssPlugin from "esbuild-style-plugin"
+import copyStaticFilesPlugin from "esbuild-copy-files-plugin"
+import path from 'path'
 
 
-const buildDir = "build";
-const minify = process.argv.includes("--minify");
+const buildDir = "build"
+const minify = process.argv.includes("--minify")
 
-async function cleanBuildDir() {  
-  const entries = await fs.readdir(buildDir);
+async function cleanBuildDir() {
+  const entries = await fs.readdir(buildDir)
   for (const entry of entries) {
-    if (path.extname(entry) === ".zip") continue;
-    await fs.remove(`${buildDir}/${entry}`);
+    if (path.extname(entry) === ".zip") continue
+    await fs.remove(`${buildDir}/${entry}`)
   }
 }
 async function runEsbuild() {
@@ -27,7 +27,7 @@ async function runEsbuild() {
     ],
     outdir: buildDir,
     bundle: true,
-    minify: minify,
+    minify,
     treeShaking: true,
     define: {
       "process.env.NODE_ENV": '"production"',
@@ -51,7 +51,7 @@ async function runEsbuild() {
       }),
       copyStaticFilesPlugin({
         source: ["src/options/options.html"],
-        target: buildDir + "/options",
+        target: `${buildDir}/options`,
         copyWithFolder: false,
       }),
       copyStaticFilesPlugin({
@@ -60,69 +60,70 @@ async function runEsbuild() {
         copyWithFolder: true,
       }),
     ],
-  });
+  })
 }
 
 async function createZipExtensionForBrowser(browser) {
-  const manifest = await fs.readJson(`${buildDir}/manifest.json`);
-  const version = manifest.version;
-  let archiveName = `build/webchatgpt-${version}-${browser}.zip`;
+  const manifest = await fs.readJson(`${buildDir}/manifest.json`)
+  const version = manifest.version
+  let archiveName = `build/webchatgpt-${version}-${browser}.zip`
 
-  const archive = archiver("zip", { zlib: { level: 9 } });
-  const stream = fs.createWriteStream(archiveName);
+  const archive = archiver("zip", { zlib: { level: 9 } })
+  const stream = fs.createWriteStream(archiveName)
 
-  archive.pipe(stream);
+  archive.pipe(stream)
 
-  await addFilesToZip(archive, browser);
+  await addFilesToZip(archive, browser)
 
-  console.log(`Creating ${archiveName}…`);
-  archive.finalize();
+  console.log(`Creating ${archiveName}…`)
+  archive.finalize()
 }
 
 async function addFilesToZip(archive, browser) {
-  const entries = await fs.readdir("build");
+  const entries = await fs.readdir("build")
   for (const entry of entries) {
-    const entryStat = await fs.stat(`build/${entry}`);
+    const entryStat = await fs.stat(`build/${entry}`)
 
     if (entryStat.isDirectory()) {
-      archive.directory(`build/${entry}`, entry);
+      archive.directory(`build/${entry}`, entry)
     } else {
-      if (path.extname(entry) === ".zip") continue;
-      if (entry === "manifest.json") continue;
-      archive.file(`build/${entry}`, { name: entry });
+      if (path.extname(entry) === ".zip") continue
+      if (entry === "manifest.json") continue
+      archive.file(`build/${entry}`, { name: entry })
     }
   }
   if (browser === "firefox") {
-    archive.file("src/manifest.v2.json", { name: "manifest.json" });
+    archive.file("src/manifest.v2.json", { name: "manifest.json" })
   } else if (browser === "chrome") {
-    archive.file("build/manifest.json", { name: "manifest.json" });
+    archive.file("build/manifest.json", { name: "manifest.json" })
   }
 }
 
 async function build() {
-  await cleanBuildDir();
-  await runEsbuild();
+  await cleanBuildDir()
+  await runEsbuild()
 
-  const createZips = process.argv.includes("--create-zips");
+  const createZips = process.argv.includes("--create-zips")
   if (createZips) {
     try {
-      await deleteZipsInBuildFolder();
-      await createZipExtensionForBrowser("chrome");
-      await createZipExtensionForBrowser("firefox");
+      await deleteZipsInBuildFolder()
+      await createZipExtensionForBrowser("chrome")
+      await createZipExtensionForBrowser("firefox")
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
-  console.log("Build complete");
+
+  console.log("Build complete")
 
   async function deleteZipsInBuildFolder() {
-    const entries = await fs.readdir("build");
+    const entries = await fs.readdir("build")
     for (const entry of entries) {
       if (path.extname(entry) === ".zip") {
-        await fs.remove(`build/${entry}`);
+        await fs.remove(`build/${entry}`)
       }
     }
   }
 }
 
-build();
+build()
