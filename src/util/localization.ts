@@ -14,6 +14,7 @@ export const Languages = {
     "ko": "한국어",
     "pt": "Português",
     "zh": "中文",
+    "zh-TW": "中文（臺灣）",
     "he": "עברית"
 }
 

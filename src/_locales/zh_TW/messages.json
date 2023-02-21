@@ -1,0 +1,8 @@
+{
+    "appName": {
+      "message": "WebChatGPT：有網路存取功能的 ChatGPT"
+    },
+    "appDesc": {
+      "message": "使用來自網絡的相關結果，增加 ChatGPT 的回答功能。"
+    }
+}

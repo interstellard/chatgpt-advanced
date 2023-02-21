@@ -34,6 +34,10 @@ async function onSubmit(event: any) {
     if (event.shiftKey && event.key === 'Enter')
         return
 
+    if (event.key === 'Enter' && event.isComposing) {
+        return
+    }
+
     if ((event.type === "click" || event.key === 'Enter') && !isProcessing) {
 
         let query = textarea.value.trim()
