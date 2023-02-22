@@ -11,7 +11,7 @@ export async function apiSearch(query: string, numResults: number, timePeriod: s
     if (pageOperatorMatches)
         queryUrl = pageOperatorMatches[1]
 
-    var url: RequestInfo | URL
+    let url: RequestInfo | URL
     if (queryUrl) {
         url = `https://ddg-webapp-aagd.vercel.app/url_to_text?url=${queryUrl}`
     } else {
