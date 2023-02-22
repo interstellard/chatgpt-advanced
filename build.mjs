@@ -63,6 +63,19 @@ async function runEsbuild() {
   })
 }
 
+async function copyVersionFromPackageJsonToManifests() {
+  const packageJson = await fs.readJson("package.json")
+  const version = packageJson.version
+
+  const manifestFiles = ["src/manifest.json", "src/manifest.v2.json"]
+  for (const manifestFile of manifestFiles) {
+    const manifest = await fs.readJson(manifestFile)
+    manifest.version = version
+    await fs.writeJson(manifestFile, manifest, { spaces: 2 })
+    console.log(`Updated version in ${manifestFile} to ${version}`)
+  }
+}
+
 async function createZipExtensionForBrowser(browser) {
   const manifest = await fs.readJson(`${buildDir}/manifest.json`)
   const version = manifest.version
@@ -100,9 +113,14 @@ async function addFilesToZip(archive, browser) {
 }
 
 async function build() {
+  const updateVersion = process.argv.includes("--update-version")
+  if (updateVersion) {
+    await copyVersionFromPackageJsonToManifests()
+  }
+
   await cleanBuildDir()
   await runEsbuild()
-
+  
   const createZips = process.argv.includes("--create-zips")
   if (createZips) {
     try {

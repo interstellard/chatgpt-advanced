@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build-dev": "node build.mjs",
-    "build-prod": "node build.mjs --create-zips",
-    "build-prod-min": "node build.mjs --create-zips --minify",
+    "build-prod": "node build.mjs --create-zips --update-version",
+    "build-prod-min": "node build.mjs --create-zips --update-version --minify",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "watch": "chokidar src -c \"npm run build-dev\""
