@@ -4,7 +4,7 @@ import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTT
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
-import { apiSearch, SearchResult } from './api'
+import { apiExtractText, apiSearch, SearchResult } from './api'
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
 import SlashCommandsMenu from 'src/components/slashCommandsMenu'
@@ -59,7 +59,15 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
         textarea.value = ""
 
         try {
-            const results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
+            let results: SearchResult[]
+            const pageMatch = query.match(/page:(\S+)/)
+            if (pageMatch) {
+                const url = pageMatch[1]
+                results = await apiExtractText(url)
+            } else {
+                results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
+            }
+
             await pasteWebResultsToTextArea(results, query)
             pressEnter()
             isProcessing = false

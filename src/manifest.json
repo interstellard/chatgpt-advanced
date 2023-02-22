@@ -10,7 +10,7 @@
     "128": "icons/icon128.png"
   },
   "permissions": ["storage"],
-  "host_permissions": ["https://ddg-webapp-aagd.vercel.app/*"],
+  "host_permissions": ["https://ddg-webapp-aagd.vercel.app/*", "*://*/*", "*://*.bbc.com/*", "*://*.twitter.com/*"],
   "background": {
     "service_worker": "background/bg.js"
   },
