@@ -139,7 +139,7 @@ const PromptEditor = (
                             handleInsertText('{web_results}')
                         }}
                     >
-                        &#123web_results&#125
+                        {"{web_results}"}
                     </button>
                 </TooltipWrapper>
                 <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}>
@@ -152,7 +152,7 @@ const PromptEditor = (
                             handleInsertText('{query}')
                         }}
                     >
-                        &#123query&#125
+                        {"{query}"}
                     </button>
                 </TooltipWrapper>
                 <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.currentDate)}>
@@ -160,7 +160,7 @@ const PromptEditor = (
                         className="wcg-btn-success wcg-btn wcg-p-1 wcg-lowercase"
                         onClick={() => handleInsertText('{current_date}')}
                     >
-                        &#123current_date&#125
+                        {"{current_date}"}
                     </button>
                 </TooltipWrapper>
             </div>
