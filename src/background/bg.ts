@@ -30,10 +30,9 @@ Browser.runtime.onMessage.addListener((request) => {
 
 })
 
-Browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+Browser.runtime.onMessage.addListener((request) => {
     if (request.type === "get_article_text") {
         const text = getArticleText(request.url)
-        // console.log("text", text)
         return text
     }
 })
@@ -51,7 +50,6 @@ const cleanSourceText = (text: string) => {
 
 async function getArticleText(link: string) {
     const response = await fetch(link)
-    // console.log("response", response)
 
     const html = await response.text()
     const doc = parseHTML(html).document
