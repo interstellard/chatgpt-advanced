@@ -56,7 +56,7 @@ async function getArticleText(link: string) {
     const html = await response.text()
     const doc = parseHTML(html).document
     const parsed = new Readability(doc).parse()
-    console.log("parsed", parsed)
+    // console.log("parsed", parsed)
 
     if (parsed) {
         const sourceText = cleanSourceText(parsed.textContent)
