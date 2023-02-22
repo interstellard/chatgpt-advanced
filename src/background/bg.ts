@@ -33,7 +33,7 @@ Browser.runtime.onMessage.addListener((request) => {
 Browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === "get_article_text") {
         const text = getArticleText(request.url)
-        console.log("text", text)
+        // console.log("text", text)
         return text
     }
 })
