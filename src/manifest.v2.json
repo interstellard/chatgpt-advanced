@@ -12,7 +12,8 @@
   "permissions": [
     "storage",
     "webRequest",
-    "https://ddg-webapp-aagd.vercel.app/*"
+    "https://ddg-webapp-aagd.vercel.app/*",
+    "*://*/*"
   ],
   "background": {
     "scripts": ["background/bg.js"]
