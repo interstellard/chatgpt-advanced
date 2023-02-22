@@ -4,8 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { getCurrentLanguageName, getLocaleLanguage, getTranslation, localizationKeys } from "./localization"
 import { getUserConfig } from "./userConfig"
 
-export const DEFAULT_PROMPT_KEY = 'default_prompt'
-export const CURRENT_PROMPT_UUID_KEY = 'promptUUID'
 export const SAVED_PROMPTS_KEY = 'saved_prompts'
 
 export interface Prompt {
@@ -46,7 +44,6 @@ const replaceVariables = (prompt: string, variables: { [key: string]: string }) 
 export const getDefaultPrompt = () => {
     return {
         name: 'Default prompt',
-        // text: getTranslation(localizationKeys.defaultPrompt),
         text: getTranslation(localizationKeys.defaultPrompt, 'en') + (getLocaleLanguage() !== 'en' ? `\nReply in ${getCurrentLanguageName()}` : ''),
         uuid: 'default'
     }

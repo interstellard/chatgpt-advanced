@@ -5,6 +5,12 @@ export interface SearchResult {
 }
 
 export async function apiSearch(query: string, numResults: number, timePeriod: string, region: string): Promise<SearchResult[]> {
+
+    const headers = new Headers({
+        Origin: "https://chat.openai.com",
+        "Content-Type": "application/json",
+    })
+
     const pageOperatorMatches = query.match(/page:(\S+)/)
     let queryUrl: string
 
@@ -24,7 +30,10 @@ export async function apiSearch(query: string, numResults: number, timePeriod: s
         url = `https://ddg-webapp-aagd.vercel.app/search?${searchParams.toString()}`
     }
 
-    const response = await fetch(url)
+    const response = await fetch(url, {
+        method: "GET",
+        headers,
+    })
     const results = await response.json()
     return results.map((result: any) => {
         return {
