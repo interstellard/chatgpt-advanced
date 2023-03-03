@@ -12,6 +12,7 @@ export const Languages = {
     it: "Italiano",
     ja: "日本語",
     ko: "한국어",
+    pl: "Polski",
     pt: "Português",
     ru: "Русский",
     zh: "中文",

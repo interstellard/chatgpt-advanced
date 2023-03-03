@@ -14,7 +14,8 @@
     "ja": "言語",
     "ko": "언어",
     "he": "שפה",
-    "ru": "язык"
+    "ru": "язык",
+    "pl": "Język"
   },
   "choose_language": {
     "en": "Choose language",
@@ -28,7 +29,8 @@
     "ja": "言語を選択",
     "ko": "언어 선택",
     "he": "בחר שפה",
-    "ru": "Выбрать язык"
+    "ru": "Выбрать язык",
+    "pl": "Wybierz język"
   },
   "support_this_project": {
     "en": "Support this project",
@@ -42,7 +44,8 @@
     "ja": "このプロジェクトを支援",
     "ko": "이 프로젝트 지원",
     "he": "לתרום לפרוייקט",
-    "ru": "Поддержать проект"
+    "ru": "Поддержать проект",
+    "pl": "Wesprzyj ten projekt"
   },
   "support_me": {
     "en": "This extension is free! 🥳 But the server it runs on is not. 😬\nPlease help me keep it alive! ⤵️",
@@ -56,7 +59,8 @@
     "ja": "この拡張機能は無料です！🥳 しかし、それが実行されているサーバーは無料ではありません。😬\nこのプロジェクトを維持するのを手伝ってください！⤵️",
     "ko": "이 확장 프로그램은 무료입니다! 🥳 그러나 그것이 실행되는 서버는 아닙니다. 😬\n이 프로젝트를 계속 유지하도록 도와주세요! ⤵️",
     "he": "😬 התוסף הזה חינמי! 🥳 אבל השרת שהוא פועל עליו לא \nבבקשה עזרו לי לשמור את הפרוייקט הזה בחיים ⤵️",
-    "ru": "Это расширение бесплатное! 🥳 Но сервер, на котором он работает, - нет. 😬\nПожалуйста, помогите поддержать его работу! ⤵️"
+    "ru": "Это расширение бесплатное! 🥳 Но сервер, на котором он работает, - нет. 😬\nПожалуйста, помогите поддержать его работу! ⤵️",
+    "pl": "To rozszerzenie jest darmowe! 🥳 Ale serwer, na którym działa, nie jest. 😬\nProszę pomóż mi utrzymać to przy życiu! ⤵️"
   },
   "save": {
     "en": "Save",
@@ -70,7 +74,8 @@
     "ja": "保存",
     "ko": "저장",
     "he": "שמור",
-    "ru": "Сохранить"
+    "ru": "Сохранить",
+    "pl": "Zapisz"
   },
   "new_prompt": {
     "en": "New prompt",
@@ -84,7 +89,8 @@
     "ja": "新しいプロンプト",
     "ko": "새로운 프롬프트",
     "he": "בקשה חדשה",
-    "ru": "Новый запрос"
+    "ru": "Новый запрос",
+    "pl": "Nowe zapytanie"
   },
   "name_placeholder": {
     "en": "Name",
@@ -98,7 +104,8 @@
     "ja": "名前",
     "ko": "이름",
     "he": "שם",
-    "ru": "Название"
+    "ru": "Название",
+    "pl": "Nazwa"
   },
   "current_date_placeholder_tip": {
     "en": "Insert placeholder for the current date (optional)",
@@ -112,7 +119,8 @@
     "ja": "現在の日付のプレースホルダーを挿入（任意）",
     "ko": "현재 날짜의 자리 표시자를 삽입 (선택 사항)",
     "he": "הוסף מציין מיקום עבור התאריך הנוכחי (אופציונלי)",
-    "ru": "Вставить плейсхолдер текущей даты (необязательно)"
+    "ru": "Вставить плейсхолдер текущей даты (необязательно)",
+    "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)"
   },
   "web_results_placeholder_tip": {
     "en": "Insert placeholder for the web results (required)",
@@ -126,7 +134,8 @@
     "ja": "Web結果のプレースホルダーを挿入（必須）",
     "ko": "웹 검색 결과의 자리 표시자를 삽입 (필수)",
     "he": "הוסף מציין מיקום עבור תוצאות האינטרנט (חובה)",
-    "ru": "Вставить плейсхолдер веб-результатов (обязательно)"
+    "ru": "Вставить плейсхолдер веб-результатов (обязательно)",
+    "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (wymagane)"
   },
   "query_placeholder_tip": {
     "en": "Insert placeholder for the initial query (required)",
@@ -140,7 +149,8 @@
     "ja": "初期クエリのプレースホルダーを挿入（必須）",
     "ko": "초기 쿼리의 자리 표시자를 삽입 (필수)",
     "he": "הוסף מציין מיקום עבור השאילתה הראשונית (חובה)",
-    "ru": "Вставить плейсхолдер начального запроса (обязательно)"
+    "ru": "Вставить плейсхолдер начального запроса (обязательно)",
+    "pl": "Wstaw znacznik dla początkowego zapytania (wymagane)"
   },
   "twitter_button_tip": {
     "en": "Follow me on Twitter",
@@ -154,7 +164,8 @@
     "ja": "Twitterで私をフォロー",
     "ko": "Twitter에서 나를 팔로우하세요",
     "he": "עקבו אחרי בטוויטר",
-    "ru": "Подписаться на меня в Twitter"
+    "ru": "Подписаться на меня в Twitter",
+    "pl": "Obserwuj mnie na Twitterze"
   },
   "github_button_tip": {
     "en": "View the source code on GitHub",
@@ -168,7 +179,8 @@
     "ja": "GitHub上のソースコードを見る",
     "ko": "GitHub에서 소스 코드 보기",
     "he": "ראו את הקוד בגיטהאב",
-    "ru": "Посмотреть исходный код на GitHub"
+    "ru": "Посмотреть исходный код на GitHub",
+    "pl": "Zobacz kod źródłowy na GitHubie"
   },
   "discord_button_tip": {
     "en": "Join our Discord community",
@@ -182,6 +194,7 @@
     "ja": "私たちのDiscordコミュニティに参加してください",
     "ko": "우리의 Discord 커뮤니티에 가입하세요",
     "he": "בואו לקהילת הדיסקורד שלנו",
-    "ru": "Присоединиться к нашему сообществу на Discord"
+    "ru": "Присоединиться к нашему сообществу на Discord",
+    "pl": "Dołącz do naszej społeczności na Discordzie"
   }
 }
