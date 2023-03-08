@@ -4,10 +4,12 @@ import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTT
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
-import { apiExtractText, apiSearch, SearchResult } from './api'
+import { SearchRequest, SearchResult, getResults } from './ddg_search';
+
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
 import SlashCommandsMenu from 'src/components/slashCommandsMenu'
+import { apiExtractText } from './api'
 
 let isProcessing = false
 
@@ -60,12 +62,20 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
 
         try {
             let results: SearchResult[]
-            const pageMatch = query.match(/page:(\S+)/)
-            if (pageMatch) {
-                const url = pageMatch[1]
+            const pageCommandMatch = query.match(/page:(\S+)/)
+            if (pageCommandMatch) {
+                const url = pageCommandMatch[1]
                 results = await apiExtractText(url)
+                console.log("received results from api", results)
             } else {
-                results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
+
+                const searchRequest: SearchRequest = {
+                    query,
+                    timerange: userConfig.timePeriod,
+                    region: userConfig.region,
+                };
+
+                results = await getResults(searchRequest, userConfig.numWebResults)
             }
 
             await pasteWebResultsToTextArea(results, query)

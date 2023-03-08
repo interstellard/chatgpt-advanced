@@ -1,50 +1,38 @@
+import { Readability } from "@mozilla/readability"
+import { parseHTML } from "linkedom"
 import Browser from "webextension-polyfill"
+import { SearchResult } from "./ddg_search"
 
-export interface SearchResult {
-    body: string
-    href: string
-    title: string
-}
 
-export async function apiSearch(query: string, numResults: number, timePeriod: string, region: string): Promise<SearchResult[]> {
-    const headers = new Headers({
-        Origin: "https://chat.openai.com",
-        "Content-Type": "application/json",
-    })
+const cleanText = (text: string) =>
+    text.trim()
+        .replace(/(\n){4,}/g, "\n\n\n")
+        .replace(/\n\n/g, " ")
+        .replace(/ {3,}/g, "  ")
+        .replace(/\t/g, "")
+        .replace(/\n+(\s*\n)*/g, "\n")
 
-    const searchParams = new URLSearchParams()
-    searchParams.set('q', query)
-    searchParams.set('max_results', numResults.toString())
-    if (timePeriod) searchParams.set('time', timePeriod)
-    if (region) searchParams.set('region', region)
+export async function getWebpageTitleAndText(url: string): Promise<SearchResult> {
 
-    const url = `https://ddg-webapp-aagd.vercel.app/search?${searchParams.toString()}`
+    const response = await fetch(url)
 
-    const response = await fetch(url, {
-        method: "GET",
-        headers,
-    })
+    const html = await response.text()
+    const doc = parseHTML(html).document
+    const parsed = new Readability(doc).parse()
 
-    const results = await response.json()
+    if (!parsed) {
+        return { title: "Could not parse the page.", body: "", url }
+    }
 
-    return results.map((result: any) => {
-        return {
-            body: result.body,
-            href: result.href,
-            title: result.title
-        }
-    })
+    const text = cleanText(parsed.textContent)
+    return { title: parsed.title, body: text, url }
 }
 
 export async function apiExtractText(url: string): Promise<SearchResult[]> {
     const response = await Browser.runtime.sendMessage({
-        type: "get_article_text",
+        type: "get_webpage_text",
         url
     })
 
-    return [{
-        body: response.text,
-        href: url,
-        title: response.title
-    }]
+    return [response]
 }

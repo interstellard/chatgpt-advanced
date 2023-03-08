@@ -1,7 +1,6 @@
 import Browser from 'webextension-polyfill'
-
-import { Readability } from '@mozilla/readability'
-import {parseHTML} from 'linkedom'
+import { getHtml } from 'src/content-scripts/ddg_search'
+import { getWebpageTitleAndText } from 'src/content-scripts/api'
 
 
 const manifest_version = Browser.runtime.getManifest().manifest_version
@@ -30,37 +29,37 @@ Browser.runtime.onMessage.addListener((request) => {
 
 })
 
-Browser.runtime.onMessage.addListener((request) => {
-    if (request.type === "get_article_text") {
-        const text = getArticleText(request.url)
-        return text
+Browser.runtime.onMessage.addListener((message) => {
+    if (message.type === "get_search_results") {
+        return getHtml(message.search)
+    }
+
+    if (message.type === "get_webpage_text") {
+        return getWebpageTitleAndText(message.url)
     }
 })
 
+Browser.declarativeNetRequest.updateDynamicRules({
+    addRules: [
+        {
+            id: 1,
+            priority: 1,
+            action: {
+                type: "modifyHeaders",
+                requestHeaders: [
+                    {
+                        header: "Origin",
+                        operation: "set",
+                        value: "https://html.duckduckgo.com"
+                    },
+                ],
+            },
 
-const cleanSourceText = (text: string) => {
-    return text
-        .trim()
-        .replace(/(\n){4,}/g, "\n\n\n")
-        .replace(/\n\n/g, " ")
-        .replace(/ {3,}/g, "  ")
-        .replace(/\t/g, "")
-        .replace(/\n+(\s*\n)*/g, "\n")
-}
-
-async function getArticleText(link: string) {
-    const response = await fetch(link)
-
-    const html = await response.text()
-    const doc = parseHTML(html).document
-    const parsed = new Readability(doc).parse()
-    // console.log("parsed", parsed)
-
-    if (parsed) {
-        const sourceText = cleanSourceText(parsed.textContent)
-
-        return { title: parsed.title, text: sourceText }
-    }
-
-    return { url: link, text: "Could not parse the page." }
-}
+            condition: {
+                urlFilter: "https://html.duckduckgo.com/*",
+                resourceTypes: ["xmlhttprequest"],
+            },
+        },
+    ],
+    removeRuleIds: [1],
+})

@@ -3,14 +3,16 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage"],
-  "host_permissions": ["https://ddg-webapp-aagd.vercel.app/*", "*://*/*"],
+  "permissions": ["storage", "declarativeNetRequest"],
+  "host_permissions": [
+    "*://*/*"
+  ],
   "background": {
     "service_worker": "background/bg.js"
   },
@@ -28,10 +30,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [
-        "content-scripts/mainUI.css",
-        "icons/icon48.png"
-      ],
+      "resources": ["content-scripts/mainUI.css", "icons/icon48.png"],
       "matches": ["https://chat.openai.com/*"]
     }
   ]

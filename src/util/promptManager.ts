@@ -1,8 +1,8 @@
-import { SearchResult } from "src/content-scripts/api"
 import Browser from "webextension-polyfill"
 import { v4 as uuidv4 } from 'uuid'
 import { getCurrentLanguageName, getLocaleLanguage, getTranslation, localizationKeys } from "./localization"
 import { getUserConfig } from "./userConfig"
+import { SearchResult } from "src/content-scripts/ddg_search"
 
 export const SAVED_PROMPTS_KEY = 'saved_prompts'
 
@@ -12,13 +12,15 @@ export interface Prompt {
     text: string
 }
 
+const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').replace(/\/site:(\S+)\s+/g, '')
+
 export const compilePrompt = async (results: SearchResult[], query: string) => {
     const currentPrompt = await getCurrentPrompt()
     const formattedResults = formatWebResults(results)
     const currentDate = new Date().toLocaleDateString()
     const prompt = replaceVariables(currentPrompt.text, {
         '{web_results}': formattedResults,
-        '{query}': query,
+        '{query}': removeCommands(query),
         '{current_date}': currentDate
     })
     return prompt
@@ -26,7 +28,7 @@ export const compilePrompt = async (results: SearchResult[], query: string) => {
 
 const formatWebResults = (results: SearchResult[]) => {
     let counter = 1
-    return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.href}\n\n`, "")
+    return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
 }
 
 const replaceVariables = (prompt: string, variables: { [key: string]: string }) => {

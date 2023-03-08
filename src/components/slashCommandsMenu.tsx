@@ -93,7 +93,6 @@ function SlashCommandsMenu(
     }
 
     const onCommandClick = (command: Command) => {
-        console.log(command)
         setTextAreaValue(command.name, false)
         setShowMenu(false)
     }

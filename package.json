@@ -13,12 +13,14 @@
   },
   "dependencies": {
     "@mozilla/readability": "^0.4.2",
-    "linkedom": "^0.14.22",
+    "cheerio": "^1.0.0-rc.12",
+    "linkedom": "^0.14.23",
     "lodash-es": "^4.17.21",
     "preact": "^10.10.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.31",
     "@types/lodash-es": "^4.17.6",
     "@types/uuid": "^9.0.0",
     "@types/webextension-polyfill": "^0.10.0",
