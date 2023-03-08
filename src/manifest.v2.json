@@ -15,7 +15,9 @@
     "*://*/*"
   ],
   "background": {
-    "scripts": ["background/bg.js"]
+    "scripts": [
+      "background/bg.js"
+    ]
   },
   "browser_action": {},
   "browser_specific_settings": {
@@ -25,8 +27,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*"],
-      "js": ["content-scripts/mainUI.js"]
+      "matches": [
+        "https://chat.openai.com/*"
+      ],
+      "js": [
+        "content-scripts/mainUI.js"
+      ]
     }
   ],
   "options_ui": {
@@ -34,5 +40,8 @@
     "open_in_tab": true,
     "chrome_style": true
   },
-  "web_accessible_resources": ["content-scripts/mainUI.css", "icons/icon48.png"]
+  "web_accessible_resources": [
+    "content-scripts/mainUI.css",
+    "icons/icon48.png"
+  ]
 }

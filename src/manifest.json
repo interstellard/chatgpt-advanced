@@ -9,7 +9,10 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage", "declarativeNetRequest"],
+  "permissions": [
+    "storage",
+    "declarativeNetRequest"
+  ],
   "host_permissions": [
     "*://*/*"
   ],
@@ -19,19 +22,30 @@
   "action": {},
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/chat*"],
-      "js": ["content-scripts/mainUI.js"]
+      "matches": [
+        "https://chat.openai.com/chat*"
+      ],
+      "js": [
+        "content-scripts/mainUI.js"
+      ]
     }
   ],
   "options_ui": {
     "page": "options/options.html",
     "open_in_tab": true,
-    "css": ["options/options.css"]
+    "css": [
+      "options/options.css"
+    ]
   },
   "web_accessible_resources": [
     {
-      "resources": ["content-scripts/mainUI.css", "icons/icon48.png"],
-      "matches": ["https://chat.openai.com/*"]
+      "resources": [
+        "content-scripts/mainUI.css",
+        "icons/icon48.png"
+      ],
+      "matches": [
+        "https://chat.openai.com/*"
+      ]
     }
   ]
 }
