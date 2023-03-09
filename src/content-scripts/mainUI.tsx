@@ -4,7 +4,7 @@ import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTT
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
-import { SearchRequest, SearchResult, getResults } from './ddg_search';
+import { SearchRequest, SearchResult, webSearch } from './ddg_search';
 
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
@@ -74,7 +74,7 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
                     region: userConfig.region,
                 };
 
-                results = await getResults(searchRequest, userConfig.numWebResults)
+                results = await webSearch(searchRequest, userConfig.numWebResults)
             }
 
             await pasteWebResultsToTextArea(results, query)

@@ -12,7 +12,7 @@ export interface SearchRequest {
 
 export interface SearchResponse {
     status: number
-    text: string
+    html: string
     url: string
 }
 
@@ -48,10 +48,10 @@ export async function getHtml({ query, timerange, region }: SearchRequest): Prom
         throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`)
     }
 
-    return { status: response.status, text: await response.text(), url: response.url }
+    return { status: response.status, html: await response.text(), url: response.url }
 }
 
-function parseHtml(html: string, numResults: number): SearchResult[] {
+function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
 
     const $ = cheerio.load(html)
     const zciWrapper = $('.zci-wrapper')
@@ -75,7 +75,7 @@ function parseHtml(html: string, numResults: number): SearchResult[] {
     return [...(zciResult ? [zciResult] : []), ...resultItems]
 }
 
-export async function getResults(search: SearchRequest, numResults: number): Promise<SearchResult[]> {
+export async function webSearch(search: SearchRequest, numResults: number): Promise<SearchResult[]> {
     const response: SearchResponse = await Browser.runtime.sendMessage({
         type: "get_search_results",
         search
@@ -83,7 +83,7 @@ export async function getResults(search: SearchRequest, numResults: number): Pro
 
     let results: SearchResult[]
     if (response.url === `${BASE_URL}/html/`) {
-        results = parseHtml(response.text, numResults)
+        results = htmlToSearchResults(response.html, numResults)
     } else {
         const result = await Browser.runtime.sendMessage({
             type: "get_webpage_text",
