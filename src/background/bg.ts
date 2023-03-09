@@ -14,9 +14,9 @@ function openChatGPTWebpage() {
     })
 }
 
-// open chatgpt webpage when extension icon is clicked
 if (manifest_version == 2) {
     Browser.browserAction.onClicked.addListener(openChatGPTWebpage)
+    update_origin_for_ddg_in_firefox()
 } else {
     Browser.action.onClicked.addListener(openChatGPTWebpage)
 }
@@ -39,6 +39,7 @@ Browser.runtime.onMessage.addListener((message) => {
     }
 })
 
+// Firefox does not support declarativeNetRequest.updateDynamicRules yet
 Browser.declarativeNetRequest.updateDynamicRules({
     addRules: [
         {
@@ -63,3 +64,21 @@ Browser.declarativeNetRequest.updateDynamicRules({
     ],
     removeRuleIds: [1],
 })
+
+function update_origin_for_ddg_in_firefox() {
+    Browser.webRequest.onBeforeSendHeaders.addListener(
+        (details) => {
+            for (let i = 0; i < details.requestHeaders.length; ++i) {
+                if (details.requestHeaders[i].name === 'Origin')
+                    details.requestHeaders[i].value = "https://html.duckduckgo.com"
+            }
+
+            return {
+                requestHeaders: details.requestHeaders
+            };
+        }, {
+        urls: ["https://html.duckduckgo.com/*"],
+    },
+        ["blocking", "requestHeaders"]
+    )
+}

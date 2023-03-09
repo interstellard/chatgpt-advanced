@@ -12,6 +12,7 @@
   "permissions": [
     "storage",
     "webRequest",
+    "webRequestBlocking",
     "*://*/*"
   ],
   "background": {
