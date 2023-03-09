@@ -27,6 +27,10 @@ export const compilePrompt = async (results: SearchResult[], query: string) => {
 }
 
 const formatWebResults = (results: SearchResult[]) => {
+    if (results.length === 0) {
+        return "No results found.\n"
+    }
+    
     let counter = 1
     return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
 }

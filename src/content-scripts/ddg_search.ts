@@ -70,6 +70,7 @@ function parseHtml(html: string, numResults: number): SearchResult[] {
             body: $(item).find('.result__snippet').text().trim(),
             url: $(item).find('.result__a').attr('href') ?? '',
         }))
+        .filter((item) => item.body.length > 0)
 
     return [...(zciResult ? [zciResult] : []), ...resultItems]
 }
