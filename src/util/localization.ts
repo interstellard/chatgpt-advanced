@@ -30,7 +30,7 @@ export const getCurrentLanguageName = () => language === Languages.auto ? Langua
 
 export const setLocaleLanguage = (newLanguage: string) => {
     language = newLanguage === 'auto' ? getSystemLanguage() : newLanguage
-    console.debug(`Language set to ${language}`)
+    // console.debug(`Language set to ${language}`)
 }
 
 export const getTranslation = (key: string, lang? : string) => {

@@ -66,7 +66,6 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
             if (pageCommandMatch) {
                 const url = pageCommandMatch[1]
                 results = await apiExtractText(url)
-                console.log("received results from api", results)
             } else {
 
                 const searchRequest: SearchRequest = {
