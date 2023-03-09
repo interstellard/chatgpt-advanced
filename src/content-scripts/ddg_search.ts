@@ -87,13 +87,14 @@ export async function webSearch(search: SearchRequest, numResults: number): Prom
     } else {
         const result = await Browser.runtime.sendMessage({
             type: "get_webpage_text",
-            url: response.url
+            url: response.url,
+            html: response.html
         })
 
         return [{
             title: result.title,
-            url: response.url,
-            body: result.text
+            body: result.body,
+            url: response.url
         }]
     }
 

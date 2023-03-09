@@ -35,7 +35,7 @@ Browser.runtime.onMessage.addListener((message) => {
     }
 
     if (message.type === "get_webpage_text") {
-        return getWebpageTitleAndText(message.url)
+        return getWebpageTitleAndText(message.url, message.html)
     }
 })
 
