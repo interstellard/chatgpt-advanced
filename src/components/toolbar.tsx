@@ -16,8 +16,12 @@ const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) 
     label: `${num} result${num === 1 ? '' : 's'}`
 }))
 
-function Toolbar() {
-    const [webAccess, setWebAccess] = useState(true)
+function Toolbar(
+    props: {
+        textarea: HTMLTextAreaElement | null,
+    }
+) {
+    const [webAccess, setWebAccess] = useState(false)
     const [numResults, setNumResults] = useState(3)
     const [timePeriod, setTimePeriod] = useState('')
     const [region, setRegion] = useState('wt-wt')
@@ -35,6 +39,8 @@ function Toolbar() {
             setLocaleLanguage(userConfig.language)
         })
         updatePrompts()
+        // textarea placeholder
+        props.textarea?.setAttribute('placeholder', getTranslation(localizationKeys.UI.textareaPlaceholder))
     }, [])
 
     const handlePromptClick = () => {
@@ -47,10 +53,10 @@ function Toolbar() {
         })
     }
 
-    const handleWebAccessToggle = useCallback(() => {
+    const handleWebAccessToggle = () => {
         setWebAccess(!webAccess)
         updateUserConfig({ webAccess: !webAccess })
-    }, [webAccess])
+    }
 
     const handleNumResultsChange = (e: { target: { value: string } }) => {
         const value = parseInt(e.target.value, 10)

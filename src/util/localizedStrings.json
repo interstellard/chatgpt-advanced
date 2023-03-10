@@ -30,6 +30,20 @@
     "he": "בחר שפה",
     "ru": "Выбрать язык"
   },
+  "textarea_placeholder": {
+    "en": "Press / to open the commands menu",
+    "pt": "Pressione / para abrir o menu de comandos",
+    "es": "Presione / para abrir el menú de comandos",
+    "fr": "Appuyez sur / pour ouvrir le menu des commandes",
+    "de": "Drücken Sie /, um das Befehlsmenü zu öffnen",
+    "it": "Premi / per aprire il menu dei comandi",
+    "zh": "按 / 打开命令菜单",
+    "zh-TW": "按 / 打開命令菜單",
+    "ja": "/ を押してコマンド メニューを開きます",
+    "ko": "/를 눌러 명령 메뉴를 엽니다.",
+    "he": "לחץ על / כדי לפתוח את תפריט הפקודות",
+    "ru": "Нажмите / чтобы открыть меню команд"
+  },
   "support_this_project": {
     "en": "Support this project",
     "pt": "Apoie este projeto",

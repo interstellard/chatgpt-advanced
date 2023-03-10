@@ -50,6 +50,7 @@ export const localizationKeys = {
         supportThisProject: 'support_this_project',
         supportMe: 'support_me',
         chooseLanguage: 'choose_language',
+        textareaPlaceholder: 'textarea_placeholder',
     },
     placeholders: {
         namePlaceholder: 'name_placeholder',
