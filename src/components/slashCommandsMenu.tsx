@@ -1,6 +1,7 @@
 import { h, render } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { getTranslation, localizationKeys } from 'src/util/localization'
+import { getUserConfig } from 'src/util/userConfig'
 import SlashButton from './slashButton'
 
 interface Command {
@@ -81,6 +82,7 @@ function SlashCommandsMenu(
                 onCommandClick(command)
             }
         }
+
     }
 
     function updateFilter(e: Event) {
@@ -122,10 +124,13 @@ function SlashCommandsMenu(
             return
         }
 
-        const newFilteredCommands = slashCommands.filter((command) => command.name.startsWith(filter))
-        setFilteredCommands(newFilteredCommands)
+        getUserConfig().then((userConfig) => {
+            
+            const newFilteredCommands = slashCommands.filter((command) => command.name.startsWith(filter))
+            setFilteredCommands(newFilteredCommands)
 
-        setShowMenu(newFilteredCommands.length > 0)
+            setShowMenu(userConfig.webAccess && newFilteredCommands.length > 0)
+        })
 
     }, [filter])
 

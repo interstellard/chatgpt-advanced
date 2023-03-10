@@ -37,10 +37,9 @@ function Toolbar(
             setPromptUUID(userConfig.promptUUID)
 
             setLocaleLanguage(userConfig.language)
+            updateTextArea(userConfig.webAccess)
         })
         updatePrompts()
-        // textarea placeholder
-        props.textarea?.setAttribute('placeholder', getTranslation(localizationKeys.UI.textareaPlaceholder))
     }, [])
 
     const handlePromptClick = () => {
@@ -53,9 +52,15 @@ function Toolbar(
         })
     }
 
+    const updateTextArea = (show: boolean) => {
+        props.textarea?.setAttribute('placeholder', show ? getTranslation(localizationKeys.UI.textareaPlaceholder) : '')
+    }
+
     const handleWebAccessToggle = () => {
         setWebAccess(!webAccess)
         updateUserConfig({ webAccess: !webAccess })
+        updateTextArea(!webAccess)
+        props.textarea?.focus()
     }
 
     const handleNumResultsChange = (e: { target: { value: string } }) => {
@@ -86,7 +91,7 @@ function Toolbar(
 
     const webAccessToggle = <label className="wcg-relative wcg-inline-flex wcg-cursor-pointer wcg-items-center">
         <input type="checkbox" value="" className="wcg-peer wcg-sr-only" checked={webAccess} onChange={handleWebAccessToggle} />
-        <div className="wcg-peer wcg-h-5 wcg-w-9 wcg-rounded-full wcg-bg-gray-500 after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-h-4 after:wcg-w-4 after:wcg-rounded-full after:wcg-border after:wcg-border-gray-300 after:wcg-bg-white after:wcg-transition-all after:wcg-content-[''] peer-checked:wcg-bg-emerald-700 peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white dark:wcg-border-gray-600" />
+        <div className="dark:wcg-peer-focus:ring-blue-800 wcg-peer wcg-h-5 wcg-w-9 wcg-rounded-full wcg-bg-gray-500 after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-h-4 after:wcg-w-4 after:wcg-rounded-full after:wcg-border after:wcg-border-gray-300 after:wcg-bg-white after:wcg-transition-all after:wcg-content-[''] peer-checked:wcg-bg-emerald-700 peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white peer-focus:wcg-ring-2 peer-focus:wcg-ring-white dark:wcg-border-gray-600" />
         <span className="wcg-ml-1 wcg-pl-1 wcg-text-sm wcg-font-semibold after:wcg-content-['Web'] md:after:wcg-content-['Web_access']" />
     </label>
 
@@ -99,6 +104,8 @@ function Toolbar(
                     {icons.tune}
                 </div>
                 {webAccessToggle}
+                {/* <div className={`wcg-flex ${webAccess ? '' : 'wcg-hidden'} wcg-w-full wcg-justify-between wcg-gap-1`}> */}
+
                 <Dropdown
                     value={numResults}
                     onChange={handleNumResultsChange}
@@ -121,8 +128,8 @@ function Toolbar(
                         {icons.expand}
                     </div>
                     <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-m-0 wcg-flex wcg-max-h-96 wcg-w-52 wcg-flex-col
-                    wcg-flex-nowrap wcg-overflow-auto
-                    wcg-rounded-md wcg-bg-gray-800 wcg-p-0"
+                        wcg-flex-nowrap wcg-overflow-auto
+                        wcg-rounded-md wcg-bg-gray-800 wcg-p-0"
                     >
                         {prompts.map((prompt) =>
                             <li tabIndex={0} className="wcg-text-sm wcg-text-white hover:wcg-bg-gray-700"
@@ -141,6 +148,7 @@ function Toolbar(
                         </li>
                     </ul>
                 </div>
+                {/* </div> */}
             </div>
             <Footer />
         </div>
