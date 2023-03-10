@@ -105,7 +105,7 @@ function pressEnter() {
 }
 
 function showErrorMessage(error: Error) {
-    console.log("WebChatGPT error --> API error: ", error)
+    console.info("WebChatGPT error --> API error: ", error)
     const div = document.createElement('div')
     document.body.appendChild(div)
     render(<ErrorMessage message={error.message} />, div)

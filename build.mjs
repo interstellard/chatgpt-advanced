@@ -72,7 +72,7 @@ async function copyVersionFromPackageJsonToManifests() {
     const manifest = await fs.readJson(manifestFile)
     manifest.version = version
     await fs.writeJson(manifestFile, manifest, { spaces: 2 })
-    console.log(`Updated version in ${manifestFile} to ${version}`)
+    console.info(`Updated version in ${manifestFile} to ${version}`)
   }
 }
 
@@ -88,7 +88,7 @@ async function createZipExtensionForBrowser(browser) {
 
   await addFilesToZip(archive, browser)
 
-  console.log(`Creating ${archiveName}…`)
+  console.info(`Creating ${archiveName}…`)
   archive.finalize()
 }
 
@@ -132,7 +132,7 @@ async function build() {
     }
   }
 
-  console.log("Build complete")
+  console.info("Build complete")
 
   async function deleteZipsInBuildFolder() {
     const entries = await fs.readdir("build")
