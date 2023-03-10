@@ -10,7 +10,7 @@ interface Command {
     description: string
 }
 
-const slashCommands: Command[] = [
+export const slashCommands: Command[] = [
     {
         name: "/site:",
         description: "Restrict search results to a specific website, e.g. /site:google.com"
@@ -88,7 +88,7 @@ function SlashCommandsMenu(
         }
 
         if (e.key === 'Enter') {
-            setTextAreaValue('')
+            // setTextAreaValue('')
             e.preventDefault()
             const command = filteredCommands[activeElementIndex]
             onCommandClick(command)

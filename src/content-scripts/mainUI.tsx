@@ -8,7 +8,7 @@ import { SearchRequest, SearchResult, webSearch } from './ddg_search';
 
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
-import SlashCommandsMenu from 'src/components/slashCommandsMenu'
+import SlashCommandsMenu, { slashCommands } from 'src/components/slashCommandsMenu'
 import { apiExtractText } from './api'
 
 let isProcessing = false
@@ -46,6 +46,10 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
         if (query === "") return
 
         textarea.value = ""
+
+        const isPartialCommand = slashCommands.some(command => command.name.startsWith(query) && query.length <= command.name.length)
+        if (isPartialCommand) return
+
 
         const userConfig = await getUserConfig()
 
