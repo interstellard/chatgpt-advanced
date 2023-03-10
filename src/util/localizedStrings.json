@@ -44,6 +44,20 @@
     "he": "לחץ על / כדי לפתוח את תפריט הפקודות",
     "ru": "Нажмите / чтобы открыть меню команд"
   },
+  "you_can_use_duckduckgo_bangs": {
+    "en": "You can use DuckDuckGo bangs to search on other websites. Learn more:",
+    "pt": "Você pode usar os bangs do DuckDuckGo para pesquisar em outros sites. Saiba mais:",
+    "es": "Puede usar los bangs de DuckDuckGo para buscar en otros sitios. Obtenga más información:",
+    "fr": "Vous pouvez utiliser les bangs DuckDuckGo pour rechercher sur d'autres sites. En savoir plus:",
+    "de": "Sie können DuckDuckGo-Bangs verwenden, um auf anderen Websites zu suchen. Erfahren Sie mehr:",
+    "it": "Puoi usare i DuckDuckGo bang per cercare su altri siti web. Ulteriori informazioni:",
+    "zh": "您可以使用 DuckDuckGo bang 在其他网站上搜索。了解更多：",
+    "zh-TW": "您可以使用 DuckDuckGo bang 在其他網站上搜尋。了解更多：",
+    "ja": "DuckDuckGo bangを使用して他のWebサイトで検索できます。詳細は次を参照してください:",
+    "ko": "DuckDuckGo bang을 사용하여 다른 웹사이트에서 검색할 수 있습니다. 자세한 내용:",
+    "he": "אתה יכול להשתמש ב- DuckDuckGo bangs כדי לחפש באתרים אחרים. למד עוד:",
+    "ru": "Вы можете использовать DuckDuckGo bang для поиска на других сайтах. Узнать больше:"
+  },
   "support_this_project": {
     "en": "Support this project",
     "pt": "Apoie este projeto",

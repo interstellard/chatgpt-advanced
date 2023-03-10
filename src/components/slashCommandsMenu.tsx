@@ -1,5 +1,6 @@
 import { h, render } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
+import { getTranslation, localizationKeys } from 'src/util/localization'
 import SlashButton from './slashButton'
 
 interface Command {
@@ -153,6 +154,11 @@ function SlashCommandsMenu(
                     </li>
                 )
             })}
+            <div className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
+                getTranslation(localizationKeys.UI.youCanUseDuckDuckGoBangs)
+            }
+            <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer" className="text-blue-500"> DuckDuckGo Bangs</a>
+            </div>
         </ul>
     )
 }

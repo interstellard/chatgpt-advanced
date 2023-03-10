@@ -51,6 +51,7 @@ export const localizationKeys = {
         supportMe: 'support_me',
         chooseLanguage: 'choose_language',
         textareaPlaceholder: 'textarea_placeholder',
+        youCanUseDuckDuckGoBangs: 'you_can_use_duckduckgo_bangs',
     },
     placeholders: {
         namePlaceholder: 'name_placeholder',
