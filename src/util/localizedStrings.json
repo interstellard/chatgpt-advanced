@@ -45,18 +45,18 @@
     "ru": "Поддержать проект"
   },
   "support_me": {
-    "en": "This extension is free! 🥳 But the server it runs on is not. 😬\nPlease help me keep it alive! ⤵️",
-    "pt": "Esta extensão é gratuita! 🥳 Mas o servidor em que ela é executada não é. 😬\nAjude-me a mantê-lo vivo! ⤵️",
-    "es": "¡Esta extensión es gratuita! 🥳 Pero el servidor en el que se ejecuta no lo es. 😬\n¡Ayúdame a mantenerla viva! ⤵️",
-    "fr": "Cette extension est gratuite ! 🥳 Mais le serveur sur lequel elle fonctionne ne l'est pas. 😬\nVeuillez m'aider à la maintenir en vie ! ⤵️",
-    "de": "Diese Erweiterung ist kostenlos! 🥳 Aber der Server, auf dem sie läuft, ist es nicht. 😬\nBitte hilf mir, sie am Leben zu erhalten! ⤵️",
-    "it": "Questa estensione è gratuita! 🥳 Ma il server su cui viene eseguita non lo è. 😬\nPer favore aiutami a tenerlo vivo! ⤵️",
-    "zh": "此扩展程序是免费的！🥳 但是它运行的服务器不是。😬\n帮助这个项目继续下去！⤵️",
-    "zh-TW": "此擴充功能是免費的！🥳 但是運行它的伺服器並非如此。😬\n請幫助我維持它的運作！⤵️",
-    "ja": "この拡張機能は無料です！🥳 しかし、それが実行されているサーバーは無料ではありません。😬\nこのプロジェクトを維持するのを手伝ってください！⤵️",
-    "ko": "이 확장 프로그램은 무료입니다! 🥳 그러나 그것이 실행되는 서버는 아닙니다. 😬\n이 프로젝트를 계속 유지하도록 도와주세요! ⤵️",
-    "he": "😬 התוסף הזה חינמי! 🥳 אבל השרת שהוא פועל עליו לא \nבבקשה עזרו לי לשמור את הפרוייקט הזה בחיים ⤵️",
-    "ru": "Это расширение бесплатное! 🥳 Но сервер, на котором он работает, - нет. 😬\nПожалуйста, помогите поддержать его работу! ⤵️"
+    "en": "If you find this extension useful, please consider supporting me ⤵️",
+    "pt": "Se você achar útil esta extensão, por favor, considere apoiar-me ⤵️",
+    "es": "Si encuentra útil esta extensión, por favor considere apoyarme ⤵️",
+    "fr": "Si vous trouvez cette extension utile, pensez à me soutenir ⤵️",
+    "de": "Wenn Sie diese Erweiterung nützlich finden, unterstützen Sie mich bitte ⤵️",
+    "it": "Se trovi questo estensione utile, considera di supportarmi ⤵️",
+    "zh": "如果您觉得这个扩展有用，请考虑支持我⤵️",
+    "zh-TW": "如果您覺得這個擴充功能有用，請考慮支持我⤵️",
+    "ja": "この拡張機能が役立つと思われる場合は、私をサポートすることを検討してください ⤵️",
+    "ko": "이 확장 프로그램이 유용하다고 생각되면 저를 지원해 주세요 ⤵️",
+    "he": "אם אתה מצאת את התוסף שימושי, אנא שקול לתמוך בי ⤵️",
+    "ru": "Если вам нравится это расширение, пожалуйста, поддержите меня ⤵️"
   },
   "save": {
     "en": "Save",
