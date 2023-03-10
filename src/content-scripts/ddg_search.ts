@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import Browser from 'webextension-polyfill'
 
 
-const BASE_URL = 'https://html.duckduckgo.com'
+const BASE_URL = 'https://lite.duckduckgo.com'
 
 export interface SearchRequest {
     query: string
@@ -38,7 +38,7 @@ export async function getHtml({ query, timerange, region }: SearchRequest): Prom
         // Cookie: `kl=${search.region} df=${search.timerange}`,
     }
 
-    const response = await fetch(`${BASE_URL}/html/`, {
+    const response = await fetch(`${BASE_URL}/lite/`, {
         method: 'POST',
         headers,
         body: formData.toString(),
@@ -52,27 +52,35 @@ export async function getHtml({ query, timerange, region }: SearchRequest): Prom
 }
 
 function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
-
     const $ = cheerio.load(html)
-    const zciWrapper = $('.zci-wrapper')
+    const results: SearchResult[] = []
 
-    const zciResult = zciWrapper.length > 0 && {
-        title: $('.zci__heading > a').text(),
-        body: $('#zero_click_abstract').text().trim(),
-        url: $('.zci__heading > a').attr('href') || '',
+    // Extract zero-click info, if present
+    const zeroClickLink = $('table:nth-of-type(2) tr td a[rel="nofollow"]').first()
+    if (zeroClickLink.length > 0) {
+        results.push({
+            title: zeroClickLink.text(),
+            body: $('table:nth-of-type(2) tr:nth-of-type(2)').text().trim(),
+            url: zeroClickLink.attr('href') ?? '',
+        })
     }
 
-    const resultItems = $('.result__body')
-        .toArray()
-        .slice(0, numResults)
-        .map((item) => ({
-            title: $(item).find('.result__a').text(),
-            body: $(item).find('.result__snippet').text().trim(),
-            url: $(item).find('.result__a').attr('href') ?? '',
-        }))
-        .filter((item) => item.body.length > 0)
+    // Extract web search results
+    const upperBound = zeroClickLink.length > 0 ? numResults - 1 : numResults
+    const webLinks = $('table:nth-of-type(3) .result-link').slice(0, upperBound)
+    const webSnippets = $('table:nth-of-type(3) .result-snippet').slice(0, upperBound)
+    webLinks.each((i, element) => {
+        const link = $(element)
+        const snippet = $(webSnippets[i]).text().trim()
 
-    return [...(zciResult ? [zciResult] : []), ...resultItems]
+        results.push({
+            title: link.text(),
+            body: snippet,
+            url: link.attr('href') ?? '',
+        })
+    })
+
+    return results
 }
 
 export async function webSearch(search: SearchRequest, numResults: number): Promise<SearchResult[]> {
@@ -82,7 +90,7 @@ export async function webSearch(search: SearchRequest, numResults: number): Prom
     })
 
     let results: SearchResult[]
-    if (response.url === `${BASE_URL}/html/`) {
+    if (response.url === `${BASE_URL}/lite/`) {
         results = htmlToSearchResults(response.html, numResults)
     } else {
         const result = await Browser.runtime.sendMessage({

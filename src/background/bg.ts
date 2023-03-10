@@ -51,13 +51,13 @@ Browser.declarativeNetRequest.updateDynamicRules({
                     {
                         header: "Origin",
                         operation: "set",
-                        value: "https://html.duckduckgo.com"
+                        value: "https://lite.duckduckgo.com"
                     },
                 ],
             },
 
             condition: {
-                urlFilter: "https://html.duckduckgo.com/*",
+                urlFilter: "https://lite.duckduckgo.com/*",
                 resourceTypes: ["xmlhttprequest"],
             },
         },
@@ -70,14 +70,14 @@ function update_origin_for_ddg_in_firefox() {
         (details) => {
             for (let i = 0; i < details.requestHeaders.length; ++i) {
                 if (details.requestHeaders[i].name === 'Origin')
-                    details.requestHeaders[i].value = "https://html.duckduckgo.com"
+                    details.requestHeaders[i].value = "https://lite.duckduckgo.com"
             }
 
             return {
                 requestHeaders: details.requestHeaders
             };
         }, {
-        urls: ["https://html.duckduckgo.com/*"],
+        urls: ["https://lite.duckduckgo.com/*"],
     },
         ["blocking", "requestHeaders"]
     )
