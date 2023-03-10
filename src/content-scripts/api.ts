@@ -16,6 +16,10 @@ export async function getWebpageTitleAndText(url: string, html_str=''): Promise<
 
     let html = html_str
     if (html === '') {
+        if (!url.startsWith("http")) {
+            url = `https://${url}`
+        }
+
         const response = await fetch(url)
         html = await response.text()
     }
