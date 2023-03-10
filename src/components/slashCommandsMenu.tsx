@@ -13,11 +13,11 @@ interface Command {
 export const slashCommands: Command[] = [
     {
         name: "/site:",
-        description: "Restrict search results to a specific website, e.g. /site:google.com"
+        description: localizationKeys.slashCommandsMenu.siteCommandDescription
     },
     {
         name: "/page:",
-        description: "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq"
+        description: localizationKeys.slashCommandsMenu.pageCommandDescription
     }
 ]
 
@@ -35,7 +35,7 @@ const SlashCommandItem = (props: {
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col">
                     <div className="text-sm font-bold">{props.command.name}</div>
-                    <div className="text-sm">{props.command.description}</div>
+                    <div className="text-sm">{getTranslation(props.command.description)}</div>
                 </div>
                 {props.active ? icons.tabKey : null}
             </div>

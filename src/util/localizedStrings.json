@@ -58,6 +58,34 @@
     "he": "אתה יכול להשתמש ב- DuckDuckGo bangs כדי לחפש באתרים אחרים. למד עוד:",
     "ru": "Вы можете использовать DuckDuckGo bang для поиска на других сайтах. Узнать больше:"
   },
+  "site_command_description": {
+    "en": "Restrict search results to a specific website, e.g. /site:wikipedia.com",
+    "pt": "Restringir resultados de pesquisa a um website específico, por exemplo /site:wikipedia.com",
+    "es": "Restringir los resultados de búsqueda a un sitio web específico, por ejemplo /site:wikipedia.com",
+    "fr": "Restreindre les résultats de recherche à un site Web spécifique, par exemple /site:wikipedia.com",
+    "de": "Suchergebnisse auf eine bestimmte Website einschränken, z. B. /site:wikipedia.com",
+    "it": "Limita i risultati della ricerca a un sito Web specifico, ad esempio /site:wikipedia.com",
+    "zh": "将搜索结果限制为特定网站，例如 /site:wikipedia.com",
+    "zh-TW": "將搜尋結果限制為特定網站，例如 /site:wikipedia.com",
+    "ja": "特定のWebサイトの検索結果を制限します。例: /site:wikipedia.com",
+    "ko": "검색 결과를 특정 웹사이트로 제한합니다. 예: /site:wikipedia.com",
+    "he": "הגבל את תוצאות החיפוש לאתר מסוים, למשל /site:wikipedia.com",
+    "ru": "Ограничить результаты поиска определенным сайтом, например, /site:wikipedia.com"
+  },
+  "page_command_description": {
+    "en": "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq",
+    "pt": "Obter o conteúdo de uma página específica, por exemplo /page:buymeacoffee.com/anzorq",
+    "es": "Obtener el contenido de una página específica, por ejemplo /page:buymeacoffee.com/anzorq",
+    "fr": "Obtenir le contenu d'une page spécifique, par exemple /page:buymeacoffee.com/anzorq",
+    "de": "Den Inhalt einer bestimmten Seite erhalten, z. B. /page:buymeacoffee.com/anzorq",
+    "it": "Ottenere il contenuto di una pagina specifica, ad esempio, /page:buymeacoffee.com/anzorq",
+    "zh": "获取特定页面的内容，例如 /page:buymeacoffee.com/anzorq",
+    "zh-TW": "取得特定頁面的內容，例如 /page:buymeacoffee.com/anzorq",
+    "ja": "特定のページのコンテンツを取得します。例: /page:buymeacoffee.com/anzorq",
+    "ko": "특정 페이지의 내용을 가져옵니다. 예: /page:buymeacoffee.com/anzorq",
+    "he": "קבל את תוכן דף מסוים, למשל /page:buymeacoffee.com/anzorq",
+    "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq"
+  },
   "support_this_project": {
     "en": "Support this project",
     "pt": "Apoie este projeto",
