@@ -25,7 +25,7 @@ export interface SearchResult {
 export async function getHtml({ query, timerange, region }: SearchRequest): Promise<SearchResponse> {
 
     const formData = new URLSearchParams({
-        q: query,
+        q: query.slice(0, 495), // DDG limit
         df: timerange,
         kl: region,
     })
