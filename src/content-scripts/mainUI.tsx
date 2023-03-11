@@ -136,6 +136,7 @@ async function updateUI() {
         textareaParentParent.parentElement.style.marginBottom = '0.5em'
 
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
+        shadowRootDiv.classList.add('wcg-toolbar')
         textareaParentParent.appendChild(shadowRootDiv)
         render(<Toolbar textarea={textarea} />, shadowRoot)
 
