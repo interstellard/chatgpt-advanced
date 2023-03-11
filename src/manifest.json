@@ -47,5 +47,13 @@
         "https://chat.openai.com/*"
       ]
     }
-  ]
+  ],
+  "commands": {
+    "toggle-web-access": {
+      "suggested_key": {
+        "default": "Alt+W"
+      },
+      "description": "__MSG_toggleWebAccess__"
+    }
+  }
 }

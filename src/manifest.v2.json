@@ -44,5 +44,13 @@
   "web_accessible_resources": [
     "content-scripts/mainUI.css",
     "icons/icon48.png"
-  ]
+  ],
+  "commands": {
+    "toggle-web-access": {
+      "suggested_key": {
+        "default": "Alt+W"
+      },
+      "description": "__MSG_toggleWebAccess__"
+    }
+  }
 }

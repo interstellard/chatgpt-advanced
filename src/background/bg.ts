@@ -21,6 +21,15 @@ if (manifest_version == 2) {
     Browser.action.onClicked.addListener(openChatGPTWebpage)
 }
 
+Browser.commands.onCommand.addListener(async (command) => {
+    if (command === "toggle-web-access") {
+        Browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+            if (tabs[0].url.startsWith("https://chat.openai.com/")) {
+                Browser.tabs.sendMessage(tabs[0].id, "toggle-web-access")
+            }
+        })
+    }
+})
 
 Browser.runtime.onMessage.addListener((request) => {
     if (request === "show_options") {
@@ -75,7 +84,7 @@ function update_origin_for_ddg_in_firefox() {
 
             return {
                 requestHeaders: details.requestHeaders
-            };
+            }
         }, {
         urls: ["https://lite.duckduckgo.com/*"],
     },
