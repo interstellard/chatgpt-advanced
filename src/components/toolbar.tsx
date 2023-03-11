@@ -37,24 +37,34 @@ function Toolbar(
             setPromptUUID(userConfig.promptUUID)
 
             setLocaleLanguage(userConfig.language)
-            updateTextArea(userConfig.webAccess)
+            updateTextAreaPlaceholder(userConfig.webAccess)
         })
         updatePrompts()
     }, [])
 
-    Browser.runtime.onMessage.addListener(async (request) => {
-
-        if (request === "toggle-web-access") {
-            console.log("toggle-web-access in toolbar.tsx")
-            const userConfig = await getUserConfig()
-            updateUserConfig({ webAccess: !userConfig.webAccess })
-            handleWebAccessToggle()
+    useEffect(() => {
+        const handleMessage = async (request: string) => {
+            if (request === "toggle-web-access") {
+                console.log("toggle-web-access")
+                handleWebAccessToggle()
+            }
         }
-    })
 
-    const handlePromptClick = () => {
-        updatePrompts()
-    }
+        Browser.runtime.onMessage.addListener(handleMessage)
+
+        return function cleanup() {
+            Browser.runtime.onMessage.removeListener(handleMessage)
+        }
+    }, [])
+
+    useEffect(() => {
+        updateUserConfig({ webAccess })
+        updateTextAreaPlaceholder(webAccess)
+        props.textarea?.focus()
+    }, [webAccess])
+
+
+    const handlePromptClick = () => updatePrompts()
 
     const updatePrompts = () => {
         getSavedPrompts().then((savedPrompts) => {
@@ -62,16 +72,11 @@ function Toolbar(
         })
     }
 
-    const updateTextArea = (show: boolean) => {
+    const updateTextAreaPlaceholder = (show: boolean) => {
         props.textarea?.setAttribute('placeholder', show ? getTranslation(localizationKeys.UI.textareaPlaceholder) : '')
     }
 
-    const handleWebAccessToggle = () => {
-        setWebAccess(!webAccess)
-        updateUserConfig({ webAccess: !webAccess })
-        updateTextArea(!webAccess)
-        props.textarea?.focus()
-    }
+    const handleWebAccessToggle = () => setWebAccess((prev) => !prev)
 
     const handleNumResultsChange = (e: { target: { value: string } }) => {
         const value = parseInt(e.target.value, 10)
