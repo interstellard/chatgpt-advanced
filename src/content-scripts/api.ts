@@ -12,17 +12,31 @@ const cleanText = (text: string) =>
         .replace(/\t/g, "")
         .replace(/\n+(\s*\n)*/g, "\n")
 
-export async function getWebpageTitleAndText(url: string, html_str=''): Promise<SearchResult> {
+export async function getWebpageTitleAndText(url: string, html_str = ''): Promise<SearchResult> {
 
     let html = html_str
-    if (html === '') {
-        if (!url.startsWith("http")) {
-            url = `https://${url}`
+    if (!html) {
+        let response: Response
+        try {
+            response = await fetch(url.startsWith('http') ? url : `https://${url}`)
+        } catch (e) {
+            return {
+                title: 'Could not fetch the page.',
+                body: `Could not fetch the page: ${e}.\nMake sure the URL is correct.`,
+                url
+            }
         }
-
-        const response = await fetch(url)
+        if (!response.ok) {
+            return {
+                title: "Could not fetch the page.",
+                body: `Could not fetch the page: ${response.status} ${response.statusText}`,
+                url
+            }
+        }
         html = await response.text()
+
     }
+
 
     const doc = parseHTML(html).document
     const parsed = new Readability(doc).parse()
