@@ -3,28 +3,39 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "2.0.5",
+  "version": "3.1.4",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage"],
-  "host_permissions": ["https://ddg-webapp-aagd.vercel.app/*"],
+  "permissions": [
+    "storage",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
   "background": {
     "service_worker": "background/bg.js"
   },
   "action": {},
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/chat*"],
-      "js": ["content-scripts/mainUI.js"]
+      "matches": [
+        "https://chat.openai.com/chat*"
+      ],
+      "js": [
+        "content-scripts/mainUI.js"
+      ]
     }
   ],
   "options_ui": {
     "page": "options/options.html",
     "open_in_tab": true,
-    "css": ["options/options.css"]
+    "css": [
+      "options/options.css"
+    ]
   },
   "web_accessible_resources": [
     {
@@ -32,7 +43,17 @@
         "content-scripts/mainUI.css",
         "icons/icon48.png"
       ],
-      "matches": ["https://chat.openai.com/*"]
+      "matches": [
+        "https://chat.openai.com/*"
+      ]
     }
-  ]
+  ],
+  "commands": {
+    "toggle-web-access": {
+      "suggested_key": {
+        "default": "Alt+W"
+      },
+      "description": "__MSG_toggleWebAccess__"
+    }
+  }
 }

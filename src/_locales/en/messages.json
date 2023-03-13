@@ -4,5 +4,8 @@
   },
   "appDesc": {
     "message": "Augment your ChatGPT prompts with relevant results from the web."
+  },
+  "toggleWebAccess": {
+    "message": "Toggle Web Access"
   }
 }

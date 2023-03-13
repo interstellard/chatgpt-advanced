@@ -1,45 +1,59 @@
-export interface SearchResult {
-    body: string
-    href: string
-    title: string
-}
+import { Readability } from "@mozilla/readability"
+import { parseHTML } from "linkedom"
+import Browser from "webextension-polyfill"
+import { SearchResult } from "./ddg_search"
 
-export async function apiSearch(query: string, numResults: number, timePeriod: string, region: string): Promise<SearchResult[]> {
 
-    const headers = new Headers({
-        Origin: "https://chat.openai.com",
-        "Content-Type": "application/json",
-    })
+const cleanText = (text: string) =>
+    text.trim()
+        .replace(/(\n){4,}/g, "\n\n\n")
+        // .replace(/\n\n/g, " ")
+        .replace(/ {3,}/g, "  ")
+        .replace(/\t/g, "")
+        .replace(/\n+(\s*\n)*/g, "\n")
 
-    const pageOperatorMatches = query.match(/page:(\S+)/)
-    let queryUrl: string
+export async function getWebpageTitleAndText(url: string, html_str = ''): Promise<SearchResult> {
 
-    if (pageOperatorMatches)
-        queryUrl = pageOperatorMatches[1]
+    let html = html_str
+    if (!html) {
+        let response: Response
+        try {
+            response = await fetch(url.startsWith('http') ? url : `https://${url}`)
+        } catch (e) {
+            return {
+                title: 'Could not fetch the page.',
+                body: `Could not fetch the page: ${e}.\nMake sure the URL is correct.`,
+                url
+            }
+        }
+        if (!response.ok) {
+            return {
+                title: "Could not fetch the page.",
+                body: `Could not fetch the page: ${response.status} ${response.statusText}`,
+                url
+            }
+        }
+        html = await response.text()
 
-    let url: RequestInfo | URL
-    if (queryUrl) {
-        url = `https://ddg-webapp-aagd.vercel.app/url_to_text?url=${queryUrl}`
-    } else {
-        const searchParams = new URLSearchParams()
-        searchParams.set('q', query)
-        searchParams.set('max_results', numResults.toString())
-        if (timePeriod) searchParams.set('time', timePeriod)
-        if (region) searchParams.set('region', region)
-
-        url = `https://ddg-webapp-aagd.vercel.app/search?${searchParams.toString()}`
     }
 
-    const response = await fetch(url, {
-        method: "GET",
-        headers,
+
+    const doc = parseHTML(html).document
+    const parsed = new Readability(doc).parse()
+
+    if (!parsed) {
+        return { title: "Could not parse the page.", body: "", url }
+    }
+
+    const text = cleanText(parsed.textContent)
+    return { title: parsed.title, body: text, url }
+}
+
+export async function apiExtractText(url: string): Promise<SearchResult[]> {
+    const response = await Browser.runtime.sendMessage({
+        type: "get_webpage_text",
+        url
     })
-    const results = await response.json()
-    return results.map((result: any) => {
-        return {
-            body: result.body,
-            href: result.href,
-            title: result.title
-        }
-    })
+
+    return [response]
 }

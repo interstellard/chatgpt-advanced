@@ -4,10 +4,12 @@ import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTT
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig } from 'src/util/userConfig'
-import { apiSearch, SearchResult } from './api'
+import { SearchRequest, SearchResult, webSearch } from './ddg_search';
+
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
-import SlashCommandsMenu from 'src/components/slashCommandsMenu'
+import SlashCommandsMenu, { slashCommands } from 'src/components/slashCommandsMenu'
+import { apiExtractText } from './api'
 
 let isProcessing = false
 
@@ -45,6 +47,10 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
 
         textarea.value = ""
 
+        const isPartialCommand = slashCommands.some(command => command.name.startsWith(query) && query.length <= command.name.length)
+        if (isPartialCommand) return
+
+
         const userConfig = await getUserConfig()
 
         isProcessing = true
@@ -59,7 +65,22 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
         textarea.value = ""
 
         try {
-            const results = await apiSearch(query, userConfig.numWebResults, userConfig.timePeriod, userConfig.region)
+            let results: SearchResult[]
+            const pageCommandMatch = query.match(/page:(\S+)/)
+            if (pageCommandMatch) {
+                const url = pageCommandMatch[1]
+                results = await apiExtractText(url)
+            } else {
+
+                const searchRequest: SearchRequest = {
+                    query,
+                    timerange: userConfig.timePeriod,
+                    region: userConfig.region,
+                };
+
+                results = await webSearch(searchRequest, userConfig.numWebResults)
+            }
+
             await pasteWebResultsToTextArea(results, query)
             pressEnter()
             isProcessing = false
@@ -88,7 +109,7 @@ function pressEnter() {
 }
 
 function showErrorMessage(error: Error) {
-    console.log("WebChatGPT error --> API error: ", error)
+    console.info("WebChatGPT error --> API error: ", error)
     const div = document.createElement('div')
     document.body.appendChild(div)
     render(<ErrorMessage message={error.message} />, div)
@@ -115,8 +136,9 @@ async function updateUI() {
         textareaParentParent.parentElement.style.marginBottom = '0.5em'
 
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
+        shadowRootDiv.classList.add('wcg-toolbar')
         textareaParentParent.appendChild(shadowRootDiv)
-        render(<Toolbar />, shadowRoot)
+        render(<Toolbar textarea={textarea} />, shadowRoot)
 
         textarea.parentElement.style.flexDirection = 'row'
 

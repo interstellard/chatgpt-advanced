@@ -1,5 +1,8 @@
 import { h, render } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
+import { icons } from 'src/util/icons'
+import { getTranslation, localizationKeys } from 'src/util/localization'
+import { getUserConfig } from 'src/util/userConfig'
 import SlashButton from './slashButton'
 
 interface Command {
@@ -7,14 +10,14 @@ interface Command {
     description: string
 }
 
-const slashCommands: Command[] = [
+export const slashCommands: Command[] = [
     {
         name: "/site:",
-        description: "Restrict search results to a specific website, e.g. /site:google.com"
+        description: localizationKeys.slashCommandsMenu.siteCommandDescription
     },
     {
         name: "/page:",
-        description: "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq"
+        description: localizationKeys.slashCommandsMenu.pageCommandDescription
     }
 ]
 
@@ -29,8 +32,13 @@ const SlashCommandItem = (props: {
                         ${props.active ? 'bg-gray-800' : ''}`}
             onClick={() => props.onclick(props.command)}
         >
-            <div className="text-sm font-bold">{props.command.name}</div>
-            <div className="text-sm">{props.command.description}</div>
+            <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-col">
+                    <div className="text-sm font-bold">{props.command.name}</div>
+                    <div className="text-sm">{getTranslation(props.command.description)}</div>
+                </div>
+                {props.active ? icons.tabKey : null}
+            </div>
         </div>
     )
 }
@@ -76,9 +84,14 @@ function SlashCommandsMenu(
         if (e.key === 'Tab') {
             e.preventDefault()
             const command = filteredCommands[activeElementIndex]
-            if (command) {
-                onCommandClick(command)
-            }
+            onCommandClick(command)
+        }
+
+        if (e.key === 'Enter') {
+            // setTextAreaValue('')
+            e.preventDefault()
+            const command = filteredCommands[activeElementIndex]
+            onCommandClick(command)
         }
     }
 
@@ -93,7 +106,7 @@ function SlashCommandsMenu(
     }
 
     const onCommandClick = (command: Command) => {
-        console.log(command)
+        if (!command) return
         setTextAreaValue(command.name, false)
         setShowMenu(false)
     }
@@ -122,10 +135,13 @@ function SlashCommandsMenu(
             return
         }
 
-        const newFilteredCommands = slashCommands.filter((command) => command.name.startsWith(filter))
-        setFilteredCommands(newFilteredCommands)
+        getUserConfig().then((userConfig) => {
 
-        setShowMenu(newFilteredCommands.length > 0)
+            const newFilteredCommands = slashCommands.filter((command) => command.name.startsWith(filter))
+            setFilteredCommands(newFilteredCommands)
+
+            setShowMenu(userConfig.webAccess && newFilteredCommands.length > 0)
+        })
 
     }, [filter])
 
@@ -154,6 +170,11 @@ function SlashCommandsMenu(
                     </li>
                 )
             })}
+            <div className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
+                getTranslation(localizationKeys.UI.youCanUseDuckDuckGoBangs)
+            }
+                <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer" className="text-blue-500"> DuckDuckGo Bangs</a>
+            </div>
         </ul>
     )
 }

@@ -31,11 +31,10 @@ export const getCurrentLanguageName = () => language === Languages.auto ? Langua
 
 export const setLocaleLanguage = (newLanguage: string) => {
     language = newLanguage === 'auto' ? getSystemLanguage() : newLanguage
-    console.debug(`Language set to ${language}`)
 }
 
-export const getTranslation = (key: string, lang? : string) => {
-    if(lang) {
+export const getTranslation = (key: string, lang?: string) => {
+    if (lang) {
         return localizedStrings[key][lang]
     }
     if (language in localizedStrings[key]) {
@@ -52,6 +51,12 @@ export const localizationKeys = {
         supportThisProject: 'support_this_project',
         supportMe: 'support_me',
         chooseLanguage: 'choose_language',
+        textareaPlaceholder: 'textarea_placeholder',
+        youCanUseDuckDuckGoBangs: 'you_can_use_duckduckgo_bangs',
+    },
+    slashCommandsMenu: {
+        siteCommandDescription: 'site_command_description',
+        pageCommandDescription: 'page_command_description',
     },
     placeholders: {
         namePlaceholder: 'name_placeholder',
