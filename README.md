@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
    <summary><h2>Manual installation</h2></summary>
 
   ### Chrome, Microsoft Edge, etc.
-  1. Download the prebuilt chrome zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/serverless/build).
+  1. Download the prebuilt chrome zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/dev/build).
   2. Unzip the file.
   3. Open `chrome://extensions` in Chrome / `edge://extensions` in Microsoft Edge.
   4. Enable developer mode (top right corner).
@@ -40,7 +40,7 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
   6. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
 
   ### Firefox
-  1. Download prebuilt firefox zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/serverless/build).
+  1. Download prebuilt firefox zip file from [here](https://github.com/qunash/chatgpt-advanced/tree/dev/build).
   
   #### Temporary installation, in official Release or Beta
   1. Go to `about:debugging#/runtime/this-firefox`.
