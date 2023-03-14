@@ -65,6 +65,8 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
 4. Grab your zip extension from `build/` folder
 </details>
 
+<br>
+
 ## FAQ
 
 ### Which search engine is this extension using?
@@ -79,6 +81,10 @@ Some other ChatGPT extensions are known to interfere with WebChatGPT. If you are
 ### Can I use other search engines?
 The extension currently only supports web searching using the DuckDuckGo search engine. However, you can use DuckDuckGo bangs to get search results from thousands of other websites. For example, `!pm` to search on PubMed, `!gsc` – on Google Scholar, etc. You can find the full list of available bangs on the [DuckDuckGo website](https://duckduckgo.com/bangs). Simply type the bang followed by your search query to perform the search on the corresponding website.
 
+### Do you collect any data?
+No, the extension does not collect any user data or analytics.
+
+<br>
 
 ## Contributing
 
