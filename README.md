@@ -65,6 +65,21 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
 4. Grab your zip extension from `build/` folder
 </details>
 
+## FAQ
+
+### Which search engine is this extension using?
+DuckDuckGo.
+
+### Why is the extension asking for `access to all websites` permission?
+The extension requires access to all websites because there is no backend server to process web requests, and everything happens locally in the browser. There are two modes: web searching using DDG, and extracting webpage text from URLs. Web searching requires access to DuckDuckGo, while URL text extraction requires access to any website. This is why the `access to all websites` permission is required.
+
+### The extension does not work, the toolbar does not show up. What can I do?
+Some other ChatGPT extensions are known to interfere with WebChatGPT. If you are experiencing issues with the toolbar not showing up, please try disabling any other ChatGPT extensions that you have installed and reloading the page. If you continue to experience issues, feel free to reach out to us on our [Discord server](https://discord.gg/nmCjvyVpnB) for assistance.
+
+### Can I use other search engines?
+The extension currently only supports web searching using the DuckDuckGo search engine. However, you can use DuckDuckGo bangs to get search results from thousands of other websites. For example, `!pm` to search on PubMed, `!gsc` – on Google Scholar, etc. You can find the full list of available bangs on the [DuckDuckGo website](https://duckduckgo.com/bangs). Simply type the bang followed by your search query to perform the search on the corresponding website.
+
+
 ## Contributing
 
 Contributions are welcome! Please submit pull requests to the `dev` branch.
