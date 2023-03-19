@@ -4,6 +4,7 @@ import { icons } from 'src/util/icons'
 import { getSavedPrompts, Prompt } from 'src/util/promptManager'
 import { getUserConfig, updateUserConfig } from 'src/util/userConfig'
 import timePeriodOptions from 'src/util/timePeriodOptions.json'
+import filterTypeOptions from 'src/util/filterTypeOptions.json'
 import regionOptions from 'src/util/regionOptions.json'
 import Browser from 'webextension-polyfill'
 import Dropdown from './dropdown'
@@ -25,6 +26,7 @@ function Toolbar(
     const [numResults, setNumResults] = useState(3)
     const [timePeriod, setTimePeriod] = useState('')
     const [region, setRegion] = useState('wt-wt')
+    const [filterType, setFilterType] = useState('All')
     const [promptUUID, setPromptUUID] = useState<string>('')
     const [prompts, setPrompts] = useState<Prompt[]>([])
 
@@ -34,6 +36,7 @@ function Toolbar(
             setNumResults(userConfig.numWebResults)
             setTimePeriod(userConfig.timePeriod)
             setRegion(userConfig.region)
+            setFilterType(userConfig.filterType)
             setPromptUUID(userConfig.promptUUID)
 
             setLocaleLanguage(userConfig.language)
@@ -110,6 +113,11 @@ function Toolbar(
         updateUserConfig({ promptUUID: uuid })
     }
 
+    const handleFilterTypeChange = (e: { target: { value: string } }) => {
+        setFilterType(e.target.value)
+        updateUserConfig({ filterType: e.target.value })
+    }
+
     const removeFocusFromCurrentElement = () => (document.activeElement as HTMLElement)?.blur()
 
 
@@ -148,6 +156,10 @@ function Toolbar(
                         value={region}
                         onChange={handleRegionChange}
                         options={regionOptions} />
+                    <Dropdown
+                        value={filterType}
+                        onChange={handleFilterTypeChange}
+                        options={filterTypeOptions} />
                     <Dropdown
                         value={promptUUID}
                         onChange={handlePromptChange}

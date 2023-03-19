@@ -86,6 +86,10 @@ No, the extension does not collect any user data or analytics.
 
 <br>
 
+## Disclaimer
+
+This extension does not provide financial, medical, or social advice. This information, including but not limited to, text, graphics, images and other material found through this extension are for informational purposes only. No material found through this extension is intended to be a substitute for professional financial, medical, or social advice, strategies, diagnosis, treatment, or feedback. You agree, acknowledge, and alone assume the sole responsibility of evaluating the merits and risks associated with the use of any information or other content found through this extension before making any decisions based on such information. Always seek the advice of trained financial advisors, physicians, healthcare providers, or representatives with any questions you may have regarding financial, medical, and social conditions. Never disregard professional advice or delay in seeking it because of something you have read through this extension. 
+
 ## Contributing
 
 Contributions are welcome! Please submit pull requests to the `dev` branch.
