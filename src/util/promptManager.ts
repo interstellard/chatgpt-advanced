@@ -34,6 +34,8 @@ const formatWebResults = (results: SearchResult[], filterType: string) => {
         results = results.filter(result => (result.url.includes("mayoclinic.org") || result.url.includes("medlineplus.gov") || result.url.includes("pubmed.ncbi.nlm.nih.gov") || result.url.includes("webmd.com") || result.url.includes("nih.gov") || result.url.includes("uptodate.com") || result.url.includes("medscape.com") || result.url.includes("cdc.gov") || result.url.includes("examine.com") || result.url.includes("nhs.uk") || result.url.includes("thefreedictionary.com") || result.url.includes("bestpractice.bmj.com") || result.url.includes("nejm.org") || result.url.includes("nice.org.uk") || result.url.includes("journals.plos.org") || result.url.includes("apa.org") || result.url.includes("cochranelibrary.com"))); // New code to check for credibility
     } else if (filterType === "Gov") {
         results = results.filter(result => (result.url.includes(".gov"))); // New code to check for credibility
+    } else if (filterType === "Res") {
+        results = results.filter(result => (result.url.includes("pubmed.ncbi.nlm.nih.gov") || result.url.includes("ahajournals.org") || result.url.includes("jcsm.aasm.org") || result.url.includes("ccjm.org"))); // New code to check for credibility
     }
     let counter = 1
     return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
