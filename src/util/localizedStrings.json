@@ -179,19 +179,19 @@
     "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)"
   },
   "web_results_placeholder_tip": {
-    "en": "Insert placeholder for the web results (required)",
-    "pt": "Insira o espaço reservado para os resultados da pesquisa na web (obrigatório)",
-    "es": "Ingrese un marcador de posición para los resultados de búsqueda web (requerido)",
-    "fr": "Insérer un marqueur de place pour les résultats de recherche web (requis)",
-    "de": "Platzhalter für die Web-Ergebnisse einfügen (erforderlich)",
-    "it": "Inserisci il segnaposto per i risultati web (richiesto)",
-    "zh": "插入网络搜索结果的占位符（必需）",
-    "zh-TW": "插入網路搜尋結果的佔位符（必填）",
-    "ja": "Web結果のプレースホルダーを挿入（必須）",
-    "ko": "웹 검색 결과의 자리 표시자를 삽입 (필수)",
-    "he": "הוסף מציין מיקום עבור תוצאות האינטרנט (חובה)",
-    "ru": "Вставить плейсхолдер веб-результатов (обязательно)",
-    "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (wymagane)"
+    "en": "Insert placeholder for the web results (optional)",
+    "pt": "Insira o espaço reservado para os resultados da pesquisa na web (opcional)",
+    "es": "Ingrese un marcador de posición para los resultados de búsqueda web (opcional)",
+    "fr": "Insérer un marqueur de place pour les résultats de recherche web (facultatif)",
+    "de": "Platzhalter für die Web-Ergebnisse einfügen (optional)",
+    "it": "Inserisci il segnaposto per i risultati web (opzionale)",
+    "zh": "插入网络搜索结果的占位符（可选）",
+    "zh-TW": "插入網路搜尋結果的佔位符（選填）",
+    "ja": "Web結果のプレースホルダーを挿入（任意）",
+    "ko": "웹 검색 결과의 자리 표시자를 삽입 (선택 사항)",
+    "he": "הוסף מציין מיקום עבור תוצאות האינטרנט (אופציונלי)",
+    "ru": "Вставить плейсхолдер веб-результатов (необязательно)",
+    "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (opcjonalne)"
   },
   "query_placeholder_tip": {
     "en": "Insert placeholder for the initial query (required)",

@@ -15,6 +15,11 @@ export interface Prompt {
 
 const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').replace(/\/site:(\S+)\s+/g, '')
 
+export const promptContainsWebResults = async () => {
+    const currentPrompt = await getCurrentPrompt()
+    return currentPrompt.text.includes('{web_results}')
+}
+
 export const compilePrompt = async (results: SearchResult[], query: string) => {
     const currentPrompt = await getCurrentPrompt()
     const prompt = replaceVariables(currentPrompt.text, {
@@ -26,6 +31,10 @@ export const compilePrompt = async (results: SearchResult[], query: string) => {
 }
 
 const formatWebResults = (results: SearchResult[]) => {
+    if (!results) {
+        return ""
+    }
+
     if (results.length === 0) {
         return "No results found.\n"
     }

@@ -7,7 +7,7 @@ import { getUserConfig, UserConfig } from 'src/util/userConfig'
 import { SearchRequest, SearchResult, webSearch } from './ddg_search'
 
 import createShadowRoot from 'src/util/createShadowRoot'
-import { compilePrompt } from 'src/util/promptManager'
+import { compilePrompt, promptContainsWebResults } from 'src/util/promptManager'
 import SlashCommandsMenu, { slashCommands } from 'src/components/slashCommandsMenu'
 import { apiExtractText } from './api'
 
@@ -31,6 +31,12 @@ function renderSlashCommandsMenu() {
 }
 
 async function processQuery(query: string, userConfig: UserConfig) {
+
+    const containsWebResults = await promptContainsWebResults()
+    if (!containsWebResults) {
+        return undefined
+    }
+
     let results: SearchResult[]
 
     const pageCommandMatch = query.match(/page:(\S+)/)
@@ -51,6 +57,8 @@ async function processQuery(query: string, userConfig: UserConfig) {
 }
 
 async function handleSubmit(query: string) {
+    textarea.value = ""
+
     const userConfig = await getUserConfig()
 
     if (!userConfig.webAccess) {
@@ -59,11 +67,12 @@ async function handleSubmit(query: string) {
         return
     }
 
-    textarea.value = ""
-
     try {
         const results = await processQuery(query, userConfig)
-        await pasteWebResultsToTextArea(results, query)
+        console.info("WebChatGPT results --> ", results)
+        const compiledPrompt = await compilePrompt(results, query)
+        console.info("WebChatGPT compiledPrompt --> ", compiledPrompt)
+        textarea.value = compiledPrompt
         pressEnter()
     } catch (error) {
         showErrorMessage(error)
@@ -89,11 +98,6 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
         await handleSubmit(query)
         isProcessing = false
     }
-}
-
-async function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
-
-    textarea.value = await compilePrompt(results, query)
 }
 
 function pressEnter() {

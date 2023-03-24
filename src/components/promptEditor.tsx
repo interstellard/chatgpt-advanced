@@ -44,7 +44,7 @@ const PromptEditor = (
     useEffect(() => {
         setNameError(prompt.name.trim() === '')
         setTextError(prompt.text.trim() === '')
-        setWebResultsError(!prompt.text.includes('{web_results}'))
+        // setWebResultsError(!prompt.text.includes('{web_results}'))
         setQueryError(!prompt.text.includes('{query}'))
     }, [prompt])
 
@@ -129,20 +129,22 @@ const PromptEditor = (
                         ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
         >
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}>
+                {/* <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}> */}
+                <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.webResults)}>
                     <button
-                        className={`wcg-btn
-                        ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        // ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        className={`wcg-btn-success wcg-btn
                         wcg-p-1 wcg-lowercase`}
                         onClick={() => {
-                            setWebResultsError(false)
+                            // setWebResultsError(false)
                             handleInsertText('{web_results}')
                         }}
                     >
                         {"{web_results}"}
                     </button>
                 </TooltipWrapper>
-                <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}>
+                {/* <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}> */}
+                <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.query)}>
                     <button
                         className={`wcg-btn
                         ${showErrors && queryError ? "wcg-btn-error" : hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
