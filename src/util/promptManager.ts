@@ -17,12 +17,10 @@ const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').
 
 export const compilePrompt = async (results: SearchResult[], query: string) => {
     const currentPrompt = await getCurrentPrompt()
-    const formattedResults = formatWebResults(results)
-    const currentDate = new Date().toLocaleDateString()
     const prompt = replaceVariables(currentPrompt.text, {
-        '{web_results}': formattedResults,
+        '{web_results}': formatWebResults(results),
         '{query}': removeCommands(query),
-        '{current_date}': currentDate
+        '{current_date}': new Date().toLocaleDateString()
     })
     return prompt
 }
