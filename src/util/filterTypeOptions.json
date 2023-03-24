@@ -1,0 +1,6 @@
+[
+  { "value": "All", "label": "All" },
+  { "value": "Med", "label": "Med" },
+  { "value": "Gov", "label": "Gov" },
+  { "value": "Res", "label": "Res" }
+]

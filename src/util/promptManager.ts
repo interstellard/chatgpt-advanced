@@ -15,9 +15,9 @@ export interface Prompt {
 
 const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').replace(/\/site:(\S+)\s+/g, '')
 
-export const compilePrompt = async (results: SearchResult[], query: string) => {
+export const compilePrompt = async (results: SearchResult[], query: string, filterType: string) => {
     const currentPrompt = await getCurrentPrompt()
-    const formattedResults = formatWebResults(results)
+    const formattedResults = formatWebResults(results, filterType)
     const currentDate = new Date().toLocaleDateString()
     const prompt = replaceVariables(currentPrompt.text, {
         '{web_results}': formattedResults,
@@ -27,11 +27,17 @@ export const compilePrompt = async (results: SearchResult[], query: string) => {
     return prompt
 }
 
-const formatWebResults = (results: SearchResult[]) => {
+const formatWebResults = (results: SearchResult[], filterType: string) => {
     if (results.length === 0) {
         return "No results found.\n"
     }
-    
+    if (filterType === "Med") {
+        results = results.filter(result => (result.url.includes("mayoclinic.org") || result.url.includes("medlineplus.gov") || result.url.includes("merckmanuals.com") || result.url.includes("pubmed.ncbi.nlm.nih.gov") || result.url.includes("webmd.com") || result.url.includes("nih.gov") || result.url.includes("womenshealth.gov") || result.url.includes("healthline.com") || result.url.includes("uptodate.com") || result.url.includes("diabetes.org") || result.url.includes("familydoctor.org") || result.url.includes("heart.org") || result.url.includes("fda.gov") || result.url.includes("medscape.com") || result.url.includes("cdc.gov") || result.url.includes("examine.com") || result.url.includes("nhs.uk") || result.url.includes("thefreedictionary.com") || result.url.includes("bestpractice.bmj.com") || result.url.includes("nejm.org") || result.url.includes("samhsa.gov") || result.url.includes("cancer.gov") || result.url.includes("nice.org.uk") || result.url.includes("journals.plos.org") || result.url.includes("apa.org") || result.url.includes("cochranelibrary.com"))); // New code to check for credibility
+    } else if (filterType === "Gov") {
+        results = results.filter(result => (result.url.includes(".gov"))); // New code to check for credibility
+    } else if (filterType === "Res") {
+        results = results.filter(result => (result.url.includes("doi") || result.url.includes("sciencedirect.com") || result.url.includes("academic.oup.com") || result.url.includes("journal") || result.url.includes("article") || result.url.includes("abstract") || result.url.includes("publication") || result.url.includes("mdpi.com"))); // New code to check for credibility
+    }
     let counter = 1
     return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
 }

@@ -81,7 +81,7 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
                 results = await webSearch(searchRequest, userConfig.numWebResults)
             }
 
-            await pasteWebResultsToTextArea(results, query)
+            await pasteWebResultsToTextArea(results, query, userConfig.filterType)
             pressEnter()
             isProcessing = false
 
@@ -92,9 +92,9 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
     }
 }
 
-async function pasteWebResultsToTextArea(results: SearchResult[], query: string) {
+async function pasteWebResultsToTextArea(results: SearchResult[], query: string, filterType: string) {
 
-    textarea.value = await compilePrompt(results, query)
+    textarea.value = await compilePrompt(results, query, filterType)
 }
 
 function pressEnter() {

@@ -8,6 +8,7 @@ const defaultConfig = {
     webAccess: true,
     region: 'wt-wt',
     timePeriod: '',
+    filterType: 'All',
     language: getSystemLanguage(),
     promptUUID: 'default',
 }
