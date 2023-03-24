@@ -3,8 +3,8 @@ import { h, render } from 'preact'
 import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTToolbar } from '../util/elementFinder'
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
-import { getUserConfig } from 'src/util/userConfig'
-import { SearchRequest, SearchResult, webSearch } from './ddg_search';
+import { getUserConfig, UserConfig } from 'src/util/userConfig'
+import { SearchRequest, SearchResult, webSearch } from './ddg_search'
 
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt } from 'src/util/promptManager'
@@ -30,65 +30,64 @@ function renderSlashCommandsMenu() {
     render(<SlashCommandsMenu textarea={textarea} />, div)
 }
 
-async function onSubmit(event: MouseEvent | KeyboardEvent) {
+async function processQuery(query: string, userConfig: UserConfig) {
+    let results: SearchResult[]
 
-    if (event instanceof KeyboardEvent && event.shiftKey && event.key === 'Enter')
-        return
+    const pageCommandMatch = query.match(/page:(\S+)/)
+    if (pageCommandMatch) {
+        const url = pageCommandMatch[1]
+        results = await apiExtractText(url)
+    } else {
+        const searchRequest: SearchRequest = {
+            query,
+            timerange: userConfig.timePeriod,
+            region: userConfig.region,
+        }
 
-    if (event instanceof KeyboardEvent && event.key === 'Enter' && event.isComposing) {
+        results = await webSearch(searchRequest, userConfig.numWebResults)
+    }
+
+    return results
+}
+
+async function handleSubmit(query: string) {
+    const userConfig = await getUserConfig()
+
+    if (!userConfig.webAccess) {
+        textarea.value = query
+        pressEnter()
         return
     }
 
-    if ((event.type === "click" || (event instanceof KeyboardEvent && event.key === 'Enter')) && !isProcessing) {
+    textarea.value = ""
 
+    try {
+        const results = await processQuery(query, userConfig)
+        await pasteWebResultsToTextArea(results, query)
+        pressEnter()
+    } catch (error) {
+        showErrorMessage(error)
+    }
+}
+
+async function onSubmit(event: MouseEvent | KeyboardEvent) {
+    const isKeyEvent = event instanceof KeyboardEvent
+
+    if (isKeyEvent && event.shiftKey && event.key === 'Enter') return
+
+    if (isKeyEvent && event.key === 'Enter' && event.isComposing) return
+
+    if (!isProcessing && (event.type === "click" || (isKeyEvent && event.key === 'Enter'))) {
         const query = textarea.value.trim()
 
         if (query === "") return
 
-        textarea.value = ""
-
         const isPartialCommand = slashCommands.some(command => command.name.startsWith(query) && query.length <= command.name.length)
         if (isPartialCommand) return
 
-
-        const userConfig = await getUserConfig()
-
         isProcessing = true
-
-        if (!userConfig.webAccess) {
-            textarea.value = query
-            pressEnter()
-            isProcessing = false
-            return
-        }
-
-        textarea.value = ""
-
-        try {
-            let results: SearchResult[]
-            const pageCommandMatch = query.match(/page:(\S+)/)
-            if (pageCommandMatch) {
-                const url = pageCommandMatch[1]
-                results = await apiExtractText(url)
-            } else {
-
-                const searchRequest: SearchRequest = {
-                    query,
-                    timerange: userConfig.timePeriod,
-                    region: userConfig.region,
-                };
-
-                results = await webSearch(searchRequest, userConfig.numWebResults)
-            }
-
-            await pasteWebResultsToTextArea(results, query)
-            pressEnter()
-            isProcessing = false
-
-        } catch (error) {
-            isProcessing = false
-            showErrorMessage(error)
-        }
+        await handleSubmit(query)
+        isProcessing = false
     }
 }
 
