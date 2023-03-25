@@ -57,7 +57,6 @@ async function processQuery(query: string, userConfig: UserConfig) {
 }
 
 async function handleSubmit(query: string) {
-    textarea.value = ""
 
     const userConfig = await getUserConfig()
 
@@ -90,6 +89,8 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
         const query = textarea.value.trim()
 
         if (query === "") return
+
+        textarea.value = ""
 
         const isPartialCommand = slashCommands.some(command => command.name.startsWith(query) && query.length <= command.name.length)
         if (isPartialCommand) return
