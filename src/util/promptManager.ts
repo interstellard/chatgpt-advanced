@@ -38,7 +38,7 @@ const formatWebResults = (results: SearchResult[]) => {
     if (results.length === 0) {
         return "No results found.\n"
     }
-    
+
     let counter = 1
     return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
 }
@@ -75,7 +75,9 @@ export const getCurrentPrompt = async () => {
 }
 
 export const getSavedPrompts = async (addDefaults = true) => {
-    const { [SAVED_PROMPTS_KEY]: localPrompts, [SAVED_PROMPTS_MOVED_KEY]: promptsMoved } = await Browser.storage.local.get([SAVED_PROMPTS_KEY, SAVED_PROMPTS_MOVED_KEY])
+    const { [SAVED_PROMPTS_KEY]: localPrompts, [SAVED_PROMPTS_MOVED_KEY]: promptsMoved } = await Browser.storage.local.get({ [SAVED_PROMPTS_KEY]: [], [SAVED_PROMPTS_MOVED_KEY]: false })
+    console.log('localPrompts', localPrompts)
+    console.log('promptsMoved', promptsMoved)
 
     let savedPrompts = localPrompts
 
@@ -91,7 +93,7 @@ export const getSavedPrompts = async (addDefaults = true) => {
         await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: [] })
     }
 
-    return addDefaults ? addDefaultPrompts(savedPrompts) : savedPrompts 
+    return addDefaults ? addDefaultPrompts(savedPrompts) : savedPrompts
 }
 
 function addDefaultPrompts(prompts: Prompt[]) {
