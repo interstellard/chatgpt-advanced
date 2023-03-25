@@ -76,8 +76,6 @@ export const getCurrentPrompt = async () => {
 
 export const getSavedPrompts = async (addDefaults = true) => {
     const { [SAVED_PROMPTS_KEY]: localPrompts, [SAVED_PROMPTS_MOVED_KEY]: promptsMoved } = await Browser.storage.local.get({ [SAVED_PROMPTS_KEY]: [], [SAVED_PROMPTS_MOVED_KEY]: false })
-    console.log('localPrompts', localPrompts)
-    console.log('promptsMoved', promptsMoved)
 
     let savedPrompts = localPrompts
 

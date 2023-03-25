@@ -45,7 +45,6 @@ function Toolbar(
     useEffect(() => {
         const handleMessage = async (request: string) => {
             if (request === "toggle-web-access") {
-                console.log("toggle-web-access")
                 handleWebAccessToggle()
             }
         }
