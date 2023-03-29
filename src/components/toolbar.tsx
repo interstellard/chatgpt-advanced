@@ -16,6 +16,11 @@ const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) 
     label: `${num} result${num === 1 ? '' : 's'}`
 }))
 
+numResultsOptions.push({
+    value: 100,
+    label: 'Max results'
+})
+
 function Toolbar(
     props: {
         textarea: HTMLTextAreaElement | null,
