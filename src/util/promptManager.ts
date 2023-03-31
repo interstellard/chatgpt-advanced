@@ -13,7 +13,7 @@ export interface Prompt {
     text: string
 }
 
-const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').replace(/\/site:(\S+)\s+/g, '')
+const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s*/g, '').replace(/\/site:(\S+)\s*/g, '')
 
 export const promptContainsWebResults = async () => {
     const currentPrompt = await getCurrentPrompt()
