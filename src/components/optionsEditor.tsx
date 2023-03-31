@@ -21,21 +21,18 @@ const OptionsEditor = () => {
             <h1 className="wcg-m-0 wcg-p-0 wcg-text-2xl">
                 {getTranslation(localizationKeys.UI.options)}
             </h1 >
-            <div className="wcg-flex wcg-flex-row wcg-items-center">
-                <p className="wcg-text-lg">
-                    {getTranslation(localizationKeys.UI.trimLongText)}
-                </p>
-                <input
-                    className="wcg-mx-4"
-                    type="checkbox"
-                    checked={trimLongText}
-                    onChange={(e: Event) => {
-                        const checkbox: HTMLInputElement = e.target as HTMLInputElement
-                        setTrimLongText(checkbox.checked)
-                        updateUserConfig({ trimLongText: checkbox.checked })
-                    }}
-                    title={getTranslation(localizationKeys.UI.trimLongText)}
-                />
+            <div class="wcg-form-control">
+                <label className="wcg-label wcg-flex wcg-w-fit wcg-cursor-pointer wcg-items-center wcg-gap-2">
+                    <span className="wcg-label-text wcg-text-lg">{getTranslation(localizationKeys.UI.trimLongText)}</span>
+                    <input type="checkbox"
+                        isChecked={trimLongText}
+                        onChange={(e: Event) => {
+                            const checkbox: HTMLInputElement = e.target as HTMLInputElement
+                            setTrimLongText(checkbox.checked)
+                            updateUserConfig({ trimLongText: checkbox.checked })
+                        }}
+                    />
+                </label>
             </div>
         </div>
     )
