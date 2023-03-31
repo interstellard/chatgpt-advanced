@@ -1,9 +1,8 @@
-import { h, render } from 'preact'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { h } from 'preact'
+import { useEffect, useState } from 'preact/hooks'
 import { icons } from 'src/util/icons'
 import { getTranslation, localizationKeys } from 'src/util/localization'
 import { getUserConfig } from 'src/util/userConfig'
-import SlashButton from './slashButton'
 
 interface Command {
     name: string
@@ -43,15 +42,15 @@ const SlashCommandItem = (props: {
     )
 }
 
-const renderSlashButton = (textarea: HTMLTextAreaElement, show: boolean, onClick: () => void) => {
-    let div = document.querySelector('wcg-slash-button-div')
-    if (div) div.remove()
+// const renderSlashButton = (textarea: HTMLTextAreaElement, show: boolean, onClick: () => void) => {
+//     let div = document.querySelector('wcg-slash-button-div')
+//     if (div) div.remove()
 
-    div = document.createElement('wcg-slash-button-div')
-    div.className = "self-center"
-    textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
-    render(<SlashButton show={show} onclick={onClick} />, div)
-}
+//     div = document.createElement('wcg-slash-button-div')
+//     div.className = "self-center"
+//     textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
+//     render(<SlashButton show={show} onclick={onClick} />, div)
+// }
 
 function SlashCommandsMenu(
     props: {
@@ -157,7 +156,7 @@ function SlashCommandsMenu(
 
     return (
         <ul className={`flex-col flex-1 overflow-y-auto border border-white/20 rounded-md bg-gray-900 shadow-[0_0_10px_rgba(0,0,0,0.10)]`}>
-            <div className='px-3 p-2 text-xs text-white b-2 border-b border-white/20'>WebChatGPT Commands</div>
+            <li className='px-3 p-2 text-xs text-white b-2 border-b border-white/20'>WebChatGPT Commands</li>
 
             {filteredCommands.map((command) => {
                 return (
@@ -170,11 +169,11 @@ function SlashCommandsMenu(
                     </li>
                 )
             })}
-            <div className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
+            <li className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
                 getTranslation(localizationKeys.UI.youCanUseDuckDuckGoBangs)
             }
-                <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer" className="text-blue-500"> DuckDuckGo Bangs</a>
-            </div>
+                <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer noopener" className="text-blue-500"> DuckDuckGo Bangs</a>
+            </li>
         </ul>
     )
 }
