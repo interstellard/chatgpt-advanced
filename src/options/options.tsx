@@ -57,30 +57,32 @@ export default function OptionsPage() {
     }
 
     return (
-        <div className="wcg-flex wcg-w-3/5 wcg-flex-col wcg-items-center">
+        <div className="wcg-flex wcg-w-5/6 wcg-flex-col wcg-items-center">
 
             <NavBar
                 language={language}
                 onLanguageChange={onLanguageChange}
             />
+            <div className="wcg-flex wcg-w-full wcg-flex-col wcg-items-center wcg-gap-4 md:wcg-w-4/5">
 
-            <PromptEditor
-                language={language}
-            />
+                <PromptEditor
+                    language={language}
+                />
 
-            <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center wcg-py-3" />
+                <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center" />
 
-            <OptionsEditor />
+                <OptionsEditor />
 
-            <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center wcg-py-3" />
+                <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center" />
 
-            <div className="wcg-flex wcg-flex-col wcg-items-center wcg-self-center">
-                {/* <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                    <SocialCard icon={icons.twitter} text={getTranslation(localizationKeys.socialButtonTips.twitter)} url="https://twitter.com/hahahahohohe" />
-                    <SocialCard icon={icons.discord} text={getTranslation(localizationKeys.socialButtonTips.discord)} url="https://discord.gg/hjvAtVNtHa" />
-                    <SocialCard icon={icons.github} text={getTranslation(localizationKeys.socialButtonTips.github)} url="https://github.com/qunash/chatgpt-advanced" />
-                </div> */}
-                <Footer />
+                <div className="wcg-flex wcg-flex-col wcg-items-center wcg-self-center">
+                    {/* <div className="wcg-flex wcg-flex-row wcg-gap-4">
+                        <SocialCard icon={icons.twitter} text={getTranslation(localizationKeys.socialButtonTips.twitter)} url="https://twitter.com/hahahahohohe" />
+                        <SocialCard icon={icons.discord} text={getTranslation(localizationKeys.socialButtonTips.discord)} url="https://discord.gg/hjvAtVNtHa" />
+                        <SocialCard icon={icons.github} text={getTranslation(localizationKeys.socialButtonTips.github)} url="https://github.com/qunash/chatgpt-advanced" />
+                    </div> */}
+                    <Footer />
+                </div>
             </div>
 
         </div >

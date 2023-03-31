@@ -249,7 +249,7 @@ const PromptEditor = (
     )
 
     return (
-        <div className="wcg-rounded-box wcg-flex wcg-h-[32rem] wcg-w-4/5 wcg-flex-col wcg-gap-4 wcg-border wcg-py-6">
+        <div className="wcg-rounded-box wcg-flex wcg-min-h-[32rem] wcg-w-4/5 wcg-flex-col wcg-gap-4 wcg-border wcg-py-6">
             
             <h1 className="wcg-m-0 wcg-p-2 wcg-text-2xl">Prompt Editor</h1>
             <div className="wcg-flex wcg-flex-row wcg-gap-4">

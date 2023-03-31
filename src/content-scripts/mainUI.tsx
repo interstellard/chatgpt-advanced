@@ -144,7 +144,7 @@ async function updateUI() {
         textareaParentParent.appendChild(shadowRootDiv)
         render(<Toolbar textarea={textarea} />, shadowRoot)
 
-        textarea.parentElement.style.flexDirection = 'row'
+        // textarea.parentElement.style.flexDirection = 'row'
 
         renderSlashCommandsMenu()
     }
