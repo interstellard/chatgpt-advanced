@@ -25,7 +25,7 @@ const OptionsEditor = () => {
                 <label className="wcg-label wcg-flex wcg-w-fit wcg-cursor-pointer wcg-items-center wcg-gap-2">
                     <span className="wcg-label-text wcg-text-lg">{getTranslation(localizationKeys.UI.trimLongText)}</span>
                     <input type="checkbox"
-                        isChecked={trimLongText}
+                        checked={trimLongText}
                         onChange={(e: Event) => {
                             const checkbox: HTMLInputElement = e.target as HTMLInputElement
                             setTrimLongText(checkbox.checked)
