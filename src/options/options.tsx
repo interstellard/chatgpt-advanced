@@ -6,6 +6,7 @@ import NavBar from "src/components/navBar"
 import { icons } from "src/util/icons"
 import { getUserConfig, updateUserConfig } from "src/util/userConfig"
 import "../style/base.css"
+import OptionsEditor from "src/components/optionsEditor"
 
 
 const Footer = () => (
@@ -68,8 +69,13 @@ export default function OptionsPage() {
                 language={language}
             />
 
+            <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center wcg-py-3" />
 
-            <div className="wcg-mt-28 wcg-flex wcg-flex-col wcg-items-center wcg-self-center">
+            <OptionsEditor />
+
+            <div className="wcg-divider wcg-m-0 wcg-w-4/5 wcg-self-center wcg-py-3" />
+
+            <div className="wcg-flex wcg-flex-col wcg-items-center wcg-self-center">
                 {/* <div className="wcg-flex wcg-flex-row wcg-gap-4">
                     <SocialCard icon={icons.twitter} text={getTranslation(localizationKeys.socialButtonTips.twitter)} url="https://twitter.com/hahahahohohe" />
                     <SocialCard icon={icons.discord} text={getTranslation(localizationKeys.socialButtonTips.discord)} url="https://discord.gg/hjvAtVNtHa" />

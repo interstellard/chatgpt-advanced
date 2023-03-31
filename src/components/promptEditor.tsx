@@ -168,6 +168,7 @@ const PromptEditor = (
             </div>
 
             <button
+                type={"button"}
                 className="wcg-btn-primary wcg-btn wcg-text-base"
                 onClick={handleSave}
             >
@@ -179,6 +180,7 @@ const PromptEditor = (
     const PromptList = (
         <div>
             <button
+                type={"button"}
                 className="wcg-btn-primary wcg-btn wcg-w-full wcg-text-base"
                 onClick={handleAdd}>
                 <span class="material-symbols-outlined wcg-mr-2">
@@ -221,6 +223,7 @@ const PromptEditor = (
 
     const btnDelete = (
         <button
+            type={"button"}
             className={`wcg-btn wcg-text-base
                     ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
                     ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
@@ -241,24 +244,29 @@ const PromptEditor = (
             value={prompt.text}
             onInput={handleTextareaChange}
             disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+            title="Prompt template text"
         />
     )
 
     return (
-        <div className="wcg-rounded-box wcg-mt-10 wcg-flex wcg-h-[32rem] wcg-w-4/5 wcg-flex-row wcg-gap-4 wcg-border wcg-py-4">
-            <div className="wcg-w-1/3">
-                {PromptList}
-            </div>
-
-            <div className="wcg-flex wcg-w-2/3 wcg-flex-col">
-                <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
-                    {nameInput}
-                    {btnDelete}
+        <div className="wcg-rounded-box wcg-flex wcg-h-[32rem] wcg-w-4/5 wcg-flex-col wcg-gap-4 wcg-border wcg-py-6">
+            
+            <h1 className="wcg-m-0 wcg-p-2 wcg-text-2xl">Prompt Editor</h1>
+            <div className="wcg-flex wcg-flex-row wcg-gap-4">
+                <div className="wcg-w-1/3">
+                    {PromptList}
                 </div>
-                {textArea}
 
-                {actionToolbar}
-            </div>
+                <div className="wcg-flex wcg-w-2/3 wcg-flex-col">
+                    <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
+                        {nameInput}
+                        {btnDelete}
+                    </div>
+                    {textArea}
+
+                    {actionToolbar}
+                </div>
+            </div >
         </div >
     )
 }

@@ -48,6 +48,8 @@ export const localizationKeys = {
     defaultPrompt: 'default_prompt',
     UI: {
         language: 'language',
+        options: 'options',
+        trimLongText: 'trim_long_text',
         supportThisProject: 'support_this_project',
         supportMe: 'support_me',
         chooseLanguage: 'choose_language',

@@ -2,6 +2,7 @@ import { Readability } from "@mozilla/readability"
 import { parseHTML } from "linkedom"
 import Browser from "webextension-polyfill"
 import { SearchResult } from "./ddg_search"
+import { getUserConfig } from "src/util/userConfig"
 
 
 const cleanText = (text: string) =>
@@ -45,7 +46,12 @@ export async function getWebpageTitleAndText(url: string, html_str = ''): Promis
         return { title: "Could not parse the page.", body: "", url }
     }
 
-    const text = cleanText(parsed.textContent)
+    let text = cleanText(parsed.textContent)
+    
+    const userConfig = await getUserConfig()
+    if (userConfig.trimLongText) {
+        text = text.slice(0, 14500)
+    }
     return { title: parsed.title, body: text, url }
 }
 
