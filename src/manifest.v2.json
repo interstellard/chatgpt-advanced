@@ -43,7 +43,8 @@
   },
   "web_accessible_resources": [
     "content-scripts/mainUI.css",
-    "icons/icon48.png"
+    "icons/icon48.png",
+    "leave_review.png"
   ],
   "commands": {
     "toggle-web-access": {
