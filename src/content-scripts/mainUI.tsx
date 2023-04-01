@@ -68,9 +68,9 @@ async function handleSubmit(query: string) {
 
     try {
         const results = await processQuery(query, userConfig)
-        console.info("WebChatGPT results --> ", results)
+        // console.info("WebChatGPT results --> ", results)
         const compiledPrompt = await compilePrompt(results, query)
-        console.info("WebChatGPT compiledPrompt --> ", compiledPrompt)
+        // console.info("WebChatGPT compiledPrompt --> ", compiledPrompt)
         textarea.value = compiledPrompt
         pressEnter()
     } catch (error) {
