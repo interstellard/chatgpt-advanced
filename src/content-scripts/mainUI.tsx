@@ -10,6 +10,7 @@ import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt, promptContainsWebResults } from 'src/util/promptManager'
 import SlashCommandsMenu, { slashCommands } from 'src/components/slashCommandsMenu'
 import { apiExtractText } from './api'
+import Browser from 'webextension-polyfill'
 
 let isProcessing = false
 
@@ -163,6 +164,7 @@ async function updateUI() {
 const rootEl = getRootElement()
 window.onload = function () {
     updateUI()
+    replaceFetch()
 
     try {
         new MutationObserver(() => {
@@ -173,4 +175,14 @@ window.onload = function () {
             showErrorMessage(e)
         }
     }
+}
+
+function replaceFetch() {
+    const s = document.createElement('script');
+    s.type = 'module'
+    s.src = Browser.runtime.getURL('content-scripts/fetch-interceptor.js');
+    // (document.head || document.documentElement).appendChild(s);
+    // s.setAttribute('type', 'text/javascript');
+    // s.setAttribute('src', file);
+    document.body.appendChild(s);
 }

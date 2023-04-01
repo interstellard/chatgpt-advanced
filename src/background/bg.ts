@@ -93,3 +93,7 @@ function update_origin_for_ddg_in_firefox() {
         ["blocking", "requestHeaders"]
     )
 }
+
+// Browser.webRequest.onBeforeRequest.addListener(
+//     (details) => {
+        

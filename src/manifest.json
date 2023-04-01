@@ -41,6 +41,7 @@
     {
       "resources": [
         "content-scripts/mainUI.css",
+        "content-scripts/fetch-interceptor.js",
         "icons/icon48.png",
         "leave_review.png"
       ],

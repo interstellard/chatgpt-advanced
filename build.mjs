@@ -1,21 +1,20 @@
-import esbuild from "esbuild"
-import archiver from "archiver"
-import fs from "fs-extra"
-import tailwindcss from "tailwindcss"
-import autoprefixer from "autoprefixer"
-import postcssPlugin from "esbuild-style-plugin"
-import copyStaticFilesPlugin from "esbuild-copy-files-plugin"
-import path from 'path'
+import esbuild from "esbuild";
+import archiver from "archiver";
+import fs from "fs-extra";
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
+import postcssPlugin from "esbuild-style-plugin";
+import copyStaticFilesPlugin from "esbuild-copy-files-plugin";
+import path from "path";
 
-
-const buildDir = "build"
-const minify = process.argv.includes("--minify")
+const buildDir = "build";
+const minify = process.argv.includes("--minify");
 
 async function cleanBuildDir() {
-  const entries = await fs.readdir(buildDir)
+  const entries = await fs.readdir(buildDir);
   for (const entry of entries) {
-    if (path.extname(entry) === ".zip") continue
-    await fs.remove(`${buildDir}/${entry}`)
+    if (path.extname(entry) === ".zip") continue;
+    await fs.remove(`${buildDir}/${entry}`);
   }
 }
 async function runEsbuild() {
@@ -45,6 +44,11 @@ async function runEsbuild() {
         },
       }),
       copyStaticFilesPlugin({
+        source: ["src/content-scripts/fetch-interceptor.js"],
+        target: `${buildDir}/content-scripts`,
+        copyWithFolder: false,
+      }),
+      copyStaticFilesPlugin({
         source: ["src/manifest.json", "src/assets/"],
         target: buildDir,
         copyWithFolder: false,
@@ -60,88 +64,88 @@ async function runEsbuild() {
         copyWithFolder: true,
       }),
     ],
-  })
+  });
 }
 
 async function copyVersionFromPackageJsonToManifests() {
-  const packageJson = await fs.readJson("package.json")
-  const version = packageJson.version
+  const packageJson = await fs.readJson("package.json");
+  const version = packageJson.version;
 
-  const manifestFiles = ["src/manifest.json", "src/manifest.v2.json"]
+  const manifestFiles = ["src/manifest.json", "src/manifest.v2.json"];
   for (const manifestFile of manifestFiles) {
-    const manifest = await fs.readJson(manifestFile)
-    manifest.version = version
-    await fs.writeJson(manifestFile, manifest, { spaces: 2 })
-    console.info(`Updated version in ${manifestFile} to ${version}`)
+    const manifest = await fs.readJson(manifestFile);
+    manifest.version = version;
+    await fs.writeJson(manifestFile, manifest, { spaces: 2 });
+    console.info(`Updated version in ${manifestFile} to ${version}`);
   }
 }
 
 async function createZipExtensionForBrowser(browser) {
-  const manifest = await fs.readJson(`${buildDir}/manifest.json`)
-  const version = manifest.version
-  let archiveName = `build/webchatgpt-${version}-${browser}.zip`
+  const manifest = await fs.readJson(`${buildDir}/manifest.json`);
+  const version = manifest.version;
+  let archiveName = `build/webchatgpt-${version}-${browser}.zip`;
 
-  const archive = archiver("zip", { zlib: { level: 9 } })
-  const stream = fs.createWriteStream(archiveName)
+  const archive = archiver("zip", { zlib: { level: 9 } });
+  const stream = fs.createWriteStream(archiveName);
 
-  archive.pipe(stream)
+  archive.pipe(stream);
 
-  await addFilesToZip(archive, browser)
+  await addFilesToZip(archive, browser);
 
-  console.info(`Creating ${archiveName}…`)
-  archive.finalize()
+  console.info(`Creating ${archiveName}…`);
+  archive.finalize();
 }
 
 async function addFilesToZip(archive, browser) {
-  const entries = await fs.readdir("build")
+  const entries = await fs.readdir("build");
   for (const entry of entries) {
-    const entryStat = await fs.stat(`build/${entry}`)
+    const entryStat = await fs.stat(`build/${entry}`);
 
     if (entryStat.isDirectory()) {
-      archive.directory(`build/${entry}`, entry)
+      archive.directory(`build/${entry}`, entry);
     } else {
-      if (path.extname(entry) === ".zip") continue
-      if (entry === "manifest.json") continue
-      archive.file(`build/${entry}`, { name: entry })
+      if (path.extname(entry) === ".zip") continue;
+      if (entry === "manifest.json") continue;
+      archive.file(`build/${entry}`, { name: entry });
     }
   }
   if (browser === "firefox") {
-    archive.file("src/manifest.v2.json", { name: "manifest.json" })
+    archive.file("src/manifest.v2.json", { name: "manifest.json" });
   } else if (browser === "chrome") {
-    archive.file("build/manifest.json", { name: "manifest.json" })
+    archive.file("build/manifest.json", { name: "manifest.json" });
   }
 }
 
 async function build() {
-  const updateVersion = process.argv.includes("--update-version")
+  const updateVersion = process.argv.includes("--update-version");
   if (updateVersion) {
-    await copyVersionFromPackageJsonToManifests()
+    await copyVersionFromPackageJsonToManifests();
   }
 
-  await cleanBuildDir()
-  await runEsbuild()
-  
-  const createZips = process.argv.includes("--create-zips")
+  await cleanBuildDir();
+  await runEsbuild();
+
+  const createZips = process.argv.includes("--create-zips");
   if (createZips) {
     try {
-      await deleteZipsInBuildFolder()
-      await createZipExtensionForBrowser("chrome")
-      await createZipExtensionForBrowser("firefox")
+      await deleteZipsInBuildFolder();
+      await createZipExtensionForBrowser("chrome");
+      await createZipExtensionForBrowser("firefox");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
-  console.info("Build complete")
+  console.info("Build complete");
 
   async function deleteZipsInBuildFolder() {
-    const entries = await fs.readdir("build")
+    const entries = await fs.readdir("build");
     for (const entry of entries) {
       if (path.extname(entry) === ".zip") {
-        await fs.remove(`build/${entry}`)
+        await fs.remove(`build/${entry}`);
       }
     }
   }
 }
 
-build()
+build();
