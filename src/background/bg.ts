@@ -24,8 +24,9 @@ if (manifest_version == 2) {
 Browser.commands.onCommand.addListener(async (command) => {
     if (command === "toggle-web-access") {
         Browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-            if (tabs[0].url.startsWith("https://chat.openai.com/")) {
-                Browser.tabs.sendMessage(tabs[0].id, "toggle-web-access")
+            const tab = tabs[0]
+            if (tab.url && tab.id && tab.url.startsWith("https://chat.openai.com/")) {
+                Browser.tabs.sendMessage(tab.id, "toggle-web-access")
             }
         })
     }
@@ -77,6 +78,7 @@ Browser.declarativeNetRequest.updateDynamicRules({
 function update_origin_for_ddg_in_firefox() {
     Browser.webRequest.onBeforeSendHeaders.addListener(
         (details) => {
+            if (!details.requestHeaders) return
             for (let i = 0; i < details.requestHeaders.length; ++i) {
                 if (details.requestHeaders[i].name === 'Origin')
                     details.requestHeaders[i].value = "https://lite.duckduckgo.com"

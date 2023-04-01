@@ -36,7 +36,7 @@ const Footer = () => (
 
 export default function OptionsPage() {
 
-    const [language, setLanguage] = useState<string>(null)
+    const [language, setLanguage] = useState<string | null>(null)
 
 
     useLayoutEffect(() => {
@@ -90,4 +90,4 @@ export default function OptionsPage() {
 }
 
 
-render(<OptionsPage />, document.getElementById("options"))
+render(<OptionsPage />, document.getElementById("options") as Element)

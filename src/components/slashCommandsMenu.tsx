@@ -64,7 +64,7 @@ function SlashCommandsMenu(
     const [filteredCommands, setFilteredCommands] = useState<Command[]>(slashCommands)
 
 
-    const onTextAreaInput = (e: InputEvent) => updateFilter(e)
+    const onTextAreaInput = (e: Event) => updateFilter(e)
 
     const onTextAreaKeyDown = (e: KeyboardEvent) => {
 
@@ -111,6 +111,7 @@ function SlashCommandsMenu(
     }
 
     function setTextAreaValue(value: string, dispatchEvent = true) {
+        if (!props.textarea) return
         props.textarea.value = value
         if (dispatchEvent)
             props.textarea.dispatchEvent(new Event('input', { bubbles: true }))

@@ -20,7 +20,7 @@ export const promptContainsWebResults = async () => {
     return currentPrompt.text.includes('{web_results}')
 }
 
-export const compilePrompt = async (results: SearchResult[], query: string) => {
+export const compilePrompt = async (results: SearchResult[] | undefined, query: string) => {
     const currentPrompt = await getCurrentPrompt()
     const prompt = replaceVariables(currentPrompt.text, {
         '{web_results}': formatWebResults(results),
@@ -30,7 +30,7 @@ export const compilePrompt = async (results: SearchResult[], query: string) => {
     return prompt
 }
 
-const formatWebResults = (results: SearchResult[]) => {
+const formatWebResults = (results: SearchResult[] | undefined) => {
     if (!results) {
         return ""
     }
@@ -80,7 +80,8 @@ export const getSavedPrompts = async (addDefaults = true) => {
     let savedPrompts = localPrompts
 
     if (!promptsMoved) {
-        const syncPrompts = await Browser.storage.sync.get({ [SAVED_PROMPTS_KEY]: [] })[SAVED_PROMPTS_KEY] || []
+        const syncStorage = await Browser.storage.sync.get({ [SAVED_PROMPTS_KEY]: [] })
+        const syncPrompts = syncStorage?.[SAVED_PROMPTS_KEY] ?? []
 
         savedPrompts = localPrompts.reduce((prompts: Prompt[], prompt: Prompt) => {
             if (!prompts.some(({ uuid }) => uuid === prompt.uuid)) prompts.push(prompt);

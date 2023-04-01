@@ -24,9 +24,9 @@ function renderSlashCommandsMenu() {
     if (div) div.remove()
 
     div = document.createElement('wcg-slash-commands-menu')
-    const textareaParentParent = textarea.parentElement.parentElement
+    const textareaParentParent = textarea.parentElement?.parentElement
 
-    textareaParentParent.insertBefore(div, textareaParentParent.firstChild)
+    textareaParentParent?.insertBefore(div, textareaParentParent.firstChild)
     render(<SlashCommandsMenu textarea={textarea} />, div)
 }
 
@@ -74,7 +74,9 @@ async function handleSubmit(query: string) {
         textarea.value = compiledPrompt
         pressEnter()
     } catch (error) {
-        showErrorMessage(error)
+        if (error instanceof Error) {
+            showErrorMessage(error)
+        }
     }
 }
 
@@ -133,15 +135,17 @@ async function updateUI() {
         textarea.addEventListener("keydown", onSubmit)
         btnSubmit.addEventListener("click", onSubmit)
 
-        const textareaParentParent = textarea.parentElement.parentElement
-        textareaParentParent.style.flexDirection = 'column'
-        textareaParentParent.parentElement.style.flexDirection = 'column'
-        textareaParentParent.parentElement.style.gap = '0px'
-        textareaParentParent.parentElement.style.marginBottom = '0.5em'
+        const textareaParentParent = textarea.parentElement?.parentElement
+        if (textareaParentParent && textareaParentParent.parentElement) {
+            textareaParentParent.style.flexDirection = 'column'
+            textareaParentParent.parentElement.style.flexDirection = 'column'
+            textareaParentParent.parentElement.style.gap = '0px'
+            textareaParentParent.parentElement.style.marginBottom = '0.5em'
+        }
 
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
         shadowRootDiv.classList.add('wcg-toolbar')
-        textareaParentParent.appendChild(shadowRootDiv)
+        textareaParentParent?.appendChild(shadowRootDiv)
         render(<Toolbar textarea={textarea} />, shadowRoot)
 
         // textarea.parentElement.style.flexDirection = 'row'
@@ -165,6 +169,8 @@ window.onload = function () {
             updateUI()
         }).observe(rootEl, { childList: true })
     } catch (e) {
-        console.info("WebChatGPT error --> Could not update UI:\n", e.stack)
+        if (e instanceof Error) {
+            showErrorMessage(e)
+        }
     }
 }

@@ -16,7 +16,9 @@
 			"react": ["./node_modules/preact/compat"],
 			"react-dom": ["./node_modules/preact/compat"]
 		},
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
 	},
 	"include": ["src/**/*"]
 }
