@@ -143,11 +143,17 @@ async function updateUI() {
             textareaParentParent.parentElement.style.marginBottom = '0.5em'
         }
 
-        const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
-        shadowRootDiv.classList.add('wcg-toolbar')
-        textareaParentParent?.appendChild(shadowRootDiv)
-        render(<Toolbar textarea={textarea} />, shadowRoot)
-
+        try {
+            const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
+            shadowRootDiv.classList.add('wcg-toolbar')
+            textareaParentParent?.appendChild(shadowRootDiv)
+            render(<Toolbar textarea={textarea} />, shadowRoot)
+        } catch (e) {
+            if (e instanceof Error) {
+                showErrorMessage(Error(`Error loading WebChatGPT toolbar: ${e.message}. Please reload the page.`));
+                console.error(e)
+            }
+        }
         // textarea.parentElement.style.flexDirection = 'row'
 
         renderSlashCommandsMenu()
