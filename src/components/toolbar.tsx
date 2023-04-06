@@ -130,7 +130,7 @@ function Toolbar(
 
     return (
         <div className="wcg-flex wcg-flex-col wcg-gap-0">
-            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-rounded-md wcg-px-1">
+            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-rounded-md wcg-px-1">
                 <div className="wcg-btn-xs wcg-btn"
                     onClick={() => Browser.runtime.sendMessage("show_options")}
                 >
