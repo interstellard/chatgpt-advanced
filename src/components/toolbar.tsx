@@ -16,6 +16,11 @@ const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) 
     label: `${num} result${num === 1 ? '' : 's'}`
 }))
 
+numResultsOptions.push({
+    value: 100,
+    label: 'Max results'
+})
+
 function Toolbar(
     props: {
         textarea: HTMLTextAreaElement | null,
@@ -45,7 +50,6 @@ function Toolbar(
     useEffect(() => {
         const handleMessage = async (request: string) => {
             if (request === "toggle-web-access") {
-                console.log("toggle-web-access")
                 handleWebAccessToggle()
             }
         }
@@ -94,7 +98,16 @@ function Toolbar(
         updateUserConfig({ region: e.target.value })
     }
 
-    const handlePromptChange = (uuid: string) => {
+    const handlePromptChange = (e: { target: { value: string } }) => {
+
+        const uuid = e.target.value
+
+        if (uuid === 'wcg-new-prompt') {
+            Browser.runtime.sendMessage("show_options")
+            e.target.value = promptUUID
+            return
+        }
+
         removeFocusFromCurrentElement()
 
         setPromptUUID(uuid)
@@ -107,7 +120,7 @@ function Toolbar(
     const webAccessToggle =
         <div className="wcg-group wcg-relative wcg-flex">
             <label className="wcg-relative wcg-inline-flex wcg-cursor-pointer wcg-items-center">
-                <input type="checkbox" value="" className="wcg-peer wcg-sr-only" checked={webAccess} onChange={handleWebAccessToggle} />
+                <input type="checkbox" value="" className="wcg-peer wcg-sr-only" checked={webAccess} onChange={handleWebAccessToggle} title="Web access" />
                 <div className="dark:wcg-peer-focus:ring-blue-800 wcg-peer wcg-h-5 wcg-w-9 wcg-rounded-full wcg-bg-gray-500 after:wcg-absolute after:wcg-top-[2px] after:wcg-left-[2px] after:wcg-h-4 after:wcg-w-4 after:wcg-rounded-full after:wcg-border after:wcg-border-gray-300 after:wcg-bg-white after:wcg-transition-all after:wcg-content-[''] peer-checked:wcg-bg-emerald-700 peer-checked:after:wcg-translate-x-full peer-checked:after:wcg-border-white peer-focus:wcg-ring-2 peer-focus:wcg-ring-white dark:wcg-border-gray-600" />
                 <span className="wcg-ml-1 wcg-pl-1 wcg-text-sm wcg-font-semibold after:wcg-content-['Web'] md:after:wcg-content-['Web_access']" />
             </label>
@@ -117,7 +130,7 @@ function Toolbar(
 
     return (
         <div className="wcg-flex wcg-flex-col wcg-gap-0">
-            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-rounded-md wcg-px-1">
+            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-rounded-md wcg-px-1">
                 <div className="wcg-btn-xs wcg-btn"
                     onClick={() => Browser.runtime.sendMessage("show_options")}
                 >
@@ -126,47 +139,27 @@ function Toolbar(
                 {webAccessToggle}
                 {/* <div className={`wcg-flex ${webAccess ? '' : 'wcg-hidden'} wcg-w-full wcg-justify-between wcg-gap-1`}> */}
 
-                <Dropdown
-                    value={numResults}
-                    onChange={handleNumResultsChange}
-                    options={numResultsOptions} />
-                <Dropdown
-                    value={timePeriod}
-                    onChange={handleTimePeriodChange}
-                    options={timePeriodOptions} />
-                <Dropdown
-                    value={region}
-                    onChange={handleRegionChange}
-                    options={regionOptions} />
-                <div className="wcg-dropdown-top wcg-dropdown wcg-min-w-[9.5rem]"
-                    onClick={handlePromptClick}
-                >
-                    <div tabIndex={0} className="wcg-flex wcg-cursor-pointer wcg-flex-row wcg-items-center wcg-justify-between wcg-gap-0 wcg-px-2">
-                        <label className="wcg-max-w-[7rem] wcg-cursor-pointer wcg-justify-start wcg-truncate wcg-pr-0 wcg-text-sm wcg-font-semibold wcg-normal-case">
-                            {prompts?.find((prompt) => prompt.uuid === promptUUID)?.name || 'Default prompt'}
-                        </label>
-                        {icons.expand}
-                    </div>
-                    <ul tabIndex={0} className="wcg-dropdown-content wcg-menu wcg-m-0 wcg-flex wcg-max-h-96 wcg-w-52 wcg-flex-col
-                        wcg-flex-nowrap wcg-overflow-auto
-                        wcg-rounded-md wcg-bg-gray-800 wcg-p-0"
-                    >
-                        {prompts.map((prompt) =>
-                            <li tabIndex={0} className="wcg-text-sm wcg-text-white hover:wcg-bg-gray-700"
-                                onClick={() => handlePromptChange(prompt.uuid)}
-                                key={prompt.uuid}
-                            >
-                                <a>{prompt.name}</a>
-                            </li>
-                        )
+                <div class="wcg-scrollbar-hidden wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-overflow-x-scroll wcg-px-1 lg:wcg-overflow-x-hidden">
+                    <Dropdown
+                        value={numResults}
+                        onChange={handleNumResultsChange}
+                        options={numResultsOptions} />
+                    <Dropdown
+                        value={timePeriod}
+                        onChange={handleTimePeriodChange}
+                        options={timePeriodOptions} />
+                    <Dropdown
+                        value={region}
+                        onChange={handleRegionChange}
+                        options={regionOptions} />
+                    <Dropdown
+                        value={promptUUID}
+                        onChange={handlePromptChange}
+                        options={
+                            prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name })).concat({ value: 'wcg-new-prompt', label: `+ ${getTranslation(localizationKeys.buttons.newPrompt)}` })
                         }
-                        <li className="wcg-text-sm wcg-text-white hover:wcg-bg-gray-700"
-                            onClick={() => Browser.runtime.sendMessage("show_options")
-                            }
-                        >
-                            <a>+ {getTranslation(localizationKeys.buttons.newPrompt)}</a>
-                        </li>
-                    </ul>
+                        onClick={handlePromptClick}
+                    />
                 </div>
                 {/* </div> */}
             </div>

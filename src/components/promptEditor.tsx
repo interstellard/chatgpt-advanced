@@ -44,7 +44,7 @@ const PromptEditor = (
     useEffect(() => {
         setNameError(prompt.name.trim() === '')
         setTextError(prompt.text.trim() === '')
-        setWebResultsError(!prompt.text.includes('{web_results}'))
+        // setWebResultsError(!prompt.text.includes('{web_results}'))
         setQueryError(!prompt.text.includes('{query}'))
     }, [prompt])
 
@@ -129,20 +129,22 @@ const PromptEditor = (
                         ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
         >
             <div className="wcg-flex wcg-flex-row wcg-gap-4">
-                <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}>
+                {/* <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.webResults) : ""}> */}
+                <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.webResults)}>
                     <button
-                        className={`wcg-btn
-                        ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        // ${showErrors && webResultsError ? "wcg-btn-error" : hasWebResultsPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
+                        className={`wcg-btn-success wcg-btn
                         wcg-p-1 wcg-lowercase`}
                         onClick={() => {
-                            setWebResultsError(false)
+                            // setWebResultsError(false)
                             handleInsertText('{web_results}')
                         }}
                     >
                         {"{web_results}"}
                     </button>
                 </TooltipWrapper>
-                <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}>
+                {/* <TooltipWrapper tip={showErrors ? getTranslation(localizationKeys.placeHolderTips.query) : ""}> */}
+                <TooltipWrapper tip={getTranslation(localizationKeys.placeHolderTips.query)}>
                     <button
                         className={`wcg-btn
                         ${showErrors && queryError ? "wcg-btn-error" : hasQueryPlaceholder ? "wcg-btn-success" : "wcg-btn-warning"}
@@ -166,6 +168,7 @@ const PromptEditor = (
             </div>
 
             <button
+                type={"button"}
                 className="wcg-btn-primary wcg-btn wcg-text-base"
                 onClick={handleSave}
             >
@@ -177,6 +180,7 @@ const PromptEditor = (
     const PromptList = (
         <div>
             <button
+                type={"button"}
                 className="wcg-btn-primary wcg-btn wcg-w-full wcg-text-base"
                 onClick={handleAdd}>
                 <span class="material-symbols-outlined wcg-mr-2">
@@ -219,6 +223,7 @@ const PromptEditor = (
 
     const btnDelete = (
         <button
+            type={"button"}
             className={`wcg-btn wcg-text-base
                     ${deleteBtnText === "check" ? "wcg-btn-error" : "wcg-btn-primary"}
                     ${prompt.uuid === 'default' || prompt.uuid === 'default_en' ? "wcg-hidden" : ""}`}
@@ -239,24 +244,29 @@ const PromptEditor = (
             value={prompt.text}
             onInput={handleTextareaChange}
             disabled={prompt.uuid === 'default' || prompt.uuid === 'default_en'}
+            title="Prompt template text"
         />
     )
 
     return (
-        <div className="wcg-rounded-box wcg-mt-10 wcg-flex wcg-h-[32rem] wcg-w-4/5 wcg-flex-row wcg-gap-4 wcg-border wcg-py-4">
-            <div className="wcg-w-1/3">
-                {PromptList}
-            </div>
-
-            <div className="wcg-flex wcg-w-2/3 wcg-flex-col">
-                <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
-                    {nameInput}
-                    {btnDelete}
+        <div className="wcg-rounded-box wcg-flex wcg-min-h-[32rem] wcg-w-4/5 wcg-flex-col wcg-gap-4 wcg-border wcg-py-6">
+            
+            <h1 className="wcg-m-0 wcg-p-2 wcg-text-2xl">Prompt Editor</h1>
+            <div className="wcg-flex wcg-flex-row wcg-gap-4">
+                <div className="wcg-w-1/3">
+                    {PromptList}
                 </div>
-                {textArea}
 
-                {actionToolbar}
-            </div>
+                <div className="wcg-flex wcg-w-2/3 wcg-flex-col">
+                    <div className="wcg-flex wcg-flex-row wcg-items-center wcg-gap-2">
+                        {nameInput}
+                        {btnDelete}
+                    </div>
+                    {textArea}
+
+                    {actionToolbar}
+                </div>
+            </div >
         </div >
     )
 }

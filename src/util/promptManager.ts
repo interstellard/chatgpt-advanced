@@ -5,6 +5,7 @@ import { getUserConfig } from "./userConfig"
 import { SearchResult } from "src/content-scripts/ddg_search"
 
 export const SAVED_PROMPTS_KEY = 'saved_prompts'
+export const SAVED_PROMPTS_MOVED_KEY = 'saved_prompts_moved_to_local'
 
 export interface Prompt {
     uuid?: string,
@@ -12,25 +13,32 @@ export interface Prompt {
     text: string
 }
 
-const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s+/g, '').replace(/\/site:(\S+)\s+/g, '')
+const removeCommands = (query: string) => query.replace(/\/page:(\S+)\s*/g, '').replace(/\/site:(\S+)\s*/g, '')
 
-export const compilePrompt = async (results: SearchResult[], query: string) => {
+export const promptContainsWebResults = async () => {
     const currentPrompt = await getCurrentPrompt()
-    const formattedResults = formatWebResults(results)
-    const currentDate = new Date().toLocaleDateString()
+    return currentPrompt.text.includes('{web_results}')
+}
+
+export const compilePrompt = async (results: SearchResult[] | undefined, query: string) => {
+    const currentPrompt = await getCurrentPrompt()
     const prompt = replaceVariables(currentPrompt.text, {
-        '{web_results}': formattedResults,
+        '{web_results}': formatWebResults(results),
         '{query}': removeCommands(query),
-        '{current_date}': currentDate
+        '{current_date}': new Date().toLocaleDateString()
     })
     return prompt
 }
 
-const formatWebResults = (results: SearchResult[]) => {
+const formatWebResults = (results: SearchResult[] | undefined) => {
+    if (!results) {
+        return ""
+    }
+
     if (results.length === 0) {
         return "No results found.\n"
     }
-    
+
     let counter = 1
     return results.reduce((acc, result): string => acc += `[${counter++}] "${result.body}"\nURL: ${result.url}\n\n`, "")
 }
@@ -67,13 +75,24 @@ export const getCurrentPrompt = async () => {
 }
 
 export const getSavedPrompts = async (addDefaults = true) => {
-    const data = await Browser.storage.sync.get([SAVED_PROMPTS_KEY])
-    const savedPrompts = data[SAVED_PROMPTS_KEY] || []
+    const { [SAVED_PROMPTS_KEY]: localPrompts, [SAVED_PROMPTS_MOVED_KEY]: promptsMoved } = await Browser.storage.local.get({ [SAVED_PROMPTS_KEY]: [], [SAVED_PROMPTS_MOVED_KEY]: false })
 
-    if (addDefaults)
-        return addDefaultPrompts(savedPrompts)
+    let savedPrompts = localPrompts
 
-    return savedPrompts
+    if (!promptsMoved) {
+        const syncStorage = await Browser.storage.sync.get({ [SAVED_PROMPTS_KEY]: [] })
+        const syncPrompts = syncStorage?.[SAVED_PROMPTS_KEY] ?? []
+
+        savedPrompts = localPrompts.reduce((prompts: Prompt[], prompt: Prompt) => {
+            if (!prompts.some(({ uuid }) => uuid === prompt.uuid)) prompts.push(prompt);
+            return prompts
+        }, syncPrompts)
+
+        await Browser.storage.local.set({ [SAVED_PROMPTS_KEY]: savedPrompts, [SAVED_PROMPTS_MOVED_KEY]: true })
+        await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: [] })
+    }
+
+    return addDefaults ? addDefaultPrompts(savedPrompts) : savedPrompts
 }
 
 function addDefaultPrompts(prompts: Prompt[]) {
@@ -104,11 +123,11 @@ export const savePrompt = async (prompt: Prompt) => {
         savedPrompts.push(prompt)
     }
 
-    await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
+    await Browser.storage.local.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
 }
 
 export const deletePrompt = async (prompt: Prompt) => {
     let savedPrompts = await getSavedPrompts()
     savedPrompts = savedPrompts.filter((i: Prompt) => i.uuid !== prompt.uuid)
-    await Browser.storage.sync.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
+    await Browser.storage.local.set({ [SAVED_PROMPTS_KEY]: savedPrompts })
 }
