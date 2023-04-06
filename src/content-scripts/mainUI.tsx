@@ -150,7 +150,7 @@ async function updateUI() {
             render(<Toolbar textarea={textarea} />, shadowRoot)
         } catch (e) {
             if (e instanceof Error) {
-                showErrorMessage(Error(`Error loading WebChatGPT toolbar: ${e.message}. Please reload the page.`));
+                showErrorMessage(Error(`Error loading WebChatGPT toolbar: ${e.message}. Please reload the page (F5).`));
                 console.error(e)
             }
         }
