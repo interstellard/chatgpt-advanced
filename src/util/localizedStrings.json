@@ -124,7 +124,7 @@
     "ko": "특정 페이지의 내용을 가져옵니다. 예: /page:buymeacoffee.com/anzorq",
     "he": "קבל את תוכן דף מסוים, למשל /page:buymeacoffee.com/anzorq",
     "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq",
-    "bg": "Вземи информация от спесифична страница, например /pag:buymeacoffee.com/anzorq"
+    "bg": "Вземи информация от спесифична страница, например /page:buymeacoffee.com/anzorq"
   },
   "support_this_project": {
     "en": "Support this project",
@@ -268,7 +268,7 @@
     "he": "עקבו אחרי בטוויטר",
     "ru": "Подписаться на меня в Twitter",
     "pl": "Obserwuj mnie na Twitterze",
-    "bg": "Последвай ме на Twitter"
+    "bg": "Последвайте ме на Twitter"
   },
   "github_button_tip": {
     "en": "View the source code on GitHub",
@@ -300,6 +300,6 @@
     "he": "בואו לקהילת הדיסקורד שלנו",
     "ru": "Присоединиться к нашему сообществу на Discord",
     "pl": "Dołącz do naszej społeczności na Discordzie",
-    "bg": "Присъедини се към нашata Discord общност"
+    "bg": "Присъедини се към нашaтa Discord общност"
   }
 }
