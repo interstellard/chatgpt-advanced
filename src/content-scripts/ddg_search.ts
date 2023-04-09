@@ -63,7 +63,6 @@ function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
     // Extract zero-click info, if present
     const zeroClickLink = $(`table:nth-of-type(${numTables-1}) tr td a[rel="nofollow"]`).first()
     if (zeroClickLink.length > 0) {
-        console.log("zeroClick: " + zeroClickLink);
         results.push({
             title: zeroClickLink.text(),
             body: $('table:nth-of-type(2) tr:nth-of-type(2)').text().trim(),
@@ -78,8 +77,6 @@ function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
     webLinks.each((i, element) => {
         const link = $(element)
         const snippet = $(webSnippets[i]).text().trim()
-        console.log(link);
-        console.log(snippet);
 
         results.push({
             title: link.text(),
@@ -88,8 +85,6 @@ function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
         })
     })
 
-    console.log('ddg results: ');
-    console.log(results);
     return results
 }
 
@@ -108,12 +103,8 @@ export async function webSearch(search: SearchRequest, numResults: number): Prom
             url: response.url,
             html: response.html
         })
-        console.log('non-ddg response: ');
-        console.log(result);
         if (result.title && result.title === "Google Scholar") {
            result = formatGoogleScholarResponse(result);
-           console.log('cleaned gsc response: ');
-           console.log(result);
         }
 
         return [{
@@ -148,6 +139,8 @@ function cleanResponseText(text: string): string {
             .replace(/Cached/g, '') // Remove 'Cached'
             .replace(/...Save\s+/g, ' ') // Remove Save button artifact
             .replace(/\S+\.(com|org|net|uk)/g, ' ') // Remove right-joined url artifacts
+            .replace(/arxiv:\S+/, ' ') // Remove arxiv code
+            .replace(/\.\.\./g, '.') // Trim ellipsis
             .replace(/\s{2,}/g, ' ') // Trim inner extra spaces
             .trim();
         if (cleanedLine) {
