@@ -1,0 +1,11 @@
+{
+  "appName": {
+    "message": "WebChatGPT: ChatGPT с достъп до интернет."
+  },
+  "appDesc": {
+    "message": "Аугментирай ChatGPT задания със релевантни резултати от интернет."
+  },
+  "toggleWebAccess": {
+    "message": "Включете или изключете достъп до интернет."
+  }
+}
