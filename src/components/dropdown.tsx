@@ -8,7 +8,7 @@ function Dropdown(props: {
 }): JSX.Element {
 
     return (
-        <select className="wcg-m-1 wcg-block wcg-max-w-[9.5rem] wcg-border-0 wcg-p-2.5 wcg-pr-2 wcg-text-sm focus:wcg-ring-0 dark:wcg-bg-neutral"
+        <select className="wcg-block wcg-max-w-[9.5rem] wcg-border-0 wcg-p-2.5 wcg-pr-2 wcg-text-sm focus:wcg-ring-0 dark:wcg-bg-neutral"
             value={props.value}
             onChange={props.onChange}
             onClick={props.onClick}
