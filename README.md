@@ -1,9 +1,6 @@
 [link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
 
-# ⚠️ I am aware of the problem with the toolbar not showing up and am working on resolving it ASAP.
-You can join the Discord server for updates: https://discord.gg/hjvAtVNtHa
-
 <div align="center">
 <h1>WebChatGPT</h1>
 
