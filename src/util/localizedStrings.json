@@ -15,6 +15,7 @@
     "ko": "언어",
     "he": "שפה",
     "ru": "язык",
+    "bg": "Език",
     "pl": "Język"
   },
   "choose_language": {
@@ -30,6 +31,7 @@
     "ko": "언어 선택",
     "he": "בחר שפה",
     "ru": "Выбрать язык",
+    "bg": "Избери език",
     "pl": "Wybierz język"
   },
   "options": {
@@ -45,6 +47,7 @@
     "ko": "옵션",
     "he": "אפשרויות",
     "ru": "Опции",
+    "bg": "Опции",
     "pl": "Opcje"
   },
   "trim_long_text": {
@@ -60,6 +63,7 @@
     "ko": "긴 텍스트를 컨텍스트 제한에 맞게 잘라냅니다.",
     "he": "קצר את הטקסט הארוך כדי להתאים למגבלת ההקשר",
     "ru": "Обрезать длинный текст, чтобы уложиться в ограничение контекста",
+    "bg": "Скъси дълъг текст, за да се побере в контекст лимита",
     "pl": "Przytnij długi tekst, aby zmieścić się w limicie kontekstu"
   },
   "textarea_placeholder": {
@@ -74,7 +78,8 @@
     "ja": "/ を押してコマンド メニューを開きます",
     "ko": "/를 눌러 명령 메뉴를 엽니다.",
     "he": "לחץ על / כדי לפתוח את תפריט הפקודות",
-    "ru": "Нажмите / чтобы открыть меню команд"
+    "ru": "Нажмите / чтобы открыть меню команд",
+    "bg": "Натиснете / за да отворите командното меню"
   },
   "you_can_use_duckduckgo_bangs": {
     "en": "You can use DuckDuckGo bangs to search on other websites. Learn more:",
@@ -88,7 +93,8 @@
     "ja": "DuckDuckGo bangを使用して他のWebサイトで検索できます。詳細は次を参照してください:",
     "ko": "DuckDuckGo bang을 사용하여 다른 웹사이트에서 검색할 수 있습니다. 자세한 내용:",
     "he": "אתה יכול להשתמש ב- DuckDuckGo bangs כדי לחפש באתרים אחרים. למד עוד:",
-    "ru": "Вы можете использовать DuckDuckGo bang для поиска на других сайтах. Узнать больше:"
+    "ru": "Вы можете использовать DuckDuckGo bang для поиска на других сайтах. Узнать больше:",
+    "bg": "Moже да изплозвате DuckDuckGo bangs за та търсите в други уебсайтове. Научете повече:"
   },
   "site_command_description": {
     "en": "Restrict search results to a specific website, e.g. /site:wikipedia.com",
@@ -102,7 +108,8 @@
     "ja": "特定のWebサイトの検索結果を制限します。例: /site:wikipedia.com",
     "ko": "검색 결과를 특정 웹사이트로 제한합니다. 예: /site:wikipedia.com",
     "he": "הגבל את תוצאות החיפוש לאתר מסוים, למשל /site:wikipedia.com",
-    "ru": "Ограничить результаты поиска определенным сайтом, например, /site:wikipedia.com"
+    "ru": "Ограничить результаты поиска определенным сайтом, например, /site:wikipedia.com",
+    "bg": "Ограничи резултати от търсенето до определени сайтове, например /site:wikipedia.com"
   },
   "page_command_description": {
     "en": "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq",
@@ -116,7 +123,8 @@
     "ja": "特定のページのコンテンツを取得します。例: /page:buymeacoffee.com/anzorq",
     "ko": "특정 페이지의 내용을 가져옵니다. 예: /page:buymeacoffee.com/anzorq",
     "he": "קבל את תוכן דף מסוים, למשל /page:buymeacoffee.com/anzorq",
-    "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq"
+    "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq",
+    "bg": "Вземи информация от спесифична страница, например /page:buymeacoffee.com/anzorq"
   },
   "support_this_project": {
     "en": "Support this project",
@@ -131,7 +139,8 @@
     "ko": "이 프로젝트 지원",
     "he": "לתרום לפרוייקט",
     "ru": "Поддержать проект",
-    "pl": "Wesprzyj ten projekt"
+    "pl": "Wesprzyj ten projekt",
+    "bg": "Подкрепете този проект"
   },
   "support_me": {
     "en": "If you find this extension useful, please consider supporting me ⤵️",
@@ -146,7 +155,8 @@
     "ko": "이 확장 프로그램이 유용하다고 생각되면 저를 지원해 주세요 ⤵️",
     "he": "אם אתה מצאת את התוסף שימושי, אנא שקול לתמוך בי ⤵️",
     "ru": "Если вам нравится это расширение, пожалуйста, поддержите меня ⤵️",
-    "pl": "Jeśli uważasz to rozszerzenie za przydatne, rozważ proszę wsparcie mnie ⤵️"
+    "pl": "Jeśli uważasz to rozszerzenie za przydatne, rozważ proszę wsparcie mnie ⤵️",
+    "bg": "Ако това разширение ви е от полза, моля, обмислете да ме подкрепите ⤵️"
   },
   "save": {
     "en": "Save",
@@ -161,7 +171,8 @@
     "ko": "저장",
     "he": "שמור",
     "ru": "Сохранить",
-    "pl": "Zapisz"
+    "pl": "Zapisz",
+    "bg": "Запази"
   },
   "new_prompt": {
     "en": "New prompt",
@@ -176,7 +187,8 @@
     "ko": "새로운 프롬프트",
     "he": "בקשה חדשה",
     "ru": "Новый запрос",
-    "pl": "Nowe zapytanie"
+    "pl": "Nowe zapytanie",
+    "bg": "Ново задание"
   },
   "name_placeholder": {
     "en": "Name",
@@ -191,7 +203,8 @@
     "ko": "이름",
     "he": "שם",
     "ru": "Название",
-    "pl": "Nazwa"
+    "pl": "Nazwa",
+    "bg": "Име"
   },
   "current_date_placeholder_tip": {
     "en": "Insert placeholder for the current date (optional)",
@@ -206,7 +219,8 @@
     "ko": "현재 날짜의 자리 표시자를 삽입 (선택 사항)",
     "he": "הוסף מציין מיקום עבור התאריך הנוכחי (אופציונלי)",
     "ru": "Вставить плейсхолдер текущей даты (необязательно)",
-    "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)"
+    "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)",
+    "bg": "Вмъкни заместител за сегашната дата (по желание)"
   },
   "web_results_placeholder_tip": {
     "en": "Insert placeholder for the web results (optional)",
@@ -221,7 +235,8 @@
     "ko": "웹 검색 결과의 자리 표시자를 삽입 (선택 사항)",
     "he": "הוסף מציין מיקום עבור תוצאות האינטרנט (אופציונלי)",
     "ru": "Вставить плейсхолдер веб-результатов (необязательно)",
-    "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (opcjonalne)"
+    "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (opcjonalne)",
+    "bg": "Вмъкни заместител за уеб резултати (по желание)"
   },
   "query_placeholder_tip": {
     "en": "Insert placeholder for the initial query (required)",
@@ -236,7 +251,8 @@
     "ko": "초기 쿼리의 자리 표시자를 삽입 (필수)",
     "he": "הוסף מציין מיקום עבור השאילתה הראשונית (חובה)",
     "ru": "Вставить плейсхолдер начального запроса (обязательно)",
-    "pl": "Wstaw znacznik dla początkowego zapytania (wymagane)"
+    "pl": "Wstaw znacznik dla początkowego zapytania (wymagane)",
+    "bg": "Вмъкни заместител за начално търсене (по желание)"
   },
   "twitter_button_tip": {
     "en": "Follow me on Twitter",
@@ -251,7 +267,8 @@
     "ko": "Twitter에서 나를 팔로우하세요",
     "he": "עקבו אחרי בטוויטר",
     "ru": "Подписаться на меня в Twitter",
-    "pl": "Obserwuj mnie na Twitterze"
+    "pl": "Obserwuj mnie na Twitterze",
+    "bg": "Последвайте ме на Twitter"
   },
   "github_button_tip": {
     "en": "View the source code on GitHub",
@@ -266,7 +283,8 @@
     "ko": "GitHub에서 소스 코드 보기",
     "he": "ראו את הקוד בגיטהאב",
     "ru": "Посмотреть исходный код на GitHub",
-    "pl": "Zobacz kod źródłowy na GitHubie"
+    "pl": "Zobacz kod źródłowy na GitHubie",
+    "bg": "Виж изходния код на Github"
   },
   "discord_button_tip": {
     "en": "Join our Discord community",
@@ -281,6 +299,7 @@
     "ko": "우리의 Discord 커뮤니티에 가입하세요",
     "he": "בואו לקהילת הדיסקורד שלנו",
     "ru": "Присоединиться к нашему сообществу на Discord",
-    "pl": "Dołącz do naszej społeczności na Discordzie"
+    "pl": "Dołącz do naszej społeczności na Discordzie",
+    "bg": "Присъедини се към нашaтa Discord общност"
   }
 }

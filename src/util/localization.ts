@@ -17,7 +17,8 @@ export const Languages = {
     ru: "Русский",
     zh: "中文",
     "zh-TW": "中文（臺灣）",
-    he: "עברית"
+    he: "עברית",
+    bg: "Български"
 }
 
 const DEFAULT_LANGUAGE = 'en'
