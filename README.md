@@ -31,8 +31,7 @@ This browser extension `adds web access` capability to [ChatGPT](https://chat.op
 https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9ce7-e68aed11e73d.mp4
 
 
-<details>
-   <summary><h2>Manual installation</h2></summary>
+## Manual installation
 
   ℹ️ Don't forget to disable the extension installed from the Web Store while you're testing manually installed version.
   
@@ -59,16 +58,14 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
   5. Firefox will prompt you to confirm the installation of the addon. Click Install.
   6. The addon will be installed and will appear in the list of installed addons on the Add-ons page.
   7. Go to [ChatGPT](https://chat.openai.com/chat/) and enjoy!
-</details>
 
-<details>
-<summary><h2>Build from source</h2></summary>
+
+## Build from source
 
 1. `git clone https://github.com/qunash/chatgpt-advanced.git`
 2. `npm install`
 3. `npm run build-prod`
 4. Grab your zip extension from `build/` folder
-</details>
 
 <br>
 
