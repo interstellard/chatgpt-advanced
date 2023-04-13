@@ -1,8 +1,9 @@
 [link-chrome]: https://chrome.google.com/webstore/detail/chatgpt-advanced/lpfemeioodjbpieminkklglpmhlngfcn 'Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Addons'
 
-# ⚠️ I am aware of the problem with the toolbar not showing up and am working on resolving it ASAP.
-You can join the Discord server for updates: https://discord.gg/hjvAtVNtHa
+# ⚠️ 14/04/23: Current live version in the Chrome Web Store does not work due to a recent update to ChatGPT.
+# A fixed version has been sent for publication, but it must undergo review by Google before it is published. This process usually takes 1-3 days. Sorry for the inconvenience and thanks for your patience.
+## In the meantime you can install the patched version manually, see the instructions on how to do that [here](https://github.com/qunash/chatgpt-advanced#chrome-microsoft-edge-etc).
 
 <div align="center">
 <h1>WebChatGPT</h1>
