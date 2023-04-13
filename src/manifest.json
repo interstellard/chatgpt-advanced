@@ -3,7 +3,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -23,7 +23,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chat.openai.com/chat*"
+        "https://chat.openai.com/*"
       ],
       "js": [
         "content-scripts/mainUI.js"
