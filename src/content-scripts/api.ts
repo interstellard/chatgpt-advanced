@@ -35,22 +35,23 @@ export async function getWebpageTitleAndText(url: string, html_str = ''): Promis
             }
         }
         html = await response.text()
-
     }
 
 
     const doc = parseHTML(html).document
     const parsed = new Readability(doc).parse()
 
-    if (!parsed) {
-        return { title: "Could not parse the page.", body: "", url }
+    if (!parsed || !parsed.textContent) {
+        return { title: "Could not parse the page.", body: "Could not parse the page.", url }
     }
-
-    let text = cleanText(parsed.textContent)
     
+    console.log("text", parsed.textContent);
+    let text = cleanText(parsed.textContent)
+
     const userConfig = await getUserConfig()
-    if (userConfig.trimLongText) {
-        text = text.slice(0, 14500)
+    if (userConfig.trimLongText && text.length > 14400) {
+        text = text.slice(0, 14400)
+        text += "\n\n[Text has been trimmed to 14,500 characters. You can disable this on WebChatGPT's options page.]"
     }
     return { title: parsed.title, body: text, url }
 }
