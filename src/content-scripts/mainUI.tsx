@@ -13,9 +13,9 @@ import { apiExtractText } from './api'
 
 let isProcessing = false
 
-let btnSubmit: HTMLButtonElement
-let textarea: HTMLTextAreaElement
-let footer: HTMLDivElement
+let btnSubmit: HTMLButtonElement | null | undefined
+let textarea: HTMLTextAreaElement | null
+let chatGptFooter: HTMLDivElement | null
 
 
 function renderSlashCommandsMenu() {
@@ -24,7 +24,7 @@ function renderSlashCommandsMenu() {
     if (div) div.remove()
 
     div = document.createElement('wcg-slash-commands-menu')
-    const textareaParentParent = textarea.parentElement?.parentElement
+    const textareaParentParent = textarea?.parentElement?.parentElement
 
     textareaParentParent?.insertBefore(div, textareaParentParent.firstChild)
     render(<SlashCommandsMenu textarea={textarea} />, div)
@@ -58,6 +58,8 @@ async function processQuery(query: string, userConfig: UserConfig) {
 
 async function handleSubmit(query: string) {
 
+    if (!textarea) return
+
     const userConfig = await getUserConfig()
 
     if (!userConfig.webAccess) {
@@ -81,6 +83,9 @@ async function handleSubmit(query: string) {
 }
 
 async function onSubmit(event: MouseEvent | KeyboardEvent) {
+
+    if (!textarea) return
+
     const isKeyEvent = event instanceof KeyboardEvent
 
     if (isKeyEvent && event.shiftKey && event.key === 'Enter') return
@@ -88,14 +93,17 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
     if (isKeyEvent && event.key === 'Enter' && event.isComposing) return
 
     if (!isProcessing && (event.type === "click" || (isKeyEvent && event.key === 'Enter'))) {
-        const query = textarea.value.trim()
+        const query = textarea?.value.trim()
 
-        if (query === "") return
+        // if query is empty or undefined, return
+        if (!query) return
 
         textarea.value = ""
 
         const isPartialCommand = slashCommands.some(command => command.name.startsWith(query) && query.length <= command.name.length)
-        if (isPartialCommand) return
+        if (isPartialCommand) {
+            return
+        }
 
         isProcessing = true
         await handleSubmit(query)
@@ -104,14 +112,14 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
 }
 
 function pressEnter() {
-    textarea.focus()
+    textarea?.focus()
     const enterEvent = new KeyboardEvent('keydown', {
         bubbles: true,
         cancelable: true,
         key: 'Enter',
         code: 'Enter'
     })
-    textarea.dispatchEvent(enterEvent)
+    textarea?.dispatchEvent(enterEvent)
 }
 
 function showErrorMessage(error: Error) {
@@ -124,59 +132,93 @@ function showErrorMessage(error: Error) {
 
 async function updateUI() {
 
-    if (getWebChatGPTToolbar()) return
-
-    btnSubmit = getSubmitButton()
+    formChild = document.querySelector('form')?.children[0] as HTMLElement
     textarea = getTextArea()
-    footer = getFooter()
+    // console.info("UpdateUI textarea: ", textarea)
 
-    if (textarea && btnSubmit) {
-
-        textarea.addEventListener("keydown", onSubmit)
-        btnSubmit.addEventListener("click", onSubmit)
-
-        const textareaParentParent = textarea.parentElement?.parentElement
-        if (textareaParentParent && textareaParentParent.parentElement) {
-            textareaParentParent.style.flexDirection = 'column'
-            textareaParentParent.parentElement.style.flexDirection = 'column'
-            textareaParentParent.parentElement.style.gap = '0px'
-            textareaParentParent.parentElement.style.marginBottom = '0.5em'
-        }
-
-        try {
-            const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
-            shadowRootDiv.classList.add('wcg-toolbar')
-            textareaParentParent?.appendChild(shadowRootDiv)
-            render(<Toolbar textarea={textarea} />, shadowRoot)
-        } catch (e) {
-            if (e instanceof Error) {
-                showErrorMessage(Error(`Error loading WebChatGPT toolbar: ${e.message}. Please reload the page (F5).`));
-                console.error(e)
-            }
-        }
-        // textarea.parentElement.style.flexDirection = 'row'
-
-        renderSlashCommandsMenu()
+    const toolbar = getWebChatGPTToolbar()
+    if (!textarea) {
+        toolbar?.remove()
+        return
     }
 
-    if (footer) {
-        const lastChild = footer.lastElementChild as HTMLElement
-        if (lastChild)
-            lastChild.style.padding = '0 0 0.5em 0'
+    if (toolbar) return
+
+    console.info("WebChatGPT: Updating UI")
+
+    btnSubmit = getSubmitButton()
+    btnSubmit?.addEventListener("click", onSubmit)
+
+    textarea?.addEventListener("keydown", onSubmit)
+
+    await renderToolbar()
+
+    renderSlashCommandsMenu()
+
+    // textarea.parentElement.style.flexDirection = 'row'
+
+    chatGptFooter = getFooter()
+    if (chatGptFooter) {
+        const lastChild = chatGptFooter.lastElementChild as HTMLElement
+        if (lastChild) lastChild.style.padding = '0 0 0.5em 0'
     }
 }
 
-const rootEl = getRootElement()
-window.onload = function () {
-    updateUI()
+async function renderToolbar() {
 
     try {
-        new MutationObserver(() => {
-            updateUI()
-        }).observe(rootEl, { childList: true })
+        const textareaParentParent = textarea?.parentElement?.parentElement
+        // const textareaParentParent = formChild
+        // if (textareaParentParent && textareaParentParent.parentElement) {
+        //     textareaParentParent.style.flexDirection = 'column'
+        //     textareaParentParent.parentElement.style.flexDirection = 'column'
+        //     textareaParentParent.parentElement.style.gap = '0px'
+        //     textareaParentParent.parentElement.style.marginBottom = '0.5em'
+        // }
+
+        const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
+        shadowRootDiv.classList.add('wcg-toolbar')
+        textareaParentParent?.appendChild(shadowRootDiv)
+        render(<Toolbar textarea={textarea} />, shadowRoot)
+
+    } catch (e) {
+        if (e instanceof Error) {
+            showErrorMessage(Error(`Error loading WebChatGPT toolbar: ${e.message}. Please reload the page (F5).`))
+        }
+    }
+}
+
+const form = document.querySelector('form')
+const formParent = form?.parentElement
+
+const rootEl = getRootElement()
+let formChild = document.querySelector('form')?.children[0] as HTMLElement
+const mutationObserver = new MutationObserver(() => {
+    try {
+        updateUI()
     } catch (e) {
         if (e instanceof Error) {
             showErrorMessage(e)
         }
     }
+})
+
+window.onload = function () {
+    updateUI()
+
+    if (formChild) {
+        mutationObserver.observe(formChild, { childList: true })
+    }
+
+    if (rootEl) {
+        mutationObserver.observe(rootEl, { childList: true })
+    }
+
+    if (formParent) {
+        mutationObserver.observe(formParent, { childList: true })
+    }
+}
+
+window.onunload = function () {
+    mutationObserver.disconnect()
 }

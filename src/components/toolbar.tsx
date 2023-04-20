@@ -10,6 +10,11 @@ import Dropdown from './dropdown'
 import { getTranslation, localizationKeys, setLocaleLanguage } from 'src/util/localization'
 import Footer from './footer'
 
+type DropdownItem = {
+    target: {
+        value: string
+    }
+}
 
 const numResultsOptions = Array.from({ length: 10 }, (_, i) => i + 1).map((num) => ({
     value: num,
@@ -21,11 +26,10 @@ numResultsOptions.push({
     label: 'Max results'
 })
 
-function Toolbar(
-    props: {
-        textarea: HTMLTextAreaElement | null,
-    }
-) {
+interface ToolbarProps {
+    textarea: HTMLTextAreaElement | null
+}
+const Toolbar = ({ textarea }: ToolbarProps) => {
     const [webAccess, setWebAccess] = useState(false)
     const [numResults, setNumResults] = useState(3)
     const [timePeriod, setTimePeriod] = useState('')
@@ -56,17 +60,14 @@ function Toolbar(
 
         Browser.runtime.onMessage.addListener(handleMessage)
 
-        return function cleanup() {
-            Browser.runtime.onMessage.removeListener(handleMessage)
-        }
+        return () => Browser.runtime.onMessage.removeListener(handleMessage)
     }, [])
 
     useEffect(() => {
         updateUserConfig({ webAccess })
         updateTextAreaPlaceholder(webAccess)
-        props.textarea?.focus()
+        textarea?.focus()
     }, [webAccess])
-
 
     const handlePromptClick = () => updatePrompts()
 
@@ -77,28 +78,28 @@ function Toolbar(
     }
 
     const updateTextAreaPlaceholder = (show: boolean) => {
-        props.textarea?.setAttribute('placeholder', show ? getTranslation(localizationKeys.UI.textareaPlaceholder) : '')
+        textarea?.setAttribute('placeholder', show ? getTranslation(localizationKeys.UI.textareaPlaceholder) : '')
     }
 
     const handleWebAccessToggle = () => setWebAccess((prev) => !prev)
 
-    const handleNumResultsChange = (e: { target: { value: string } }) => {
+    const handleNumResultsChange = (e: DropdownItem) => {
         const value = parseInt(e.target.value, 10)
         setNumResults(value)
         updateUserConfig({ numWebResults: value })
     }
 
-    const handleTimePeriodChange = (e: { target: { value: string } }) => {
+    const handleTimePeriodChange = (e: DropdownItem) => {
         setTimePeriod(e.target.value)
         updateUserConfig({ timePeriod: e.target.value })
     }
 
-    const handleRegionChange = (e: { target: { value: string } }) => {
+    const handleRegionChange = (e: DropdownItem) => {
         setRegion(e.target.value)
         updateUserConfig({ region: e.target.value })
     }
 
-    const handlePromptChange = (e: { target: { value: string } }) => {
+    const handlePromptChange = (e: DropdownItem) => {
 
         const uuid = e.target.value
 
@@ -159,7 +160,7 @@ function Toolbar(
                         value={promptUUID}
                         onChange={handlePromptChange}
                         options={
-                            prompts.map((prompt) => ({ value: prompt.uuid, label: prompt.name })).concat({ value: 'wcg-new-prompt', label: `+ ${getTranslation(localizationKeys.buttons.newPrompt)}` })
+                            prompts.map((prompt) => ({ value: prompt.uuid ?? 'undefin', label: prompt.name })).concat({ value: 'wcg-new-prompt', label: `+ ${getTranslation(localizationKeys.buttons.newPrompt)}` })
                         }
                         onClick={handlePromptClick}
                     />
