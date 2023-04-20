@@ -52,7 +52,7 @@ export async function getHtml({ query, timerange, region }: SearchRequest): Prom
 }
 
 function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
-    console.log("htmlToSearchResults", numResults)
+    // console.log("htmlToSearchResults", numResults)
     const $ = cheerio.load(html)
     const results: SearchResult[] = []
 
@@ -72,8 +72,8 @@ function htmlToSearchResults(html: string, numResults: number): SearchResult[] {
 
     // Extract web search results
     const upperBound = zeroClickLink.length > 0 ? numResults - 1 : numResults
-    const webLinks = $(`table:nth-of-type(${numTables}) .result-link`).slice(0, upperBound)
-    const webSnippets = $(`table:nth-of-type(${numTables}) .result-snippet`).slice(0, upperBound)
+    const webLinks = $(`table:nth-of-type(${numTables}) tr:not(.result-sponsored) .result-link`).slice(0, upperBound)
+    const webSnippets = $(`table:nth-of-type(${numTables}) tr:not(.result-sponsored) .result-snippet`).slice(0, upperBound)
     webLinks.each((i, element) => {
         const link = $(element)
         const snippet = $(webSnippets[i]).text().trim()
