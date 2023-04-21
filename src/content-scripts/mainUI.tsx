@@ -12,18 +12,22 @@ import SlashCommandsMenu, { slashCommands } from 'src/components/slashCommandsMe
 import { apiExtractText } from './api'
 
 let isProcessing = false
+let updatingUI = false
 
+const rootEl = getRootElement()
 let btnSubmit: HTMLButtonElement | null | undefined
 let textarea: HTMLTextAreaElement | null
 let chatGptFooter: HTMLDivElement | null
+let toolbar: HTMLElement | null
 
 
 function renderSlashCommandsMenu() {
 
-    let div = document.querySelector('wcg-slash-commands-menu')
+    let div = document.querySelector('div.wcg-slash-commands-menu')
     if (div) div.remove()
 
-    div = document.createElement('wcg-slash-commands-menu')
+    div = document.createElement('div')
+    div.className = "wcg-slash-commands-menu"
     const textareaParentParent = textarea?.parentElement?.parentElement
 
     textareaParentParent?.insertBefore(div, textareaParentParent.firstChild)
@@ -70,9 +74,7 @@ async function handleSubmit(query: string) {
 
     try {
         const results = await processQuery(query, userConfig)
-        // console.info("WebChatGPT results --> ", results)
         const compiledPrompt = await compilePrompt(results, query)
-        // console.info("WebChatGPT compiledPrompt --> ", compiledPrompt)
         textarea.value = compiledPrompt
         pressEnter()
     } catch (error) {
@@ -95,7 +97,6 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
     if (!isProcessing && (event.type === "click" || (isKeyEvent && event.key === 'Enter'))) {
         const query = textarea?.value.trim()
 
-        // if query is empty or undefined, return
         if (!query) return
 
         textarea.value = ""
@@ -132,11 +133,13 @@ function showErrorMessage(error: Error) {
 
 async function updateUI() {
 
-    formChild = document.querySelector('form')?.children[0] as HTMLElement
-    textarea = getTextArea()
-    // console.info("UpdateUI textarea: ", textarea)
+    if (updatingUI) return
 
-    const toolbar = getWebChatGPTToolbar()
+    updatingUI = true
+
+    textarea = getTextArea()
+    toolbar = getWebChatGPTToolbar()
+    console.info("toolbar --> ", toolbar)
     if (!textarea) {
         toolbar?.remove()
         return
@@ -155,27 +158,19 @@ async function updateUI() {
 
     renderSlashCommandsMenu()
 
-    // textarea.parentElement.style.flexDirection = 'row'
-
     chatGptFooter = getFooter()
     if (chatGptFooter) {
         const lastChild = chatGptFooter.lastElementChild as HTMLElement
         if (lastChild) lastChild.style.padding = '0 0 0.5em 0'
     }
+
+    updatingUI = false
 }
 
 async function renderToolbar() {
 
     try {
         const textareaParentParent = textarea?.parentElement?.parentElement
-        // const textareaParentParent = formChild
-        // if (textareaParentParent && textareaParentParent.parentElement) {
-        //     textareaParentParent.style.flexDirection = 'column'
-        //     textareaParentParent.parentElement.style.flexDirection = 'column'
-        //     textareaParentParent.parentElement.style.gap = '0px'
-        //     textareaParentParent.parentElement.style.marginBottom = '0.5em'
-        // }
-
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
         shadowRootDiv.classList.add('wcg-toolbar')
         textareaParentParent?.appendChild(shadowRootDiv)
@@ -188,12 +183,15 @@ async function renderToolbar() {
     }
 }
 
-const form = document.querySelector('form')
-const formParent = form?.parentElement
 
-const rootEl = getRootElement()
-let formChild = document.querySelector('form')?.children[0] as HTMLElement
-const mutationObserver = new MutationObserver(() => {
+const mutationObserver = new MutationObserver((mutations) => {
+    
+    if (!mutations.some(mutation => mutation.removedNodes.length > 0)) return
+
+    console.info("WebChatGPT: Mutation observer triggered")
+    
+    if (getWebChatGPTToolbar()) return
+
     try {
         updateUI()
     } catch (e) {
@@ -206,17 +204,7 @@ const mutationObserver = new MutationObserver(() => {
 window.onload = function () {
     updateUI()
 
-    if (formChild) {
-        mutationObserver.observe(formChild, { childList: true })
-    }
-
-    if (rootEl) {
-        mutationObserver.observe(rootEl, { childList: true })
-    }
-
-    if (formParent) {
-        mutationObserver.observe(formParent, { childList: true })
-    }
+    mutationObserver.observe(rootEl, { childList: true, subtree: true })
 }
 
 window.onunload = function () {
