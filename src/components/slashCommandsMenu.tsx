@@ -43,10 +43,10 @@ const SlashCommandItem = (props: {
 }
 
 // const renderSlashButton = (textarea: HTMLTextAreaElement, show: boolean, onClick: () => void) => {
-//     let div = document.querySelector('wcg-slash-button-div')
+//     let div = document.querySelector('div.wcg-slash-button-div')
 //     if (div) div.remove()
 
-//     div = document.createElement('wcg-slash-button-div')
+//     div = document.createElement('div.wcg-slash-button-div')
 //     div.className = "self-center"
 //     textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
 //     render(<SlashButton show={show} onclick={onClick} />, div)
