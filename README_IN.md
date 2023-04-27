@@ -6,10 +6,10 @@
 <h1>WebChatGPT</h1>
 
 
-[![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Gabung%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=ikuti%20saya&style=social)](https://twitter.com/hahahahohohe)
-
-  
 [Inggris](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; Indonesia  
+  
+  
+[![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Gabung%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=ikuti%20saya&style=social)](https://twitter.com/hahahahohohe)
 
   
 Ekstensi browser ini `menambahkan kemampuan akses web` ke [ChatGPT](https://chat.openai.com/). Dapatkan jawaban yang lebih relevan dan terbaru dari chatbot!
