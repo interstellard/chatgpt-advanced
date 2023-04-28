@@ -170,10 +170,10 @@ async function updateUI() {
 async function renderToolbar() {
 
     try {
-        const textareaParentParent = textarea?.parentElement?.parentElement
+        const textareaParentParent = textarea?.parentElement?.parentElement?.parentElement?.parentElement
         const { shadowRootDiv, shadowRoot } = await createShadowRoot('content-scripts/mainUI.css')
         shadowRootDiv.classList.add('wcg-toolbar')
-        textareaParentParent?.appendChild(shadowRootDiv)
+        textareaParentParent?.insertBefore(shadowRootDiv, textareaParentParent?.childNodes[1])
         render(<Toolbar textarea={textarea} />, shadowRoot)
 
     } catch (e) {

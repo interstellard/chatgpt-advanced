@@ -132,8 +132,8 @@ const Toolbar = ({ textarea }: ToolbarProps) => {
         </div>
 
     return (
-        <div className="wcg-flex wcg-flex-col wcg-gap-0">
-            <div className="wcg-toolbar wcg-flex wcg-items-center wcg-gap-2 wcg-rounded-md wcg-px-1">
+        <div className="wcg-flex wcg-flex-col wcg-gap-1 wcg-py-1">
+            <div className="wcg-toolbar wcg-flex wcg-justify-center wcg-items-center wcg-gap-2 wcg-rounded-md wcg-px-1">
                 <div className="wcg-btn-xs wcg-btn focus:wcg-ring-2 focus:wcg-ring-white"
                     tabIndex={0}
                     onClick={() => Browser.runtime.sendMessage("show_options")}
