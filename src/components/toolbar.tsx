@@ -143,7 +143,7 @@ const Toolbar = ({ textarea }: ToolbarProps) => {
                 {webAccessToggle}
                 {/* <div className={`wcg-flex ${webAccess ? '' : 'wcg-hidden'} wcg-w-full wcg-justify-between wcg-gap-1`}> */}
 
-                <div class="wcg-scrollbar-hidden wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-overflow-x-scroll wcg-px-1 lg:wcg-overflow-x-hidden">
+				<div className={`form-control round-lg ${webAccess  ? '' : 'wcg-invisible'} wcg-scrollbar-hidden wcg-flex wcg-items-center wcg-justify-between wcg-gap-2 wcg-overflow-x-scroll wcg-px-1 lg:wcg-overflow-x-hidden`}>
                     <Dropdown
                         value={numResults}
                         onChange={handleNumResultsChange}
