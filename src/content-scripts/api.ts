@@ -1,7 +1,7 @@
 import { Readability } from "@mozilla/readability"
 import { parseHTML } from "linkedom"
 import Browser from "webextension-polyfill"
-import { SearchResult } from "./ddg_search"
+import { SearchResult } from "./web_search"
 import { getUserConfig } from "src/util/userConfig"
 
 
@@ -45,7 +45,6 @@ export async function getWebpageTitleAndText(url: string, html_str = ''): Promis
         return { title: "Could not parse the page.", body: "Could not parse the page.", url }
     }
     
-    console.log("text", parsed.textContent);
     let text = cleanText(parsed.textContent)
 
     const userConfig = await getUserConfig()
