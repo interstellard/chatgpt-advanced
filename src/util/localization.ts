@@ -8,6 +8,7 @@ export const Languages = {
     en: "English",
     de: "Deutsch",
     es: "Español",
+    fa: "Persian (فارسی)",
     fr: "Français",
     in: "Indonesia",
     it: "Italiano",
