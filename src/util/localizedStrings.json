@@ -9,6 +9,7 @@
     "fa": "زبان",
     "fr": "Langue",
     "de": "Sprache",
+    "in": "Bahasa",
     "it": "Lingua",
     "zh": "语言",
     "zh-TW": "語言",
@@ -17,7 +18,8 @@
     "he": "שפה",
     "ru": "язык",
     "bg": "Език",
-    "pl": "Język"
+    "pl": "Język",
+    "vi": "Tiếng việt"
   },
   "choose_language": {
     "en": "Choose language",
@@ -26,6 +28,7 @@
     "fa": "انتخاب زبان",
     "fr": "Choisir la langue",
     "de": "Sprache auswählen",
+    "in": "Pilih bahasa",
     "it": "Scegli la lingua",
     "zh": "选择语言",
     "zh-TW": "選擇語言",
@@ -34,7 +37,8 @@
     "he": "בחר שפה",
     "ru": "Выбрать язык",
     "bg": "Избери език",
-    "pl": "Wybierz język"
+    "pl": "Wybierz język",
+    "vi": "Chọn ngôn ngữ"
   },
   "options": {
     "en": "Options",
@@ -43,6 +47,7 @@
     "fa": "گزینه ها",
     "fr": "Options",
     "de": "Optionen",
+    "in": "Pengaturan",
     "it": "Opzioni",
     "zh": "选项",
     "zh-TW": "選項",
@@ -51,7 +56,8 @@
     "he": "אפשרויות",
     "ru": "Опции",
     "bg": "Опции",
-    "pl": "Opcje"
+    "pl": "Opcje",
+    "vi": "Tùy chọn"
   },
   "trim_long_text": {
     "en": "Trim long text to fit into context limit",
@@ -60,6 +66,7 @@
     "fa": "متن طولانی را با توجه به محدودیت متن کوتاه کنید",
     "fr": "Raccourcir le texte long pour qu'il rentre dans la limite de contexte",
     "de": "Langen Text kürzen, um in das Kontextlimit zu passen",
+    "in": "Potong teks panjang agar sesuai dengan batas konteks",
     "it": "Riduci il testo lungo per adattarlo al limite di contesto",
     "zh": "将长文本修剪以适合上下文限制",
     "zh-TW": "將長文本修剪以適合上下文限制",
@@ -68,7 +75,8 @@
     "he": "קצר את הטקסט הארוך כדי להתאים למגבלת ההקשר",
     "ru": "Обрезать длинный текст, чтобы уложиться в ограничение контекста",
     "bg": "Скъси дълъг текст, за да се побере в контекст лимита",
-    "pl": "Przytnij długi tekst, aby zmieścić się w limicie kontekstu"
+    "pl": "Przytnij długi tekst, aby zmieścić się w limicie kontekstu",
+    "vi": "Cắt ngắn văn bản dài để vừa giới hạn chat"
   },
   "textarea_placeholder": {
     "en": "Press / to open the commands menu",
@@ -77,6 +85,7 @@
     "fa": "برای باز کردن فهرست دستورات / را فشار دهید",
     "fr": "Appuyez sur / pour ouvrir le menu des commandes",
     "de": "Drücken Sie /, um das Befehlsmenü zu öffnen",
+    "in": "Tekan / untuk membuka menu perintah",
     "it": "Premi / per aprire il menu dei comandi",
     "zh": "按 / 打开命令菜单",
     "zh-TW": "按 / 開啟命令選單",
@@ -84,23 +93,8 @@
     "ko": "/를 눌러 명령 메뉴를 엽니다.",
     "he": "לחץ על / כדי לפתוח את תפריט הפקודות",
     "ru": "Нажмите / чтобы открыть меню команд",
-    "bg": "Натиснете / за да отворите командното меню"
-  },
-  "you_can_use_duckduckgo_bangs": {
-    "en": "You can use DuckDuckGo bangs to search on other websites. Learn more:",
-    "pt": "Você pode usar os bangs do DuckDuckGo para pesquisar em outros sites. Saiba mais:",
-    "es": "Puede usar los bangs de DuckDuckGo para buscar en otros sitios. Obtenga más información:",
-    "fa": "برای جستجوی در سایت های دیگر می‌توانید از DuckDuckGo bangs استفاده کنید. بیشتر بدانید:",
-    "fr": "Vous pouvez utiliser les bangs DuckDuckGo pour rechercher sur d'autres sites. En savoir plus:",
-    "de": "Sie können DuckDuckGo-Bangs verwenden, um auf anderen Websites zu suchen. Erfahren Sie mehr:",
-    "it": "Puoi usare i DuckDuckGo bang per cercare su altri siti web. Ulteriori informazioni:",
-    "zh": "您可以使用 DuckDuckGo bang 在其他网站上搜索。了解更多：",
-    "zh-TW": "您可以使用 DuckDuckGo bang 在其他網站上搜尋。了解更多：",
-    "ja": "DuckDuckGo bangを使用して他のWebサイトで検索できます。詳細は次を参照してください:",
-    "ko": "DuckDuckGo bang을 사용하여 다른 웹사이트에서 검색할 수 있습니다. 자세한 내용:",
-    "he": "אתה יכול להשתמש ב- DuckDuckGo bangs כדי לחפש באתרים אחרים. למד עוד:",
-    "ru": "Вы можете использовать DuckDuckGo bang для поиска на других сайтах. Узнать больше:",
-    "bg": "Moже да изплозвате DuckDuckGo bangs за та търсите в други уебсайтове. Научете повече:"
+    "bg": "Натиснете / за да отворите командното меню",
+    "vi": "Ấn / để mở menu các lệnh"
   },
   "site_command_description": {
     "en": "Restrict search results to a specific website, e.g. /site:wikipedia.com",
@@ -109,6 +103,7 @@
     "fa": "محدود کردن نتایج جستجو به یک سایت خاص، مثلا /site:wikipedia.com",
     "fr": "Restreindre les résultats de recherche à un site Web spécifique, par exemple /site:wikipedia.com",
     "de": "Suchergebnisse auf eine bestimmte Website einschränken, z. B. /site:wikipedia.com",
+    "in": "Batasi hasil pencarian untuk situs web tertentu, misalnya /site:wikipedia.com",
     "it": "Limita i risultati della ricerca a un sito Web specifico, ad esempio /site:wikipedia.com",
     "zh": "将搜索结果限制为特定网站，例如 /site:wikipedia.com",
     "zh-TW": "將搜尋結果限制為特定網站，例如 /site:wikipedia.com",
@@ -116,7 +111,8 @@
     "ko": "검색 결과를 특정 웹사이트로 제한합니다. 예: /site:wikipedia.com",
     "he": "הגבל את תוצאות החיפוש לאתר מסוים, למשל /site:wikipedia.com",
     "ru": "Ограничить результаты поиска определенным сайтом, например, /site:wikipedia.com",
-    "bg": "Ограничи резултати от търсенето до определени сайтове, например /site:wikipedia.com"
+    "bg": "Ограничи резултати от търсенето до определени сайтове, например /site:wikipedia.com",
+    "vi": "Giới hạn kết quả tìm kiếm ở 1 trang web cố định, ví dụ: /site:wikipedia.com"
   },
   "page_command_description": {
     "en": "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq",
@@ -125,6 +121,7 @@
     "fa": "دریافت محتوای یک صفحه خاص، مثلا /page:buymeacoffee.com/anzorq",
     "fr": "Obtenir le contenu d'une page spécifique, par exemple /page:buymeacoffee.com/anzorq",
     "de": "Den Inhalt einer bestimmten Seite erhalten, z. B. /page:buymeacoffee.com/anzorq",
+    "in": "Dapatkan konten halaman tertentu, misalnya /page:buymeacoffee.com/anzorq",
     "it": "Ottenere il contenuto di una pagina specifica, ad esempio, /page:buymeacoffee.com/anzorq",
     "zh": "获取特定页面的内容，例如 /page:buymeacoffee.com/anzorq",
     "zh-TW": "取得特定頁面的內容，例如 /page:buymeacoffee.com/anzorq",
@@ -132,7 +129,8 @@
     "ko": "특정 페이지의 내용을 가져옵니다. 예: /page:buymeacoffee.com/anzorq",
     "he": "קבל את תוכן דף מסוים, למשל /page:buymeacoffee.com/anzorq",
     "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq",
-    "bg": "Вземи информация от спесифична страница, например /page:buymeacoffee.com/anzorq"
+    "bg": "Вземи информация от спесифична страница, например /page:buymeacoffee.com/anzorq",
+    "vi": "Lấy nội dung của 1 trang nhất định, ví dụ: /page:buymeacoffee.com/anzorq"
   },
   "support_this_project": {
     "en": "Support this project",
@@ -141,6 +139,7 @@
     "fa": "حمایت از پروژه",
     "fr": "Soutenez ce projet",
     "de": "Unterstützen Sie dieses Projekt",
+    "in": "Dukung Proyek ini",
     "it": "Sostieni questo progetto",
     "zh": "支持此项目",
     "zh-TW": "支持此專案",
@@ -149,7 +148,8 @@
     "he": "לתרום לפרוייקט",
     "ru": "Поддержать проект",
     "pl": "Wesprzyj ten projekt",
-    "bg": "Подкрепете този проект"
+    "bg": "Подкрепете този проект",
+    "vi": "Hỗ trợ dự án này"
   },
   "support_me": {
     "en": "If you find this extension useful, please consider supporting me ⤵️",
@@ -158,6 +158,7 @@
     "fa": "اگر این افزونه را مفید می‌دانید، لطفا در پشتیبانی از من در نظر بگیرید ⤵️",
     "fr": "Si vous trouvez cette extension utile, pensez à me soutenir ⤵️",
     "de": "Wenn Sie diese Erweiterung nützlich finden, unterstützen Sie mich bitte ⤵️",
+    "in": "Jika Anda merasa ekstensi ini bermanfaat, pertimbangkan untuk mendukung saya ⤵️",
     "it": "Se trovi questo estensione utile, considera di supportarmi ⤵️",
     "zh": "如果您觉得这个扩展有用，请考虑支持我⤵️",
     "zh-TW": "如果您覺得這個擴充功能有用，請考慮支持我⤵️",
@@ -166,7 +167,8 @@
     "he": "אם אתה מצאת את התוסף שימושי, אנא שקול לתמוך בי ⤵️",
     "ru": "Если вам нравится это расширение, пожалуйста, поддержите меня ⤵️",
     "pl": "Jeśli uważasz to rozszerzenie za przydatne, rozważ proszę wsparcie mnie ⤵️",
-    "bg": "Ако това разширение ви е от полза, моля, обмислете да ме подкрепите ⤵️"
+    "bg": "Ако това разширение ви е от полза, моля, обмислете да ме подкрепите ⤵️",
+    "vi": "Nếu bạn thấy tiện ích này có ích, hãy hỗ trợ tôi ⤵️"
   },
   "save": {
     "en": "Save",
@@ -175,6 +177,7 @@
     "fa": "ذخیره",
     "fr": "Enregistrer",
     "de": "Speichern",
+    "in": "Simpan",
     "it": "Salva",
     "zh": "保存",
     "zh-TW": "儲存",
@@ -183,7 +186,8 @@
     "he": "שמור",
     "ru": "Сохранить",
     "pl": "Zapisz",
-    "bg": "Запази"
+    "bg": "Запази",
+    "vi": "Lưu"
   },
   "new_prompt": {
     "en": "New prompt",
@@ -192,6 +196,7 @@
     "fa": "اعلان جدید",
     "fr": "Nouveau prompt",
     "de": "Neues Prompt",
+    "in": "Prompt Baru",
     "it": "Nuovo prompt",
     "zh": "新提示",
     "zh-TW": "新提示",
@@ -200,7 +205,8 @@
     "he": "בקשה חדשה",
     "ru": "Новый запрос",
     "pl": "Nowe zapytanie",
-    "bg": "Ново задание"
+    "bg": "Ново задание",
+    "vi": "Promt mới"
   },
   "name_placeholder": {
     "en": "Name",
@@ -209,6 +215,7 @@
     "fa": "نام",
     "fr": "Nom",
     "de": "Name",
+    "in": "Nama",
     "it": "Nome",
     "zh": "名称",
     "zh-TW": "名稱",
@@ -217,7 +224,8 @@
     "he": "שם",
     "ru": "Название",
     "pl": "Nazwa",
-    "bg": "Име"
+    "bg": "Име",
+    "vi": "Tên"
   },
   "current_date_placeholder_tip": {
     "en": "Insert placeholder for the current date (optional)",
@@ -226,6 +234,7 @@
     "fa": "درج متغیر تاریخ فعلی (اختیاری)",
     "fr": "Insérer un marqueur de place pour la date actuelle (facultatif)",
     "de": "Platzhalter für das aktuelle Datum einfügen (optional)",
+    "in": "Masukkan placeholder untuk tanggal saat ini (opsional)",
     "it": "Inserisci il segnaposto per la data attuale (opzionale)",
     "zh": "插入当前日期的占位符（可选）",
     "zh-TW": "插入目前日期的佔位符（選填）",
@@ -234,7 +243,8 @@
     "he": "הוסף מציין מיקום עבור התאריך הנוכחי (אופציונלי)",
     "ru": "Вставить плейсхолдер текущей даты (необязательно)",
     "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)",
-    "bg": "Вмъкни заместител за сегашната дата (по желание)"
+    "bg": "Вмъкни заместител за сегашната дата (по желание)",
+    "vi": "Chèn mặc định cho ngày hiện tại (tùy chọn)"
   },
   "web_results_placeholder_tip": {
     "en": "Insert placeholder for the web results (optional)",
@@ -243,6 +253,7 @@
     "fa": "درج متغیرهایی برای نتایج جستجوی وب (اختیاری)",
     "fr": "Insérer un marqueur de place pour les résultats de recherche web (facultatif)",
     "de": "Platzhalter für die Web-Ergebnisse einfügen (optional)",
+    "in": "Masukkan placeholder untuk hasil web (opsional)",
     "it": "Inserisci il segnaposto per i risultati web (opzionale)",
     "zh": "插入网络搜索结果的占位符（可选）",
     "zh-TW": "插入網路搜尋結果的佔位符（選填）",
@@ -251,7 +262,8 @@
     "he": "הוסף מציין מיקום עבור תוצאות האינטרנט (אופציונלי)",
     "ru": "Вставить плейсхолдер веб-результатов (необязательно)",
     "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (opcjonalne)",
-    "bg": "Вмъкни заместител за уеб резултати (по желание)"
+    "bg": "Вмъкни заместител за уеб резултати (по желание)",
+    "vi": "Chèn mặc định cho kết quả tìm kiếm (tùy chọn)"
   },
   "query_placeholder_tip": {
     "en": "Insert placeholder for the initial query (required)",
@@ -260,6 +272,7 @@
     "fr": "Insérer un marqueur de place pour la requête initiale (requis)",
     "fa": "درج متغیرهایی برای پرسش اولیه (الزامی)",
     "de": "Platzhalter für die ursprüngliche Anfrage einfügen (erforderlich)",
+    "in": "Masukkan placeholder untuk kueri awal (wajib)",
     "it": "Inserisci il segnaposto per la query iniziale (richiesto)",
     "zh": "插入初始查询的占位符（必需）",
     "zh-TW": "插入初始查詢的佔位符（必填）",
@@ -268,7 +281,8 @@
     "he": "הוסף מציין מיקום עבור השאילתה הראשונית (חובה)",
     "ru": "Вставить плейсхолдер начального запроса (обязательно)",
     "pl": "Wstaw znacznik dla początkowego zapytania (wymagane)",
-    "bg": "Вмъкни заместител за начално търсене (по желание)"
+    "bg": "Вмъкни заместител за начално търсене (по желание)",
+    "vi": "Chèn mặc định cho câu lệnh bắt đầu (bắt buộc)"
   },
   "twitter_button_tip": {
     "en": "Follow me on Twitter",
@@ -277,6 +291,7 @@
     "fa": "دنبال کردن من در توییتر",
     "fr": "Me suivre sur Twitter",
     "de": "Folgen Sie mir auf Twitter",
+    "in": "Ikuti saya di Twitter",
     "it": "Seguimi su Twitter",
     "zh": "在 Twitter 上关注我",
     "zh-TW": "在 Twitter 上跟隨我",
@@ -285,7 +300,8 @@
     "he": "עקבו אחרי בטוויטר",
     "ru": "Подписаться на меня в Twitter",
     "pl": "Obserwuj mnie na Twitterze",
-    "bg": "Последвайте ме на Twitter"
+    "bg": "Последвайте ме на Twitter",
+    "vi": "Theo dõi tôi trên Twitter"
   },
   "github_button_tip": {
     "en": "View the source code on GitHub",
@@ -294,6 +310,7 @@
     "fa": "مشاهده کد منبع در گیت هاب",
     "fr": "Voir le code source sur GitHub",
     "de": "Quellcode auf GitHub anzeigen",
+    "in": "Lihat kode sumber di GitHub",
     "it": "Visualizza il codice sorgente su GitHub",
     "zh": "在 GitHub 上查看源代码",
     "zh-TW": "在 GitHub 上查看原始碼",
@@ -302,7 +319,8 @@
     "he": "ראו את הקוד בגיטהאב",
     "ru": "Посмотреть исходный код на GitHub",
     "pl": "Zobacz kod źródłowy na GitHubie",
-    "bg": "Виж изходния код на Github"
+    "bg": "Виж изходния код на Github",
+    "vi": "Xem mã nguồn trên github"
   },
   "discord_button_tip": {
     "en": "Join our Discord community",
@@ -311,6 +329,7 @@
     "fr": "Rejoignez notre communauté Discord",
     "fa": "پیوستن به انجمن دیسکورد",
     "de": "Treten Sie unserer Discord-Community bei",
+    "in": "Bergabunglah dengan komunitas Discord kami",
     "it": "Unisciti alla nostra comunità su Discord",
     "zh": "加入我们的 Discord 社区",
     "zh-TW": "加入我們的 Discord 社群",
@@ -319,6 +338,7 @@
     "he": "בואו לקהילת הדיסקורד שלנו",
     "ru": "Присоединиться к нашему сообществу на Discord",
     "pl": "Dołącz do naszej społeczności na Discordzie",
-    "bg": "Присъедини се към нашaтa Discord общност"
+    "bg": "Присъедини се към нашaтa Discord общност",
+    "vi": "Tham gia cộng đồng Discord"
   }
 }

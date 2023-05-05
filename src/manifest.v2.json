@@ -3,7 +3,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "3.2.7",
+  "version": "3.3.1",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -11,8 +11,6 @@
   },
   "permissions": [
     "storage",
-    "webRequest",
-    "webRequestBlocking",
     "*://*/*"
   ],
   "background": {
