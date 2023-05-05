@@ -43,10 +43,10 @@ const SlashCommandItem = (props: {
 }
 
 // const renderSlashButton = (textarea: HTMLTextAreaElement, show: boolean, onClick: () => void) => {
-//     let div = document.querySelector('wcg-slash-button-div')
+//     let div = document.querySelector('div.wcg-slash-button-div')
 //     if (div) div.remove()
 
-//     div = document.createElement('wcg-slash-button-div')
+//     div = document.createElement('div.wcg-slash-button-div')
 //     div.className = "self-center"
 //     textarea.parentElement.insertBefore(div, textarea.parentElement.firstChild)
 //     render(<SlashButton show={show} onclick={onClick} />, div)
@@ -170,11 +170,6 @@ function SlashCommandsMenu(
                     </li>
                 )
             })}
-            <li className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
-                getTranslation(localizationKeys.UI.youCanUseDuckDuckGoBangs)
-            }
-                <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer noopener" className="text-blue-500"> DuckDuckGo Bangs</a>
-            </li>
         </ul>
     )
 }
