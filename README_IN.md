@@ -75,17 +75,11 @@ https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9
 
 ## FAQ
 
-### Mesin pencari apa yang digunakan oleh ekstensi ini?
-DuckDuckGo.
-
 ### Mengapa ekstensi ini meminta izin `akses ke semua situs web`?
-Ekstensi ini memerlukan akses ke semua situs web karena tidak ada server backend untuk memproses permintaan web, dan semuanya terjadi secara lokal di browser. Ada dua mode: pencarian web menggunakan DDG, dan mengekstraksi teks halaman web dari URL. Pencarian web memerlukan akses ke DuckDuckGo, sedangkan ekstraksi teks URL memerlukan akses ke semua situs web. Oleh karena itu, izin `akses ke semua situs web` diperlukan.
+Ekstensi ini memerlukan akses ke semua situs web karena tidak ada server backend untuk memproses permintaan web, dan semuanya terjadi secara lokal di browser. Ada dua mode: pencarian web, dan mengekstraksi teks halaman web dari URL. Pencarian web memerlukan akses ke internet, sedangkan ekstraksi teks URL memerlukan akses ke semua situs web. Oleh karena itu, izin `akses ke semua situs web` diperlukan.
 
 ### Ekstensi ini tidak berfungsi, toolbar tidak muncul. Apa yang bisa saya lakukan?
 Beberapa ekstensi ChatGPT lain diketahui mengganggu WebChatGPT. Jika Anda mengalami masalah dengan toolbar tidak muncul, silakan coba nonaktifkan ekstensi ChatGPT lain yang telah Anda instal dan muat ulang halaman. Jika Anda terus mengalami masalah, jangan ragu untuk menghubungi kami di [server Discord kami](https://discord.gg/nmCjvyVpnB) untuk bantuan.
-
-### Bisakah saya menggunakan mesin pencari lain?
-Ekstensi saat ini hanya mendukung pencarian web menggunakan mesin pencari DuckDuckGo. Namun, Anda dapat menggunakan DuckDuckGo bangs untuk mendapatkan hasil pencarian dari ribuan situs web lain. Misalnya, `!pm` untuk mencari di PubMed, `!gsc` - di Google Scholar, dll. Anda dapat menemukan daftar lengkap bangs yang tersedia di [situs web DuckDuckGo](https://duckduckgo.com/bangs). Cukup ketik bang diikuti dengan kueri pencarian Anda untuk melakukan pencarian di situs web yang sesuai.
 
 ### Apakah Anda mengumpulkan data apa pun?
 Tidak, ekstensi ini tidak mengumpulkan data pengguna atau analitik.
