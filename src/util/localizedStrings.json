@@ -19,7 +19,8 @@
     "ru": "язык",
     "bg": "Език",
     "pl": "Język",
-    "vi": "Tiếng việt"
+    "vi": "Tiếng việt",
+    "ua": "Мова"
   },
   "choose_language": {
     "en": "Choose language",
@@ -38,7 +39,8 @@
     "ru": "Выбрать язык",
     "bg": "Избери език",
     "pl": "Wybierz język",
-    "vi": "Chọn ngôn ngữ"
+    "vi": "Chọn ngôn ngữ",
+    "ua": "Оберіть мову"
   },
   "options": {
     "en": "Options",
@@ -57,7 +59,8 @@
     "ru": "Опции",
     "bg": "Опции",
     "pl": "Opcje",
-    "vi": "Tùy chọn"
+    "vi": "Tùy chọn",
+    "ua": "Опції"
   },
   "trim_long_text": {
     "en": "Trim long text to fit into context limit",
@@ -76,7 +79,8 @@
     "ru": "Обрезать длинный текст, чтобы уложиться в ограничение контекста",
     "bg": "Скъси дълъг текст, за да се побере в контекст лимита",
     "pl": "Przytnij długi tekst, aby zmieścić się w limicie kontekstu",
-    "vi": "Cắt ngắn văn bản dài để vừa giới hạn chat"
+    "vi": "Cắt ngắn văn bản dài để vừa giới hạn chat",
+    "ua": "Обрізати довгий текст, щоб укластися в обмеження контексту"
   },
   "textarea_placeholder": {
     "en": "Press / to open the commands menu",
@@ -94,7 +98,8 @@
     "he": "לחץ על / כדי לפתוח את תפריט הפקודות",
     "ru": "Нажмите / чтобы открыть меню команд",
     "bg": "Натиснете / за да отворите командното меню",
-    "vi": "Ấn / để mở menu các lệnh"
+    "vi": "Ấn / để mở menu các lệnh",
+    "ua": "Натисніть / щоб відкрити меню команд"
   },
   "site_command_description": {
     "en": "Restrict search results to a specific website, e.g. /site:wikipedia.com",
@@ -112,7 +117,8 @@
     "he": "הגבל את תוצאות החיפוש לאתר מסוים, למשל /site:wikipedia.com",
     "ru": "Ограничить результаты поиска определенным сайтом, например, /site:wikipedia.com",
     "bg": "Ограничи резултати от търсенето до определени сайтове, например /site:wikipedia.com",
-    "vi": "Giới hạn kết quả tìm kiếm ở 1 trang web cố định, ví dụ: /site:wikipedia.com"
+    "vi": "Giới hạn kết quả tìm kiếm ở 1 trang web cố định, ví dụ: /site:wikipedia.com"m
+    "ua": "Обмежити результати пошуку певним сайтом, наприклад, /site:wikipedia.com"
   },
   "page_command_description": {
     "en": "Get the content of a specific page, e.g. /page:buymeacoffee.com/anzorq",
@@ -130,7 +136,8 @@
     "he": "קבל את תוכן דף מסוים, למשל /page:buymeacoffee.com/anzorq",
     "ru": "Получить содержимое определенной страницы, например, /page:buymeacoffee.com/anzorq",
     "bg": "Вземи информация от спесифична страница, например /page:buymeacoffee.com/anzorq",
-    "vi": "Lấy nội dung của 1 trang nhất định, ví dụ: /page:buymeacoffee.com/anzorq"
+    "vi": "Lấy nội dung của 1 trang nhất định, ví dụ: /page:buymeacoffee.com/anzorq",
+    "ua": "Отримати вміст певної сторінки, наприклад, /page:buymeacoffee.com/anzorq"
   },
   "support_this_project": {
     "en": "Support this project",
@@ -150,6 +157,7 @@
     "pl": "Wesprzyj ten projekt",
     "bg": "Подкрепете този проект",
     "vi": "Hỗ trợ dự án này"
+    "ua": "Підтримати проєкт"
   },
   "support_me": {
     "en": "If you find this extension useful, please consider supporting me ⤵️",
@@ -168,7 +176,8 @@
     "ru": "Если вам нравится это расширение, пожалуйста, поддержите меня ⤵️",
     "pl": "Jeśli uważasz to rozszerzenie za przydatne, rozważ proszę wsparcie mnie ⤵️",
     "bg": "Ако това разширение ви е от полза, моля, обмислете да ме подкрепите ⤵️",
-    "vi": "Nếu bạn thấy tiện ích này có ích, hãy hỗ trợ tôi ⤵️"
+    "vi": "Nếu bạn thấy tiện ích này có ích, hãy hỗ trợ tôi ⤵️",
+    "ua": "Якщо вам подобається цей додаток, будь ласка, підтримайте мене ⤵️"
   },
   "save": {
     "en": "Save",
@@ -187,7 +196,8 @@
     "ru": "Сохранить",
     "pl": "Zapisz",
     "bg": "Запази",
-    "vi": "Lưu"
+    "vi": "Lưu",
+    "ua": "Зберегти"
   },
   "new_prompt": {
     "en": "New prompt",
@@ -206,7 +216,8 @@
     "ru": "Новый запрос",
     "pl": "Nowe zapytanie",
     "bg": "Ново задание",
-    "vi": "Promt mới"
+    "vi": "Promt mới",
+    "ua": "Новий запит"
   },
   "name_placeholder": {
     "en": "Name",
@@ -225,7 +236,8 @@
     "ru": "Название",
     "pl": "Nazwa",
     "bg": "Име",
-    "vi": "Tên"
+    "vi": "Tên",
+    "ua": "Назва"
   },
   "current_date_placeholder_tip": {
     "en": "Insert placeholder for the current date (optional)",
@@ -244,7 +256,8 @@
     "ru": "Вставить плейсхолдер текущей даты (необязательно)",
     "pl": "Wstaw znacznik dla bieżącej daty (opcjonalne)",
     "bg": "Вмъкни заместител за сегашната дата (по желание)",
-    "vi": "Chèn mặc định cho ngày hiện tại (tùy chọn)"
+    "vi": "Chèn mặc định cho ngày hiện tại (tùy chọn)",
+    "ua": "Вставити мітку для поточної дати (необов'язково)"
   },
   "web_results_placeholder_tip": {
     "en": "Insert placeholder for the web results (optional)",
@@ -263,7 +276,8 @@
     "ru": "Вставить плейсхолдер веб-результатов (необязательно)",
     "pl": "Wstaw znacznik dla wyników wyszukiwania w sieci (opcjonalne)",
     "bg": "Вмъкни заместител за уеб резултати (по желание)",
-    "vi": "Chèn mặc định cho kết quả tìm kiếm (tùy chọn)"
+    "vi": "Chèn mặc định cho kết quả tìm kiếm (tùy chọn)",
+    "ua": "Вставити мітку для результатів веб-пошуку (необов'язково)"
   },
   "query_placeholder_tip": {
     "en": "Insert placeholder for the initial query (required)",
@@ -282,7 +296,8 @@
     "ru": "Вставить плейсхолдер начального запроса (обязательно)",
     "pl": "Wstaw znacznik dla początkowego zapytania (wymagane)",
     "bg": "Вмъкни заместител за начално търсене (по желание)",
-    "vi": "Chèn mặc định cho câu lệnh bắt đầu (bắt buộc)"
+    "vi": "Chèn mặc định cho câu lệnh bắt đầu (bắt buộc)",
+    "ua": "Вставте мітку для початкового запиту (обов'язково)"
   },
   "twitter_button_tip": {
     "en": "Follow me on Twitter",
@@ -301,7 +316,8 @@
     "ru": "Подписаться на меня в Twitter",
     "pl": "Obserwuj mnie na Twitterze",
     "bg": "Последвайте ме на Twitter",
-    "vi": "Theo dõi tôi trên Twitter"
+    "vi": "Theo dõi tôi trên Twitter",
+    "ua": "Підписатися на мене в Twitter"
   },
   "github_button_tip": {
     "en": "View the source code on GitHub",
@@ -320,7 +336,8 @@
     "ru": "Посмотреть исходный код на GitHub",
     "pl": "Zobacz kod źródłowy na GitHubie",
     "bg": "Виж изходния код на Github",
-    "vi": "Xem mã nguồn trên github"
+    "vi": "Xem mã nguồn trên github",
+    "ua": "Переглянути вихідний код на GitHub"
   },
   "discord_button_tip": {
     "en": "Join our Discord community",
@@ -339,6 +356,7 @@
     "ru": "Присоединиться к нашему сообществу на Discord",
     "pl": "Dołącz do naszej społeczności na Discordzie",
     "bg": "Присъедини се към нашaтa Discord общност",
-    "vi": "Tham gia cộng đồng Discord"
+    "vi": "Tham gia cộng đồng Discord",
+    "ua": "Приєднатися до нашої спільноти Discord"
   }
 }
