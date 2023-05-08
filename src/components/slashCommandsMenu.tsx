@@ -170,11 +170,6 @@ function SlashCommandsMenu(
                     </li>
                 )
             })}
-            <li className='px-3 p-2 text-xs text-white b-2 border-t border-white/20'>{
-                getTranslation(localizationKeys.UI.youCanUseDuckDuckGoBangs)
-            }
-                <a href="https://duckduckgo.com/bang" target="_blank" rel="noreferrer noopener" className="text-blue-500"> DuckDuckGo Bangs</a>
-            </li>
         </ul>
     )
 }

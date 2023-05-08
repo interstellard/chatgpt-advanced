@@ -8,7 +8,9 @@ export const Languages = {
     en: "English",
     de: "Deutsch",
     es: "Español",
+    fa: "Persian (فارسی)",
     fr: "Français",
+    in: "Indonesia",
     it: "Italiano",
     ja: "日本語",
     ko: "한국어",
@@ -55,7 +57,6 @@ export const localizationKeys = {
         supportMe: 'support_me',
         chooseLanguage: 'choose_language',
         textareaPlaceholder: 'textarea_placeholder',
-        youCanUseDuckDuckGoBangs: 'you_can_use_duckduckgo_bangs',
     },
     slashCommandsMenu: {
         siteCommandDescription: 'site_command_description',

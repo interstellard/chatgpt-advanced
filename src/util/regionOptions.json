@@ -28,6 +28,7 @@
     { "value": "in-en", "label": "India" },
     { "value": "id-id", "label": "Indonesia" },
     { "value": "id-en", "label": "Indonesia (en)" },
+    { "value": "ir-fa", "label": "Iran"},
     { "value": "ie-en", "label": "Ireland" },
     { "value": "il-he", "label": "Israel" },
     { "value": "it-it", "label": "Italy" },

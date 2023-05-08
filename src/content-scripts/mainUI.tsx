@@ -4,7 +4,7 @@ import { getTextArea, getFooter, getRootElement, getSubmitButton, getWebChatGPTT
 import Toolbar from 'src/components/toolbar'
 import ErrorMessage from 'src/components/errorMessage'
 import { getUserConfig, UserConfig } from 'src/util/userConfig'
-import { SearchRequest, SearchResult, webSearch } from './ddg_search'
+import { SearchRequest, SearchResult, webSearch } from './web_search'
 
 import createShadowRoot from 'src/util/createShadowRoot'
 import { compilePrompt, promptContainsWebResults } from 'src/util/promptManager'
@@ -139,7 +139,7 @@ async function updateUI() {
 
     textarea = getTextArea()
     toolbar = getWebChatGPTToolbar()
-    console.info("toolbar --> ", toolbar)
+    // console.info("toolbar --> ", toolbar)
     if (!textarea) {
         toolbar?.remove()
         return
@@ -188,7 +188,7 @@ const mutationObserver = new MutationObserver((mutations) => {
     
     if (!mutations.some(mutation => mutation.removedNodes.length > 0)) return
 
-    console.info("WebChatGPT: Mutation observer triggered")
+    // console.info("WebChatGPT: Mutation observer triggered")
     
     if (getWebChatGPTToolbar()) return
 
