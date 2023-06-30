@@ -34,6 +34,10 @@ Ekstensi browser ini `menambahkan kemampuan akses web` ke [ChatGPT](https://chat
 
 https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9ce7-e68aed11e73d.mp4
 
+## Pemberitahuan Penting
+
+   Repositori Github ini akan berhenti menerima pembaruan setelah **30/06/2023**, karena kami menggabungkan banyak fungsi baru yang memerlukan kredensial pengguna dan logika sisi server. Penambahan ini bertujuan untuk melanjutkan misi kami untuk membantu pengguna memaksimalkan pemanfaatan ChatGPT mereka.
+
 
 ## Instalasi manual
 
