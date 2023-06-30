@@ -2,13 +2,13 @@
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/web-chatgpt/ 'Firefox Add-ons'
 [link-edge]: https://microsoftedge.microsoft.com/addons/detail/arxivutils/flahobhjikkpnpohomeckhdjjkkkkmoc/ 'Edge Add-ons'
 
+
 <div align="center">
 <h1>WebChatGPT</h1>
 
 
-English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md)  
-  
-  
+English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md)
+
 [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)](https://twitter.com/hahahahohohe)
 
 
@@ -33,6 +33,11 @@ This browser extension `adds web access` capability to [ChatGPT](https://chat.op
 <br>
 
 https://user-images.githubusercontent.com/3750161/214155508-5c1ad4d8-b565-4fe0-9ce7-e68aed11e73d.mp4
+
+
+## Important notice
+
+  This Github repository will stop receiving updates after **06/30/2023**, as we are incorporating numerous new functionalities that require user credentials and server-side logic. These additions are aimed at furthering our mission to assist users in maximizing their utilization of ChatGPT.
 
 
 ## Manual installation
