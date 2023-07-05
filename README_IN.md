@@ -89,16 +89,3 @@ Beberapa ekstensi ChatGPT lain diketahui mengganggu WebChatGPT. Jika Anda mengal
 Tidak, ekstensi ini tidak mengumpulkan data pengguna atau analitik.
 
 <br>
-
-## Berkontribusi
-
-Kontribusi sangat dihargai! Silakan kirim pull request ke cabang `dev`.
-
-<br><br><br>
-
-
-Suka proyek gratis ini? Pertimbangkan untuk [mendukung saya](https://www.buymeacoffee.com/anzorq) agar tetap berjalan.
-
-[<a href="https://www.buymeacoffee.com/anzorq" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45px" width="162px" alt="Buy Me A Coffee"></a>](https://www.buymeacoffee.com/anzorq)
-
-[![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me) [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Gabung%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=ikuti%20saya&style=social)](https://twitter.com/hahahahohohe)
