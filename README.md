@@ -90,16 +90,3 @@ Some other ChatGPT extensions are known to interfere with WebChatGPT. If you are
 No, the extension does not collect any user data or analytics.
 
 <br>
-
-## Contributing
-
-Contributions are welcome! Please submit pull requests to the `dev` branch.
-
-<br><br><br>
-
-
-Like this free project? Please consider [supporting me](https://www.buymeacoffee.com/anzorq) to keep it running.
-
-[<a href="https://www.buymeacoffee.com/anzorq" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45px" width="162px" alt="Buy Me A Coffee"></a>](https://www.buymeacoffee.com/anzorq)
-
-[![visitors](https://visitor-badge.glitch.me/badge?page_id=qunash/chatgpt-advanced)](https://visitor-badge.glitch.me) [![Discord](https://img.shields.io/discord/1060110102188797992?color=green&label=Join%20server&logo=discord)](https://discord.gg/nmCjvyVpnB) [![Twitter Follow](https://img.shields.io/twitter/follow/hahahahohohe?label=follow%20me&style=social)](https://twitter.com/hahahahohohe)
