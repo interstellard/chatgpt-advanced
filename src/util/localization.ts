@@ -10,7 +10,7 @@ export const Languages = {
     es: "Español",
     fa: "Persian (فارسی)",
     fr: "Français",
-    in: "Indonesia",
+    id: "Indonesia",
     it: "Italiano",
     ja: "日本語",
     ko: "한국어",
