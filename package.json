@@ -23,13 +23,15 @@
     "googleapi": "^1.0.2",
     "linkedom": "^0.14.23",
     "lodash-es": "^4.17.21",
+    "npm": "^10.8.2",
     "paranormal": "^0.1.4",
     "preact": "^10.10.0",
     "reddit": "^1.2.1",
     "redditapi": "^1.0.1",
     "save": "^2.9.0",
     "uuid": "^9.0.0",
-    "wumpus": "^0.0.2"
+    "wumpus": "^0.0.2",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
