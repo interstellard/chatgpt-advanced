@@ -14,6 +14,7 @@
   "dependencies": {
     "@mozilla/readability": "^0.4.2",
     "ai": "^3.3.6",
+    "api": "^6.1.2",
     "artificialintelligence": "^0.0.1",
     "bard": "^0.2.0",
     "bardapi": "^1.0.4",
@@ -22,7 +23,9 @@
     "googleapi": "^1.0.2",
     "linkedom": "^0.14.23",
     "lodash-es": "^4.17.21",
+    "paranormal": "^0.1.4",
     "preact": "^10.10.0",
+    "reddit": "^1.2.1",
     "redditapi": "^1.0.1",
     "save": "^2.9.0",
     "uuid": "^9.0.0",
